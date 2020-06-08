@@ -1,0 +1,21 @@
+#ServerPort
+server:
+  port: 9595
+
+#DataBase
+spring:
+  datasource:
+    url: jdbc:mysql://mysql.jobit.co.kr:13306/job_it?serverTimezone=Asia/Seoul
+    username: root
+    password: kosta!234
+
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: false
+    show-sql: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+      
+      
