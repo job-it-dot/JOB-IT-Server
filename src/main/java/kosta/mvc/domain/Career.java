@@ -1,5 +1,7 @@
 package kosta.mvc.domain;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,4 +19,6 @@ public class Career {
 	private String careerStartDate;
 	private String careerEndDate;
 	private int careerStatus;
+	
+	private List<Project> projectList;
 }
