@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
@@ -23,5 +24,10 @@ public class UserSkill {
 	private Long userSkillId;
 	
 	@ManyToOne
+	@JoinColumn(name="skill_id")
 	private Skills skill;
+	
+	@ManyToOne
+	@JoinColumn(name="resume_id")
+	private Resume resume;
 }

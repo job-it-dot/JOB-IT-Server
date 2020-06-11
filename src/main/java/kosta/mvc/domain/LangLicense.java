@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +23,10 @@ public class LangLicense {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long langLicenseId;
 	private String langLicenseName;
-	private String langLicenseDate;
+	private String langLicenseYymmdd;
 	private String langLicenseLevel;
+	
+	@ManyToOne
+	@JoinColumn(name="lang_id")
+	private Lang lang;
 }

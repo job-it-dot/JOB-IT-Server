@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
@@ -23,5 +24,10 @@ public class Follow {
 	private Long followId;
 	
 	@ManyToOne
+	@JoinColumn(name="company_id")
 	private Companys company;
+	
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private Users user;
 }
