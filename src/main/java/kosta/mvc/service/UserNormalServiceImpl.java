@@ -13,7 +13,7 @@ public class UserNormalServiceImpl implements UserNormalService {
 
 	
 	/**
-	 * 회원가입 result 1-가입성공, result 0-가입실패 
+	 * 회원가입 result 1-성공, result 0-실패 
 	 */
 	@Override
 	public int insertUser(Members member) {
