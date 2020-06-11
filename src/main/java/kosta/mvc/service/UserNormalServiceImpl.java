@@ -68,7 +68,7 @@ public class UserNormalServiceImpl implements UserNormalService {
 	 * 회원탈퇴
 	 */
 	@Override
-	public int deleteUser(int memberId) {
+	public int deleteUser(Members member) {
 		
 		return 0;
 	}
@@ -113,7 +113,7 @@ public class UserNormalServiceImpl implements UserNormalService {
 	 * 이력서 목록보기
 	 */
 	@Override
-	public List<Resume> recruitList() {
+	public List<Resume> recruitList(int memberId) {
 		
 		return null;
 	}

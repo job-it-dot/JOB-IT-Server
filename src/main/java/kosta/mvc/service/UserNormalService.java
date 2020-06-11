@@ -26,7 +26,7 @@ public interface UserNormalService {
 	/**
 	 * 회원 탈퇴 result 1-성공, result 0-실패
 	 */
-	int deleteUser(int memberId);
+	int deleteUser(Members member);
 	
 	/**
 	 * 이력서 등록 result 1-성공, result 0-실패
@@ -51,7 +51,7 @@ public interface UserNormalService {
 	/**
 	 * 이력서 목록보기
 	 */
-	List<Resume> recruitList();
+	List<Resume> recruitList(int memberId);
 	
 	/**
 	 * 이력서 온/오프 result 1-온, result 0-오프
