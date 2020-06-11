@@ -1,24 +1,28 @@
 package kosta.mvc.domain;
 
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class CompanyAddr {
-	private int companyAddrId;
-	private Companys company;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long companyAddrId;
 	private String companyAddrName;
 	private String companyAddrDetail;
 	private double companyAddrCoordX;
 	private double companyAddrCoordY;
-	
-	private List<RecruitAddr> recruitAddrList;
 	
 }
