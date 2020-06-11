@@ -3,6 +3,8 @@ package kosta.mvc.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.google.common.base.Predicates;
+
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -13,15 +15,24 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-public class SwaggerConfiguration {
+public class SwaggerConfig {
+	
+    private ApiInfo apiInfo() {
 
-    @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("kosta.mvc.controller"))
-                .paths(PathSelectors.any())
+        return new ApiInfoBuilder()
+                .title("Demo")
+                .description("API EXAMPLE")
                 .build();
-
+    }
+	
+    @Bean
+    public Docket api(){
+        return new Docket(DocumentationType.SWAGGER_2)
+        		.groupName("example")
+                .apiInfo(this.apiInfo())
+        		.select()
+                .apis(RequestHandlerSelectors
+                        .basePackage("kosta.mvc.controller"))
+                .paths(PathSelectors.ant("/**")).build();
     }
 }
