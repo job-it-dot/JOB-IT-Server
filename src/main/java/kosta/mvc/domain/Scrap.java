@@ -13,4 +13,6 @@ public class Scrap {
 	private int scrapId;
 	private Users user;
 	private Recruit recruit;
+	
+	
 }
