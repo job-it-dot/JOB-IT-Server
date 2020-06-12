@@ -25,7 +25,6 @@ public class Members {
 	private Long kakaoId;
 	private String memberEmail;
 	private String memberPassword;
-	private String memberRole;
 	private int memberStatus;
 	private Timestamp memberJoinDate;
 }

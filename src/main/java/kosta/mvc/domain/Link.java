@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,4 +23,8 @@ public class Link {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long linkId;
 	private String linkContent;
+	
+	@ManyToOne
+	@JoinColumn(name="resume_id")
+	private Resume resume;
 }

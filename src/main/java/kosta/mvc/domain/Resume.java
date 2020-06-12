@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -26,6 +27,7 @@ public class Resume {
 	private Long resumeId;
 	
 	@ManyToOne
+	@JoinColumn(name="user_id")
 	private Users user;
 	
 	private String resumeName;
@@ -33,21 +35,4 @@ public class Resume {
 	private String resumeContent;
 	private int resumeStatus;
 	
-	@OneToMany
-	private List<Edu> eduList;
-	
-	@OneToMany
-	private List<License> licenseList;
-	
-	@OneToMany
-	private List<Career> careerList;
-	
-	@OneToMany
-	private List<Lang> langList;
-	
-	@OneToMany
-	private List<Link> linkList;
-	
-	@OneToMany
-	private List<UserSkill> userSkillList;
 }

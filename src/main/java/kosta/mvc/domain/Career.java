@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
@@ -25,10 +27,12 @@ public class Career {
 	private Long careerId;
 	private String careerCompanyName;
 	private String careerPosition;
-	private String careerStartDate;
-	private String careerEndDate;
+	private String careerStartYymm;
+	private String careerEndYymm;
 	private int careerStatus;
 	
-	@OneToMany
-	private List<Project> projectList;
+	
+	@ManyToOne
+	@JoinColumn(name="resume_id")
+	private Resume resume;
 }

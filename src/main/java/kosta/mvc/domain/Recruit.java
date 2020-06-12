@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -27,22 +28,19 @@ public class Recruit {
 	private Long recruitId;
 	
 	@ManyToOne
+	@JoinColumn(name="position_id")
 	private Positions position;
 	
 	@ManyToOne
+	@JoinColumn(name="required_edu_id")
 	private RequiredEdu requiredEdu;
+	
+	@ManyToOne
+	@JoinColumn(name="company_id")
+	private Companys company;
 	
 	private int recruitCareer;
 	private String recruitDetail;
 	private Date recruitEndDate;
 	private int recruitSalary;
-	
-	@OneToMany
-	private List<RecruitAddr> recruitAddrList;
-	
-	@OneToMany
-	private List<RequiredSkills> requiredSkillsList;
-	
-	@OneToMany
-	private List<Apply> applyList;
 }
