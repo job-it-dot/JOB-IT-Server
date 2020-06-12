@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
@@ -25,8 +26,13 @@ public class Perchase {
 	private Long perchaseId;
 	
 	@ManyToOne
+	@JoinColumn(name="product_id")
 	private Product product;
 	private Timestamp perchaseTime;
 	private int perchasePrice;
 	private int perchaseStatus;
+	
+	@ManyToOne
+	@JoinColumn(name="company_id")
+	private Companys company;
 }

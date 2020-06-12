@@ -15,7 +15,7 @@ public class RecruitServiceImpl implements RecruitService {
 	//채용정보 목록 조회
 	@Override
 	public List<Recruit> selectAllRecruitInfoList() {
-		List<E> recru.findAll();
+		//List<E> recru.findAll();
 		return null;
 	}
 

@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
@@ -23,7 +24,12 @@ public class Alram {
 	private Long alramId;
 	
 	@ManyToOne
+	@JoinColumn(name="recruit_id")
 	private Recruit recruit;
 	
 	private boolean isNew;
+	
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private Users user;
 }
