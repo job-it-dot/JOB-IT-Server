@@ -6,4 +6,6 @@ import kosta.mvc.domain.Companys;
 
 public interface CompanysRepository extends JpaRepository<Companys, Long> {
 
+	public Companys findByCompanyId(Long companyId);
+
 }
