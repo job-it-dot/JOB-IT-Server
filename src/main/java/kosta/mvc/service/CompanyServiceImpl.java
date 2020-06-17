@@ -140,9 +140,16 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public int deleteRecruit(Long companyId, Long recruitId) throws IOException {
+	public int unpostRecruit(Long recruitId) throws IOException {
 
 		int result = 0;
+		Recruit dbRecruit = recruitRepository.findByRecruitId(recruitId);
+		
+		if(dbRecruit != null) {
+			dbRecruit.setRecruitStatus(2);
+			recruitRepository.save(dbRecruit);
+			result = 1;
+		}
 		
 		return result;
 	}
