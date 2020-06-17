@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kosta.mvc.domain.Apply;
@@ -30,6 +31,9 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	@Autowired
 	private MembersRepository membersRepository;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private RecruitRepository recruitRepository;
@@ -60,7 +64,7 @@ public class CompanyServiceImpl implements CompanyService {
 		if(dbCompany != null) {
 			Members dbMember = membersRepository.findByMemberId(dbCompany.getMember().getMemberId());
 			
-			if(dbMember.getMemberPassword().equals(password)) result = 1;
+			if(passwordEncoder.matches(password, dbMember.getMemberPassword())) result = 1;
 		}
 		
 		return result;
