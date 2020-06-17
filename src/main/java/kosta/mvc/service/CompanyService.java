@@ -7,7 +7,7 @@ import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 
 import kosta.mvc.domain.Apply;
 import kosta.mvc.domain.Companys;
-import kosta.mvc.domain.Product;
+import kosta.mvc.domain.Perchase;
 import kosta.mvc.domain.Recruit;
 import kosta.mvc.domain.RecruitPlan;
 import kosta.mvc.domain.Resume;
@@ -17,23 +17,29 @@ public interface CompanyService {
 	/**
 	 * 기업 정보 조회
 	 */
-	Companys selectCompanyById(int memberId) throws IOException;
+	Companys selectCompanyById(Long companyId) throws IOException;
 	
 	/**
-	 * 기업정보 수정
-	 * @return '0'은 수정실패 / '0'이 아니면 수정성공
+	 * 비밀번호 확인
+	 * @return '0'은 비밀번호 불일치 / '1'이면 비밀번호 일치
 	 */
-	int update(Companys company) throws IOException, NotFoundException;
+	int checkPassword(Long companyId, String password) throws IOException, NotFoundException;
+	
+	/**
+	 * 기업정보(회원정보) 수정 - 비밀번호 재확인 후 비밀번호가 같으면 수정
+	 * @return '0'은 수정실패  / '1'이면 수정성공
+	 */
+	int updateCompany(Companys company) throws IOException, NotFoundException;
 	
 	/**
 	 * 기업 채용공고 목록 조회
 	 */
-	List<Recruit> selectRecruitByCompanyId(int memberId) throws IOException;
+	List<Recruit> selectRecruitByCompanyId(Long companyId) throws IOException;
 	
 	/**
 	 * 기업 채용공고 상세보기
 	 */
-	Recruit selectRecruitById(int recruitId) throws IOException, NotFoundException;
+	Recruit selectRecruitById(Long recruitId) throws IOException, NotFoundException;
 	
 	/**
 	 * 기업 채용공고 등록
@@ -46,19 +52,19 @@ public interface CompanyService {
 	int updateRecruit(Recruit recruit) throws IOException, NotFoundException;
 	
 	/**
-	 * 기업 채용공고 삭제
+	 * 기업 채용공고 삭제 - 삭제 안하고 status 값 변경해서 글 안보이게 처리할 것 같음. 지원자 관리해야하니까
 	 */
-	int deleteRecruit(int memberId, int recruitId) throws IOException;
+	int deleteRecruit(Long companyId, Long recruitId) throws IOException;
 	
 	/**
 	 * 예상 채용일정 목록 조회
 	 */
-	List<RecruitPlan> selectRecruitPlanByCompanyId(int memberId) throws IOException;
+	List<RecruitPlan> selectRecruitPlanByCompanyId(Long companyId) throws IOException;
 	
 	/**
 	 * 예상 채용일정 상세보기
 	 */
-	RecruitPlan selectRecruitPlanById(int recruitPlanId) throws IOException, NotFoundException;
+	RecruitPlan selectRecruitPlanById(Long recruitPlanId) throws IOException, NotFoundException;
 	
 	/**
 	 * 예상 채용일정 등록
@@ -73,28 +79,28 @@ public interface CompanyService {
 	/**
 	 * 예상 채용일정 삭제
 	 */
-	int deleteRecruitPlan(int memberId, int recruitPlanId) throws IOException, NotFoundException;
+	int deleteRecruitPlan(Long companyId, Long recruitPlanId) throws IOException, NotFoundException;
 	
 	/**
 	 * 해당 공고의 지원 리스트
 	 */
-	List<Apply> selectApplyByRecruitId(int recruitId) throws IOException;
+	List<Apply> selectApplyByRecruitId(Long recruitId) throws IOException;
 	
 	/**
 	 * 해당 공고의 지원 상세보기
 	 */
-	Apply selectApplyById(int applyId) throws IOException, NotFoundException;
+	Apply selectApplyById(Long applyId) throws IOException, NotFoundException;
 	
 	/**
 	 * 웹 최상단 공고 노출 패키지 구매
 	 */
-	int insertPerchase(int memberId, Product product) throws IOException;
+	int insertPerchase(Perchase perchase) throws IOException;
 	
 	/**
 	 * 패키지 환불 - 구매내역의 status만 바꿔준다.
 	 * perchase_status 2번이 기업이 환불신청을 한 상태
 	 */
-	int updatePerchase(int perchaseId) throws IOException, NotFoundException;
+	int updatePerchase(Long perchaseId) throws IOException, NotFoundException;
 	
 	/**
 	 * 오픈 이력서 목록 조회
@@ -105,5 +111,5 @@ public interface CompanyService {
 	/**
 	 * 오픈 이력서 상세보기(열람)
 	 */
-	Resume selectOenResumeByResumeId(int resumeId) throws IOException, NotFoundException;
+	Resume selectOpenResumeByResumeId(Long resumeId) throws IOException, NotFoundException;
 }
