@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,9 +47,9 @@ public class Recruit {
 	private int recruitSalary;
 	private int recruitStatus;
 	
-	@OneToMany(mappedBy = "recruit")
+	@OneToMany(mappedBy = "recruit", fetch = FetchType.LAZY)
 	private List<Apply> applys = new ArrayList<Apply>();
 	
-	@OneToMany(mappedBy = "recruit")
+	@OneToMany(mappedBy = "recruit", fetch = FetchType.LAZY)
 	private List<RequiredSkill> requiredSkills = new ArrayList<RequiredSkill>();
 }
