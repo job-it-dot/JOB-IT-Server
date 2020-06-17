@@ -31,6 +31,10 @@ public class ResumeRead {
 	@JoinColumn(name = "company_id")
 	private Companys company;
 	
+	@ManyToOne
+	@JoinColumn(name = "users_id")
+	private Users user;
+	
 	private boolean isNew;
 
 }
