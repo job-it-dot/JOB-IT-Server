@@ -6,4 +6,5 @@ import kosta.mvc.domain.Members;
 
 public interface MembersRepository extends JpaRepository<Members, Long> {
 
+	public Members findByMemberId(Long memberId);
 }

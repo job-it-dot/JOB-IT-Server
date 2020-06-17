@@ -9,12 +9,14 @@ import org.springframework.stereotype.Service;
 
 import kosta.mvc.domain.Apply;
 import kosta.mvc.domain.Companys;
+import kosta.mvc.domain.Members;
 import kosta.mvc.domain.Perchase;
 import kosta.mvc.domain.Recruit;
 import kosta.mvc.domain.RecruitPlan;
 import kosta.mvc.domain.Resume;
 import kosta.mvc.repository.ApplyRepository;
 import kosta.mvc.repository.CompanysRepository;
+import kosta.mvc.repository.MembersRepository;
 import kosta.mvc.repository.PerchaseRepository;
 import kosta.mvc.repository.RecruitPlanRepository;
 import kosta.mvc.repository.RecruitRepository;
@@ -25,6 +27,9 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	@Autowired
 	private CompanysRepository companysRepository;
+	
+	@Autowired
+	private MembersRepository membersRepository;
 	
 	@Autowired
 	private RecruitRepository recruitRepository;
@@ -52,7 +57,11 @@ public class CompanyServiceImpl implements CompanyService {
 		int result = 0;
 		Companys dbCompany = companysRepository.findByCompanyId(companyId);
 		
-		if(dbCompany != null && dbCompany.getMember().getMemberPassword().equals(password)) result = 1;
+		if(dbCompany != null) {
+			Members dbMember = membersRepository.findByMemberId(dbCompany.getMember().getMemberId());
+			
+			if(dbMember.getMemberPassword().equals(password)) result = 1;
+		}
 		
 		return result;
 	}
