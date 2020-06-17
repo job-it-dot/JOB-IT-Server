@@ -23,7 +23,7 @@ public class LangLicense {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long langLicenseId;
 	private String langLicenseName;
-	private String langLicenseYymmdd;
+	private String langLicenseAt;
 	private String langLicenseLevel;
 	
 	@ManyToOne

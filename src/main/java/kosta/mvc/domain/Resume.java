@@ -1,8 +1,10 @@
 package kosta.mvc.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,5 +36,24 @@ public class Resume {
 	private String resumePhone;
 	private String resumeContent;
 	private int resumeStatus;
+	
+	@OneToMany(mappedBy = "resume", fetch = FetchType.LAZY)
+	private List<Edu> edus = new ArrayList<Edu>();
+	
+	@OneToMany(mappedBy = "resume", fetch = FetchType.LAZY)
+	private List<Career> careers = new ArrayList<Career>();
+	
+	@OneToMany(mappedBy = "resume", fetch = FetchType.LAZY)
+	private List<License> licenses = new ArrayList<License>();
+	
+	@OneToMany(mappedBy = "resume", fetch = FetchType.LAZY)
+	private List<Lang> langs = new ArrayList<Lang>();
+		
+	@OneToMany(mappedBy = "resume", fetch = FetchType.LAZY)
+	private List<UserSkill> userSkills = new ArrayList<UserSkill>();
+	
+	@OneToMany(mappedBy = "resume", fetch = FetchType.LAZY)
+	private List<Link> links = new ArrayList<Link>();
+	
 	
 }

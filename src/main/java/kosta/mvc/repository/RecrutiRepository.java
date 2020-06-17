@@ -1,12 +1,8 @@
 package kosta.mvc.repository;
 
-import java.util.List;
-
-import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import kosta.mvc.domain.Recruit;
-import kosta.mvc.domain.Scrap;
 
 public interface RecrutiRepository extends JpaRepository<Recruit, Integer> {
 	//채용정보 목록조회
