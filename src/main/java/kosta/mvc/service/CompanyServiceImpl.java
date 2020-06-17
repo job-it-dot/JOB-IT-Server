@@ -9,12 +9,14 @@ import org.springframework.stereotype.Service;
 
 import kosta.mvc.domain.Apply;
 import kosta.mvc.domain.Companys;
+import kosta.mvc.domain.Members;
 import kosta.mvc.domain.Perchase;
 import kosta.mvc.domain.Recruit;
 import kosta.mvc.domain.RecruitPlan;
 import kosta.mvc.domain.Resume;
 import kosta.mvc.repository.ApplyRepository;
 import kosta.mvc.repository.CompanysRepository;
+import kosta.mvc.repository.MembersRepository;
 import kosta.mvc.repository.PerchaseRepository;
 import kosta.mvc.repository.RecruitPlanRepository;
 import kosta.mvc.repository.RecruitRepository;
@@ -25,6 +27,9 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	@Autowired
 	private CompanysRepository companysRepository;
+	
+	@Autowired
+	private MembersRepository membersRepository;
 	
 	@Autowired
 	private RecruitRepository recruitRepository;
@@ -45,6 +50,21 @@ public class CompanyServiceImpl implements CompanyService {
 	public Companys selectCompanyById(Long companyId) throws IOException {
 		return companysRepository.findByCompanyId(companyId);
 	}
+	
+	@Override
+	public int checkPassword(Long companyId, String password) throws IOException, NotFoundException{
+		
+		int result = 0;
+		Companys dbCompany = companysRepository.findByCompanyId(companyId);
+		
+		if(dbCompany != null) {
+			Members dbMember = membersRepository.findByMemberId(dbCompany.getMember().getMemberId());
+			
+			if(dbMember.getMemberPassword().equals(password)) result = 1;
+		}
+		
+		return result;
+	}
 
 	@Override
 	public int updateCompany(Companys company) throws IOException, NotFoundException {
@@ -53,8 +73,21 @@ public class CompanyServiceImpl implements CompanyService {
 		Companys dbCompany = companysRepository.findByCompanyId(company.getCompanyId());
 		
 		if(dbCompany != null) {
-			//수정할 항목 어디어디인지...?
-			dbCompany.setCompanyEmployeeCount(company.getCompanyEmployeeCount());
+			if(company.getCompanyDetail() != null) {
+				dbCompany.setCompanyDetail(company.getCompanyDetail());
+			}
+			if(company.getCompanyEmployeeCount() != 0) {
+				dbCompany.setCompanyEmployeeCount(company.getCompanyEmployeeCount());
+			}
+			if(company.getCompanyName() != null) {
+				dbCompany.setCompanyName(company.getCompanyName());
+			}
+			if(company.getCompanyType() != null) {
+				dbCompany.setCompanyType(company.getCompanyType());
+			}
+			if(company.getMember().getMemberPassword() != null) {
+				dbCompany.getMember().setMemberPassword(company.getMember().getMemberPassword());
+			}
 			companysRepository.save(dbCompany);
 			result = 1;
 		}
@@ -89,8 +122,12 @@ public class CompanyServiceImpl implements CompanyService {
 		Recruit dbRecruit = recruitRepository.findByRecruitId(recruit.getRecruitId());
 		
 		if(dbRecruit != null) {
-			//수정할 항목 어디어디인지...?
-			dbRecruit.setPosition(recruit.getPosition());
+			if(recruit.getPosition() != null) dbRecruit.setPosition(recruit.getPosition());
+			if(recruit.getRecruitCareer() != 0) dbRecruit.setRecruitCareer(recruit.getRecruitCareer());
+			if(recruit.getRecruitDetail() != null) dbRecruit.setRecruitDetail(recruit.getRecruitDetail());
+			if(recruit.getRecruitEndDate() != null) dbRecruit.setRecruitEndDate(recruit.getRecruitEndDate());
+			if(recruit.getRecruitSalary() != 0) dbRecruit.setRecruitSalary(recruit.getRecruitSalary());
+			if(recruit.getRequiredEdu() != null) dbRecruit.setRequiredEdu(recruit.getRequiredEdu());
 			recruitRepository.save(dbRecruit);
 			result = 1;
 		}

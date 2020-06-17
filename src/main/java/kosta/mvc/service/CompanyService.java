@@ -20,8 +20,14 @@ public interface CompanyService {
 	Companys selectCompanyById(Long companyId) throws IOException;
 	
 	/**
-	 * 기업정보 수정
-	 * @return '0'은 수정실패 / '1'이면 수정성공
+	 * 비밀번호 확인
+	 * @return '0'은 비밀번호 불일치 / '1'이면 비밀번호 일치
+	 */
+	int checkPassword(Long companyId, String password) throws IOException, NotFoundException;
+	
+	/**
+	 * 기업정보(회원정보) 수정 - 비밀번호 재확인 후 비밀번호가 같으면 수정
+	 * @return '0'은 수정실패  / '1'이면 수정성공
 	 */
 	int updateCompany(Companys company) throws IOException, NotFoundException;
 	
