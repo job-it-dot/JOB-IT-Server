@@ -9,7 +9,7 @@ import kosta.mvc.domain.Recruit;
 
 public interface RecruitRepository extends JpaRepository<Recruit, Long> {
 
-	@Query("SELECT * FROM recruit WHERE company_id=?1")
+	@Query("SELECT * FROM recruit r WHERE r.company_id=?1")
 	public List<Recruit> findByCompanyId(Long companyId);
 
 	public Recruit findByRecruitId(Long recruitId);
