@@ -22,8 +22,8 @@ public class Edu {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long eduId;
-	private String eduJoinYymm;
-	private String eduGraduateYymm;
+	private String eduJoinAt;
+	private String eduGraduateAt;
 	private int eduStatus;
 	private String eduName;
 	private String eduDetail;

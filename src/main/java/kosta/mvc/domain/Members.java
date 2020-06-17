@@ -1,11 +1,15 @@
 package kosta.mvc.domain;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,4 +31,7 @@ public class Members {
 	private String memberPassword;
 	private int memberStatus;
 	private Timestamp memberJoinDate;
+	
+	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+	private List<Authority> authorities = new ArrayList<Authority>();
 }

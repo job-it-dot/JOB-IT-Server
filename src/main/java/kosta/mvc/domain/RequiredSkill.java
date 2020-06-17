@@ -17,7 +17,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RequiredSkills {
+public class RequiredSkill {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
