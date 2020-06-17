@@ -1,5 +1,6 @@
 package kosta.mvc.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -43,4 +44,11 @@ public class Recruit {
 	private String recruitDetail;
 	private Date recruitEndDate;
 	private int recruitSalary;
+	private int recruitStatus;
+	
+	@OneToMany(mappedBy = "recruit")
+	private List<Apply> applys = new ArrayList<Apply>();
+	
+	@OneToMany(mappedBy = "recruit")
+	private List<RequiredSkill> requiredSkills = new ArrayList<RequiredSkill>();
 }

@@ -1,5 +1,6 @@
 package kosta.mvc.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -32,5 +33,20 @@ public class Users{
 	
 	private String userName;
 	private String userPhone;
+	
+	@OneToMany(mappedBy = "user")
+	private List<Resume> resumes = new ArrayList<Resume>();
+	
+	@OneToMany(mappedBy = "user")
+	private List<Alram> alrams = new ArrayList<Alram>();
+	
+	@OneToMany(mappedBy = "user")
+	private List<Follow> follows = new ArrayList<Follow>();
+	
+	@OneToMany(mappedBy = "user")
+	private List<ResumeRead> resumeReads = new ArrayList<ResumeRead>();
+	
+	@OneToMany(mappedBy = "user")
+	private List<Scrap> scraps = new ArrayList<Scrap>();
 	
 }

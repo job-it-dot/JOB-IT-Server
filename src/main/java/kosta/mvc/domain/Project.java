@@ -23,8 +23,8 @@ public class Project {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long projectId;
 	private String projectName;
-	private String projectStartYymm;
-	private String projectEndYymm;
+	private String projectStartAt;
+	private String projectEndAt;
 	private String projectContent;
 	
 	@ManyToOne

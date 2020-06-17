@@ -1,5 +1,6 @@
 package kosta.mvc.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -27,12 +28,15 @@ public class Career {
 	private Long careerId;
 	private String careerCompanyName;
 	private String careerPosition;
-	private String careerStartYymm;
-	private String careerEndYymm;
+	private String careerStartAt;
+	private String careerEndAt;
 	private int careerStatus;
 	
 	
 	@ManyToOne
 	@JoinColumn(name="resume_id")
 	private Resume resume;
+	
+	@OneToMany(mappedBy = "career")
+	private List<Project> projects = new ArrayList<Project>();
 }

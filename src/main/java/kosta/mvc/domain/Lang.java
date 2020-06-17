@@ -1,5 +1,6 @@
 package kosta.mvc.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -37,5 +38,8 @@ public class Lang {
 	@ManyToOne
 	@JoinColumn(name="resume_id")
 	private Resume resume;
+	
+	@OneToMany(mappedBy = "lang")
+	private List<LangLicense> langLicenses = new ArrayList<LangLicense>();
 	
 }

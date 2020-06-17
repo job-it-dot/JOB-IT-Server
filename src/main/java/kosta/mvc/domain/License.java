@@ -7,8 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.Parameter;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +22,7 @@ public class License {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long licenseId;
-	private String licenseYymm;
+	private String licenseAt;
 	private String licenseName;
 	private String licenseContent;
 	
