@@ -8,28 +8,29 @@ import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import kosta.mvc.domain.Companys;
 import kosta.mvc.domain.Members;
 import kosta.mvc.domain.Resume;
+import kosta.mvc.domain.Users;
 
 public interface UserNormalService {
 	
 	/**
 	 * 회원가입 result 1-성공, result 0-실패 
 	 */
-	int insertUser(Members member) throws IOException;
+	int insertUser(Users user) throws IOException;
 	
 	/**
 	 * 회원정보수정 result 1-성공, result 0-실패
 	 */
-	int updateUser(Members member) throws IOException, NotFoundException;
+	int updateUser(Users user) throws IOException, NotFoundException;
 	
 	/**
 	 * 회원비밀번호 변경 result 1-성공, result 0-실패
 	 */
-	int updatePwd(Members member) throws IOException, NotFoundException;
+	int updatePwd(Users user) throws IOException, NotFoundException;
 	
 	/**
 	 * 회원 탈퇴 result 1-성공, result 0-실패
 	 */
-	int deleteUser(Members member) throws IOException;
+	int deleteUser(Users user) throws IOException;
 	
 	/**
 	 * 이력서 등록 result 1-성공, result 0-실패
@@ -44,17 +45,17 @@ public interface UserNormalService {
 	/**
 	 * 이력서 삭제 result 1-성공, result 0-실패
 	 */
-	int delete(int resumeId) throws IOException, NotFoundException;
+	int delete(Long resumeId) throws IOException, NotFoundException;
 	
 	/**
 	 * 이력서 상세보기
 	 */
-	Resume resumeDetail(int resumeId) throws IOException, NotFoundException;
+	Resume resumeDetail(Users user) throws IOException, NotFoundException;
 	
 	/**
 	 * 이력서 목록보기
 	 */
-	List<Resume> recruitList(int memberId) throws IOException, NotFoundException;
+	List<Resume> recruitList(Users user) throws IOException, NotFoundException;
 	
 	/**
 	 * 이력서 온/오프 result 1-온, result 0-오프
