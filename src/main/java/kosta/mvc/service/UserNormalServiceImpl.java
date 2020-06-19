@@ -689,18 +689,12 @@ public class UserNormalServiceImpl implements UserNormalService {
 	 * 오픈이력서 조회기업목록
 	 */
 	@Override
-	public List<Companys> readCompany(ResumeRead resumeRead) {
-		ResumeRead dbResumeRead = ResumeReadRepository.findById(resumeRead.getResumeReadId()).orElse(null);
-		List<Companys> comlist = new ArrayList<Companys>();
-		Users user = dbResumeRead.getUser();
-		//List<ResumeRead> resumelist = user.getResumeReads();
+	public List<ResumeRead> readCompany(Users user) {
+		Users dbUsers = UsersRepository.findById(user.getUserId()).orElse(null);
+		List<ResumeRead> resumeReadlist = dbUsers.getResumeReads();
 		
-		for(ResumeRead read : user.getResumeReads()) {
-			if(read.isNew()==true) {
-				comlist.add(read.getCompany());
-			}
-		}
-		return comlist;
+		
+		return resumeReadlist;
 	}
 
 }

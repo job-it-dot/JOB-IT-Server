@@ -175,6 +175,6 @@ public interface UserNormalService {
 	/**
 	 * 오픈이력서 조회기업목록
 	 */
-	List<Companys> readCompany(ResumeRead resumeRead) throws IOException, NotFoundException;
+	List<ResumeRead> readCompany(Users user) throws IOException, NotFoundException;
 
 }
