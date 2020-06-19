@@ -111,6 +111,9 @@ public class AdminserviceImpl implements AdminService {
 		int price = perchase.getPerchasePrice();
 		Date date = perchase.getPerchaseTime();
 		
+	
+		
+		
 		
 		return 1;
 	}
