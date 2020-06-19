@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -52,4 +53,7 @@ public class Recruit {
 	
 	@OneToMany(mappedBy = "recruit", fetch = FetchType.LAZY)
 	private List<RequiredSkill> requiredSkills = new ArrayList<RequiredSkill>();
+	
+	@OneToOne(mappedBy = "recruit", fetch = FetchType.LAZY)
+	private RecruitAddr recruitAddr;
 }

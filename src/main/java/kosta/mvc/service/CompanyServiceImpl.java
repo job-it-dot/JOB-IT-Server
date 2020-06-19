@@ -97,12 +97,12 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public List<Recruit> selectRecruitByCompanyId(Long companyId) throws IOException {
-		return recruitRepository.findByCompanyId(companyId);
+		return companysRepository.findById(companyId).get().getRecruits();
 	}
 
 	@Override
 	public Recruit selectRecruitById(Long recruitId) throws IOException, NotFoundException {
-		return recruitRepository.findByRecruitId(recruitId);
+		return recruitRepository.findById(recruitId).get();
 	}
 
 	@Override
@@ -119,7 +119,7 @@ public class CompanyServiceImpl implements CompanyService {
 	public int updateRecruit(Recruit recruit) throws IOException, NotFoundException {
 		
 		int result = 0;
-		Recruit dbRecruit = recruitRepository.findByRecruitId(recruit.getRecruitId());
+		Recruit dbRecruit = recruitRepository.findById(recruit.getRecruitId()).orElse(null);
 		
 		if(dbRecruit != null) {
 			if(recruit.getPosition() != null) dbRecruit.setPosition(recruit.getPosition());
@@ -145,12 +145,12 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public List<RecruitPlan> selectRecruitPlanByCompanyId(Long companyId) throws IOException {
-		return recruitPlanRepository.findByCompanyId(companyId);
+		return companysRepository.findById(companyId).get().getRecruitPlans();
 	}
 
 	@Override
 	public RecruitPlan selectRecruitPlanById(Long recruitPlanId) throws IOException, NotFoundException {
-		return recruitPlanRepository.findByRecruitPlanId(recruitPlanId);
+		return recruitPlanRepository.findById(recruitPlanId).get();
 	}
 
 	@Override
@@ -167,7 +167,7 @@ public class CompanyServiceImpl implements CompanyService {
 	public int updateRecruitPlan(RecruitPlan recruitPlan) throws IOException, NotFoundException {
 
 		int result = 0;
-		RecruitPlan dbRecruitPlan = recruitPlanRepository.findByRecruitPlanId(recruitPlan.getRecruitPlanId());
+		RecruitPlan dbRecruitPlan = recruitPlanRepository.findById(recruitPlan.getRecruitPlanId()).get();
 		
 		if(dbRecruitPlan != null) {
 			if(recruitPlan.getPosition() != null) {
@@ -187,7 +187,7 @@ public class CompanyServiceImpl implements CompanyService {
 	public int deleteRecruitPlan(Long companyId, Long recruitPlanId) throws IOException, NotFoundException {
 
 		int result = 0;
-		RecruitPlan dbRecruitPlan = recruitPlanRepository.findByRecruitPlanId(recruitPlanId);
+		RecruitPlan dbRecruitPlan = recruitPlanRepository.findById(recruitPlanId).get();
 		
 		if(dbRecruitPlan != null && dbRecruitPlan.getCompany().getCompanyId() == companyId) {
 			recruitPlanRepository.delete(dbRecruitPlan);
@@ -199,7 +199,7 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public List<Apply> selectApplyByRecruitId(Long recruitId) throws IOException {
-		return applyRepository.findByRecruitId(recruitId);
+		return recruitRepository.findById(recruitId).get().getApplys();
 	}
 
 	@Override
