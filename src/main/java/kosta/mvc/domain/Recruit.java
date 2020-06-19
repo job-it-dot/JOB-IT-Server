@@ -54,6 +54,6 @@ public class Recruit {
 	@OneToMany(mappedBy = "recruit", fetch = FetchType.LAZY)
 	private List<RequiredSkill> requiredSkills = new ArrayList<RequiredSkill>();
 	
-	@OneToOne(mappedBy = "recruit")
+	@OneToOne(mappedBy = "recruit", fetch = FetchType.LAZY)
 	private RecruitAddr recruitAddr;
 }
