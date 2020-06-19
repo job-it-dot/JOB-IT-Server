@@ -101,7 +101,7 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public List<Recruit> selectRecruitByCompanyId(Long companyId) throws IOException {
-		return recruitRepository.findByCompanyId(companyId);
+		return companysRepository.findByCompanyId(companyId).getRecruits();
 	}
 
 	@Override
@@ -156,7 +156,7 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public List<RecruitPlan> selectRecruitPlanByCompanyId(Long companyId) throws IOException {
-		return recruitPlanRepository.findByCompanyId(companyId);
+		return companysRepository.findByCompanyId(companyId).getRecruitPlans();
 	}
 
 	@Override
@@ -210,7 +210,7 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public List<Apply> selectApplyByRecruitId(Long recruitId) throws IOException {
-		return applyRepository.findByRecruitId(recruitId);
+		return recruitRepository.findByRecruitId(recruitId).getApplys();
 	}
 
 	@Override
