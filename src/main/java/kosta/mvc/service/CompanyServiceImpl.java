@@ -1,4 +1,4 @@
-package kosta.mvc.service;
+/*package kosta.mvc.service;
 
 import java.io.IOException;
 import java.util.List;
@@ -242,4 +242,4 @@ public class CompanyServiceImpl implements CompanyService {
 		return resumeRepository.findByResumeIdAndResumeStatus(resumeId, 1);
 	}
 
-}
+}*/
