@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 
 import kosta.mvc.domain.Career;
-import kosta.mvc.domain.Companys;
+
 import kosta.mvc.domain.Edu;
 import kosta.mvc.domain.Lang;
 import kosta.mvc.domain.LangClass;

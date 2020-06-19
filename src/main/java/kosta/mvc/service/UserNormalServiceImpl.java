@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kosta.mvc.domain.Career;
-import kosta.mvc.domain.Companys;
 import kosta.mvc.domain.Edu;
 import kosta.mvc.domain.Lang;
 import kosta.mvc.domain.LangClass;
@@ -21,7 +20,7 @@ import kosta.mvc.domain.ResumeRead;
 import kosta.mvc.domain.UserSkill;
 import kosta.mvc.domain.Users;
 import kosta.mvc.repository.CareerRepository;
-import kosta.mvc.repository.CompanysRepository;
+
 import kosta.mvc.repository.EduRepository;
 import kosta.mvc.repository.LangClassRepository;
 import kosta.mvc.repository.LangLevelRepository;
@@ -31,7 +30,7 @@ import kosta.mvc.repository.LicenseRepository;
 import kosta.mvc.repository.LinkRepository;
 import kosta.mvc.repository.MembersRepository;
 import kosta.mvc.repository.ProjectRepository;
-import kosta.mvc.repository.ResumeReadRepository;
+
 import kosta.mvc.repository.ResumeRepository;
 import kosta.mvc.repository.UserSkillRepository;
 import kosta.mvc.repository.UsersRepository;
@@ -77,12 +76,6 @@ public class UserNormalServiceImpl implements UserNormalService {
 	
 	@Autowired
 	private LangLicenseRepository LangLicenseRepository;
-	
-	@Autowired
-	private ResumeReadRepository ResumeReadRepository;
-	
-	@Autowired
-	private CompanysRepository CompanysRepository;
 	
 	/**
 	 * 회원가입 result 1-성공, result 0-실패 
@@ -173,10 +166,12 @@ public class UserNormalServiceImpl implements UserNormalService {
 		//List<Project> projectlist = new ArrayList<Project>();
 		//List<LangLicense> langlicenlist = new ArrayList<LangLicense>();
 		
+		
 		if(resume==null) {
 			result=0;
 		}else {
 			ResumeRepository.save(resume);
+			
 			/*EduRepository.saveAll(resume.getEdus());
 			CareerRepository.saveAll(resume.getCareers());
 			LicenseRepository.saveAll(resume.getLicenses());
