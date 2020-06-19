@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 
 import kosta.mvc.domain.Career;
-
+import kosta.mvc.domain.Companys;
 import kosta.mvc.domain.Edu;
 import kosta.mvc.domain.Lang;
 import kosta.mvc.domain.LangClass;
@@ -16,7 +16,6 @@ import kosta.mvc.domain.License;
 import kosta.mvc.domain.Link;
 import kosta.mvc.domain.Project;
 import kosta.mvc.domain.Resume;
-import kosta.mvc.domain.ResumeRead;
 import kosta.mvc.domain.UserSkill;
 import kosta.mvc.domain.Users;
 
@@ -175,6 +174,6 @@ public interface UserNormalService {
 	/**
 	 * 오픈이력서 조회기업목록
 	 */
-	List<ResumeRead> readCompany(Users user) throws IOException, NotFoundException;
+	List<Companys> readCompany(Users user) throws IOException, NotFoundException;
 
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kosta.mvc.domain.Career;
+import kosta.mvc.domain.Companys;
 import kosta.mvc.domain.Edu;
 import kosta.mvc.domain.Lang;
 import kosta.mvc.domain.LangClass;
@@ -684,12 +685,16 @@ public class UserNormalServiceImpl implements UserNormalService {
 	 * 오픈이력서 조회기업목록
 	 */
 	@Override
-	public List<ResumeRead> readCompany(Users user) {
+	public List<Companys> readCompany(Users user) {
 		Users dbUsers = UsersRepository.findById(user.getUserId()).orElse(null);
 		List<ResumeRead> resumeReadlist = dbUsers.getResumeReads();
+		List<Companys> comlist = new ArrayList<Companys>();
 		
+		for(ResumeRead re : resumeReadlist) {
+			comlist.add(re.getCompany());
+		}
 		
-		return resumeReadlist;
+		return comlist;
 	}
 
 }
