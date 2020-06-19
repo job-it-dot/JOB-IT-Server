@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kosta.mvc.domain.Apply;
@@ -30,6 +31,9 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	@Autowired
 	private MembersRepository membersRepository;
+
+//	@Autowired
+//	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private RecruitRepository recruitRepository;
@@ -60,7 +64,7 @@ public class CompanyServiceImpl implements CompanyService {
 		if(dbCompany != null) {
 			Members dbMember = membersRepository.findByMemberId(dbCompany.getMember().getMemberId());
 			
-			if(dbMember.getMemberPassword().equals(password)) result = 1;
+//			if(passwordEncoder.matches(password, dbMember.getMemberPassword())) result = 1;
 		}
 		
 		return result;
@@ -97,12 +101,12 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public List<Recruit> selectRecruitByCompanyId(Long companyId) throws IOException {
-		return companysRepository.findById(companyId).get().getRecruits();
+		return recruitRepository.findByCompanyId(companyId);
 	}
 
 	@Override
 	public Recruit selectRecruitById(Long recruitId) throws IOException, NotFoundException {
-		return recruitRepository.findById(recruitId).get();
+		return recruitRepository.findByRecruitId(recruitId);
 	}
 
 	@Override
@@ -119,7 +123,7 @@ public class CompanyServiceImpl implements CompanyService {
 	public int updateRecruit(Recruit recruit) throws IOException, NotFoundException {
 		
 		int result = 0;
-		Recruit dbRecruit = recruitRepository.findById(recruit.getRecruitId()).orElse(null);
+		Recruit dbRecruit = recruitRepository.findByRecruitId(recruit.getRecruitId());
 		
 		if(dbRecruit != null) {
 			if(recruit.getPosition() != null) dbRecruit.setPosition(recruit.getPosition());
@@ -136,21 +140,28 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public int deleteRecruit(Long companyId, Long recruitId) throws IOException {
+	public int unpostRecruit(Long recruitId) throws IOException {
 
 		int result = 0;
+		Recruit dbRecruit = recruitRepository.findByRecruitId(recruitId);
+		
+		if(dbRecruit != null) {
+			dbRecruit.setRecruitStatus(2);
+			recruitRepository.save(dbRecruit);
+			result = 1;
+		}
 		
 		return result;
 	}
 
 	@Override
 	public List<RecruitPlan> selectRecruitPlanByCompanyId(Long companyId) throws IOException {
-		return companysRepository.findById(companyId).get().getRecruitPlans();
+		return recruitPlanRepository.findByCompanyId(companyId);
 	}
 
 	@Override
 	public RecruitPlan selectRecruitPlanById(Long recruitPlanId) throws IOException, NotFoundException {
-		return recruitPlanRepository.findById(recruitPlanId).get();
+		return recruitPlanRepository.findByRecruitPlanId(recruitPlanId);
 	}
 
 	@Override
@@ -167,7 +178,7 @@ public class CompanyServiceImpl implements CompanyService {
 	public int updateRecruitPlan(RecruitPlan recruitPlan) throws IOException, NotFoundException {
 
 		int result = 0;
-		RecruitPlan dbRecruitPlan = recruitPlanRepository.findById(recruitPlan.getRecruitPlanId()).get();
+		RecruitPlan dbRecruitPlan = recruitPlanRepository.findByRecruitPlanId(recruitPlan.getRecruitPlanId());
 		
 		if(dbRecruitPlan != null) {
 			if(recruitPlan.getPosition() != null) {
@@ -187,7 +198,7 @@ public class CompanyServiceImpl implements CompanyService {
 	public int deleteRecruitPlan(Long companyId, Long recruitPlanId) throws IOException, NotFoundException {
 
 		int result = 0;
-		RecruitPlan dbRecruitPlan = recruitPlanRepository.findById(recruitPlanId).get();
+		RecruitPlan dbRecruitPlan = recruitPlanRepository.findByRecruitPlanId(recruitPlanId);
 		
 		if(dbRecruitPlan != null && dbRecruitPlan.getCompany().getCompanyId() == companyId) {
 			recruitPlanRepository.delete(dbRecruitPlan);
@@ -199,7 +210,7 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public List<Apply> selectApplyByRecruitId(Long recruitId) throws IOException {
-		return recruitRepository.findById(recruitId).get().getApplys();
+		return applyRepository.findByRecruitId(recruitId);
 	}
 
 	@Override
