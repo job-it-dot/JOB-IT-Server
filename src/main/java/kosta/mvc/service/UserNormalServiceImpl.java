@@ -21,6 +21,7 @@ import kosta.mvc.domain.ResumeRead;
 import kosta.mvc.domain.UserSkill;
 import kosta.mvc.domain.Users;
 import kosta.mvc.repository.CareerRepository;
+import kosta.mvc.repository.CompanysRepository;
 import kosta.mvc.repository.EduRepository;
 import kosta.mvc.repository.LangClassRepository;
 import kosta.mvc.repository.LangLevelRepository;
@@ -79,6 +80,9 @@ public class UserNormalServiceImpl implements UserNormalService {
 	
 	@Autowired
 	private ResumeReadRepository ResumeReadRepository;
+	
+	@Autowired
+	private CompanysRepository CompanysRepository;
 	
 	/**
 	 * 회원가입 result 1-성공, result 0-실패 
@@ -509,7 +513,8 @@ public class UserNormalServiceImpl implements UserNormalService {
 		if(dbLang==null) {
 			result=0;
 		}else {
-			
+			dbLang.setLangClass(lang.getLangClass());
+			dbLang.setLangLevel(lang.getLangLevel());
 			result=1;
 		}
 		
@@ -614,7 +619,7 @@ public class UserNormalServiceImpl implements UserNormalService {
 	 * 이력서 상태 변경
 	 */
 	@Override
-	public int delete(Long resumeId) {
+	public int deleteResume(Long resumeId) {
 		Resume dbResume = ResumeRepository.findById(resumeId).orElse(null);
 		int result;
 		
@@ -686,9 +691,16 @@ public class UserNormalServiceImpl implements UserNormalService {
 	@Override
 	public List<Companys> readCompany(ResumeRead resumeRead) {
 		ResumeRead dbResumeRead = ResumeReadRepository.findById(resumeRead.getResumeReadId()).orElse(null);
+		List<Companys> comlist = new ArrayList<Companys>();
+		Users user = dbResumeRead.getUser();
+		//List<ResumeRead> resumelist = user.getResumeReads();
 		
-		
-		return null;
+		for(ResumeRead read : user.getResumeReads()) {
+			if(read.isNew()==true) {
+				comlist.add(read.getCompany());
+			}
+		}
+		return comlist;
 	}
 
 }

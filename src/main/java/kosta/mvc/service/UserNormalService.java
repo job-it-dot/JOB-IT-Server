@@ -155,7 +155,7 @@ public interface UserNormalService {
 	/**
 	 * 이력서 삭제 result 1-성공, result 0-실패
 	 */
-	int delete(Long resumeId) throws IOException, NotFoundException;
+	int deleteResume(Long resumeId) throws IOException, NotFoundException;
 	
 	/**
 	 * 이력서 상세보기
