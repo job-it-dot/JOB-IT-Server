@@ -106,6 +106,7 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public Recruit selectRecruitById(Long recruitId) throws IOException, NotFoundException {
+		
 		return recruitRepository.findByRecruitId(recruitId);
 	}
 
