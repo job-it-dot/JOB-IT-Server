@@ -32,8 +32,8 @@ public class CompanyServiceImpl implements CompanyService {
 	@Autowired
 	private MembersRepository membersRepository;
 
-//	@Autowired
-//	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private RecruitRepository recruitRepository;
@@ -64,7 +64,7 @@ public class CompanyServiceImpl implements CompanyService {
 		if(dbCompany != null) {
 			Members dbMember = membersRepository.findByMemberId(dbCompany.getMember().getMemberId());
 			
-//			if(passwordEncoder.matches(password, dbMember.getMemberPassword())) result = 1;
+			if(passwordEncoder.matches(password, dbMember.getMemberPassword())) result = 1;
 		}
 		
 		return result;
