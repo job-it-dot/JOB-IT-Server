@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javassist.NotFoundException;
 import kosta.mvc.domain.Companys;
@@ -17,6 +18,7 @@ import kosta.mvc.repository.RecruitRepository;
 import kosta.mvc.repository.ScrapRepository;
 import kosta.mvc.repository.UsersRepository;
 
+@Service
 public class RecruitServiceImpl implements RecruitService {
 	
 	@Autowired

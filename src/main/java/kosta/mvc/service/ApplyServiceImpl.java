@@ -3,6 +3,8 @@ package kosta.mvc.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import kosta.mvc.domain.Apply;
 import kosta.mvc.domain.Recruit;
 import kosta.mvc.domain.Resume;
@@ -10,6 +12,7 @@ import kosta.mvc.domain.Users;
 import kosta.mvc.repository.ApplyRepository;
 import kosta.mvc.repository.UsersRepository;
 
+@Service
 public class ApplyServiceImpl implements ApplyService {
 	
 	private ApplyRepository applyRep;

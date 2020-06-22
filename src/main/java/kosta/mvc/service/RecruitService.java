@@ -2,6 +2,8 @@ package kosta.mvc.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import javassist.NotFoundException;
 import kosta.mvc.domain.Alram;
 import kosta.mvc.domain.Companys;
@@ -9,6 +11,7 @@ import kosta.mvc.domain.Follow;
 import kosta.mvc.domain.Recruit;
 import kosta.mvc.domain.Scrap;
 import kosta.mvc.domain.Users;
+
 
 public interface RecruitService {
 	

@@ -50,7 +50,7 @@ public class Users{
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Scrap> scraps = new ArrayList<Scrap>();
 	
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "resume", fetch = FetchType.LAZY)
 	private List<Apply> apply = new ArrayList<Apply>();
 	
 }
