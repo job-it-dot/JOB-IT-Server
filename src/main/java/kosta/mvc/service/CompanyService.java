@@ -52,9 +52,10 @@ public interface CompanyService {
 	int updateRecruit(Recruit recruit) throws IOException, NotFoundException;
 	
 	/**
-	 * 기업 채용공고 삭제 - 삭제 안하고 status 값 변경해서 글 안보이게 처리할 것 같음. 지원자 관리해야하니까
+	 * 기업 채용공고 내리기
+	 * recruitStatus가 1이면 공고 올라감 / 2면 공고 내려감
 	 */
-	int deleteRecruit(Long companyId, Long recruitId) throws IOException;
+	int unpostRecruit(Long recruitId) throws IOException;
 	
 	/**
 	 * 예상 채용일정 목록 조회
