@@ -3,6 +3,7 @@ package kosta.mvc.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -87,5 +88,10 @@ public class ApplyController {
 		}
 		
 		return list;
+	}
+	
+	@ExceptionHandler(NotFoundException.class)
+	public String error(Exception e) {
+		return e.getMessage();
 	}
 }
