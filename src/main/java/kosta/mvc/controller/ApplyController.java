@@ -1,5 +1,7 @@
 package kosta.mvc.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import javassist.NotFoundException;
 import kosta.mvc.domain.Recruit;
 import kosta.mvc.domain.Resume;
 import kosta.mvc.service.ApplyService;
@@ -28,7 +31,6 @@ public class ApplyController {
 	@ApiOperation(value = "지원하기")
 	@PostMapping("/applyCompany")
 	@ApiResponses(value = {@ApiResponse(code = 200, message = "Success", response = String.class )})
-
 	public String apply(@ApiParam("공고ID")Long recruitId, @ApiParam("이력서id")Long resumeId) {
 		int status = applyService.apply(recruitId, resumeId);
 		
@@ -74,5 +76,16 @@ public class ApplyController {
 			msg = "최종 합격";
 		}
 		return msg;
+	}
+	
+	@PostMapping("/showApplyList")
+	@ApiOperation("지원회사 목록 보기")
+	public List<Recruit> showApplyCompany(@ApiParam("유저ID")Long userId) throws NotFoundException{
+		List<Recruit> list = applyService.selectApplyCompany(userId);
+		if(list == null) {
+			throw new NotFoundException("지원한 기업이 존재하지 않습니다.");
+		}
+		
+		return list;
 	}
 }
