@@ -21,7 +21,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/**/guest/**").permitAll()
-        		.antMatchers("/**/member/**").hasRole("MEMBER")
+        		.antMatchers("/**/user/**").hasRole("USER")
         		.antMatchers("/**/company/**").hasRole("COMPANY")
         		.antMatchers("/**/admin/**").hasRole("ADMIN")
         		.anyRequest().permitAll();
@@ -29,8 +29,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.formLogin()
 				.loginPage("/common/loginForm")
 				.loginProcessingUrl("/login")
-				.failureUrl("/common/loginForm") //실패하면 로그인으로
-				.defaultSuccessUrl("/common/index")	//성공했을때 기본적으로 index로
+				.failureUrl("/common/loginForm") //�떎�뙣�븯硫� 濡쒓렇�씤�쑝濡�
+				.defaultSuccessUrl("/common/index")	//�꽦怨듯뻽�쓣�븣 湲곕낯�쟻�쑝濡� index濡�
 				.usernameParameter("email")
 				.passwordParameter("password")
 				.permitAll();
@@ -38,7 +38,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.logout()
 				.invalidateHttpSession(true)
 				.logoutUrl("/logout")
-				.logoutSuccessUrl("/common/loginForm")	//로그아웃 성공시 로그인 페이지로
+				.logoutSuccessUrl("/common/loginForm")	//濡쒓렇�븘�썐 �꽦怨듭떆 濡쒓렇�씤 �럹�씠吏�濡�
 				.permitAll();
     }
 	
