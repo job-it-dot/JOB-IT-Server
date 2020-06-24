@@ -51,12 +51,46 @@ public class CompanyServiceImpl implements CompanyService {
 	private ResumeRepository resumeRepository;
 
 	@Override
+	public int duplicateEmail(String memberEmail) throws IOException {
+		int result = 0;
+		
+		List<Members> members = membersRepository.findByMemberEmail(memberEmail);
+		
+		for(Members member : members) {
+			if(member != null && member.getMemberStatus() != 4 && member.getMemberStatus() != 5)
+				result = 1;
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Long login(String memberEmail, String memberPassword) throws IOException, NotFoundException {
+		Long companyId = 0L;
+		Members member = null;
+		
+		List<Members> members = membersRepository.findByMemberEmail(memberEmail);
+		
+		for(Members mem : members) {
+			if(mem.getMemberStatus() == 2) {
+				member = mem;
+			}
+		}
+		
+		Companys company = companysRepository.findByMemberId(member.getMemberId());
+		
+		if(checkPassword(companyId, memberPassword) == 1) companyId = company.getCompanyId();
+			
+		return companyId;
+	}
+
+	@Override
 	public Companys selectCompanyById(Long companyId) throws IOException {
 		return companysRepository.findByCompanyId(companyId);
 	}
 	
 	@Override
-	public int checkPassword(Long companyId, String password) throws IOException, NotFoundException{
+	public int checkPassword(Long companyId, String memberPassword) throws IOException, NotFoundException{
 		
 		int result = 0;
 		Companys dbCompany = companysRepository.findByCompanyId(companyId);
@@ -64,7 +98,7 @@ public class CompanyServiceImpl implements CompanyService {
 		if(dbCompany != null) {
 			Members dbMember = membersRepository.findByMemberId(dbCompany.getMember().getMemberId());
 			
-			if(passwordEncoder.matches(password, dbMember.getMemberPassword())) result = 1;
+			if(passwordEncoder.matches(memberPassword, dbMember.getMemberPassword())) result = 1;
 		}
 		
 		return result;

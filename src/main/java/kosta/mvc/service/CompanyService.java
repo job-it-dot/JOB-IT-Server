@@ -15,6 +15,25 @@ import kosta.mvc.domain.Resume;
 public interface CompanyService {
 	
 	/**
+	 * 이메일 중복체크
+	 * Members의 memberStatus - 1:일반회원 / 2:기업회원 / 3:관리자 / 4:탈퇴회원 / 5:강제탈퇴회원
+	 * @return '0'이면 중복아님 / '1'이면 중복
+	 */
+	int duplicateEmail(String memberEmail) throws IOException;
+	
+	/**
+	 * 기업 회원가입
+	 */
+//	int join 
+	
+	
+	/**
+	 * 기업 로그인
+	 * @return companyId / '0L' 로그인 오류
+	 */
+	Long login(String memberEmail, String memberPassword) throws IOException, NotFoundException;
+	
+	/**
 	 * 기업 정보 조회
 	 */
 	Companys selectCompanyById(Long companyId) throws IOException;
