@@ -29,7 +29,15 @@ public class MemberAuthenticationProvider  implements AuthenticationProvider {
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		System.out.println(authentication.getName());
+		
 		Members member = memberRepository.findByMemberId(Long.parseLong(authentication.getName()));	//찾아봐야함... 입력할 땐 email이라서..
+		List<Members> list = memberRepository.findByMemberEmail(authentication.getName());
+		int status = 0;
+//		for(Members m : list) {
+//			if(m.getMemberStatus() == )
+//			status = m.getMemberStatus();
+//		}
+		Members me = memberRepository.findByMemberEmailAndMemberStatus(authentication.getName(), status);
 		
 		if(member == null) {
 			throw new UsernameNotFoundException("정보 확인 바람"); //아이디

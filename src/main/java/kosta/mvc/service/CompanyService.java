@@ -31,7 +31,7 @@ public interface CompanyService {
 	 * 기업 로그인
 	 * @return companyId / '0L' 로그인 오류
 	 */
-	Long login(String memberEmail, String memberPassword) throws IOException, NotFoundException;
+//	Long login(String memberEmail, String memberPassword) throws IOException, NotFoundException;
 	
 	/**
 	 * 기업 정보 조회

@@ -29,7 +29,7 @@ public class ApplyController {
 	private ApplyService applyService;
 	
 	@ApiOperation(value = "지원하기")
-	@PostMapping("/applyCompany")
+	@PostMapping("/company")
 	@ApiResponses(value = {@ApiResponse(code = 200, message = "Success", response = String.class )})
 	public String apply(@ApiParam("공고ID")Long recruitId, @ApiParam("이력서id")Long resumeId) {
 		int status = applyService.apply(recruitId, resumeId);

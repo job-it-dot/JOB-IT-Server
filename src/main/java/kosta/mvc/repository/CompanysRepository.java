@@ -9,7 +9,7 @@ public interface CompanysRepository extends JpaRepository<Companys, Long> {
 
 	public Companys findByCompanyId(Long companyId);
 
-	@Query("SELECT * FROM members m WHERE m.memberId=?1")
-	public Companys findByMemberId(Long memberId);
+//	@Query("SELECT * FROM members m WHERE m.memberId=?1")
+//	public Companys findByMemberId(Long memberId);
 	
 }

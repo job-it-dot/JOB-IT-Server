@@ -17,7 +17,7 @@ public interface AdminService {
 	/**
 	 * 유저회원 id로검색
 	 */
-	Users selectById(long userId) throws IOException;
+	Users selectById(Long userId) throws IOException;
 	
 	/**
 	 * 기업회원 조회
@@ -27,24 +27,24 @@ public interface AdminService {
 	/**
 	 * 기업회원 id로검색
 	 */
-	Companys selelctCompanyId(long CompanyId) throws IOException;
+	Companys selelctCompanyId(Long CompanyId) throws IOException;
 	
 	
 	/**
 	 * 기업 강제탈퇴
 	 */
-	int companysWithdrawal(long companyId) throws NotFoundException, IOException;
+	int companysWithdrawal(Long companyId) throws NotFoundException, IOException;
 	
 	
 	/**
 	 * 유저 강제탈퇴
 	 */
-	int memberWithdrawal(long memberId) throws NotFoundException, IOException;
+	int memberWithdrawal(Long memberId) throws NotFoundException, IOException;
 	
 	/**
 	 * 기업회원 가입 승인
 	 */
-	int companyApproval(long companyId) throws IOException;
+	int companyApproval(Long companyId) throws IOException;
 	
 	/**
 	 * 매출통계 조회

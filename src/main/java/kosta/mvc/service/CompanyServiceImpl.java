@@ -64,25 +64,25 @@ public class CompanyServiceImpl implements CompanyService {
 		return result;
 	}
 
-	@Override
-	public Long login(String memberEmail, String memberPassword) throws IOException, NotFoundException {
-		Long companyId = 0L;
-		Members member = null;
-		
-		List<Members> members = membersRepository.findByMemberEmail(memberEmail);
-		
-		for(Members mem : members) {
-			if(mem.getMemberStatus() == 2) {
-				member = mem;
-			}
-		}
-		
-		Companys company = companysRepository.findByMemberId(member.getMemberId());
-		
-		if(checkPassword(companyId, memberPassword) == 1) companyId = company.getCompanyId();
-			
-		return companyId;
-	}
+//	@Override
+//	public Long login(String memberEmail, String memberPassword) throws IOException, NotFoundException {
+//		Long companyId = 0L;
+//		Members member = null;
+//		
+//		List<Members> members = membersRepository.findByMemberEmail(memberEmail);
+//		
+//		for(Members mem : members) {
+//			if(mem.getMemberStatus() == 2) {
+//				member = mem;
+//			}
+//		}
+//		
+//		Companys company = companysRepository.findByMemberId(member.getMemberId());
+//		
+//		if(checkPassword(companyId, memberPassword) == 1) companyId = company.getCompanyId();
+//			
+//		return companyId;
+//	}
 
 	@Override
 	public Companys selectCompanyById(Long companyId) throws IOException {
