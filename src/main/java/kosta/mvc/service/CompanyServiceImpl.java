@@ -3,6 +3,8 @@ package kosta.mvc.service;
 import java.io.IOException;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -64,6 +66,16 @@ public class CompanyServiceImpl implements CompanyService {
 		return result;
 	}
 
+	@Transactional
+	@Override
+	public int join(Companys company) throws IOException {
+		int result = 0;
+		
+//		membersRepository
+		
+		return result;
+	}
+
 	@Override
 	public Long login(String memberEmail, String memberPassword) throws IOException, NotFoundException {
 		Long companyId = 0L;
@@ -77,9 +89,9 @@ public class CompanyServiceImpl implements CompanyService {
 			}
 		}
 		
-		Companys company = companysRepository.findByMemberId(member.getMemberId());
+//		Companys company = companysRepository.findByMemberId(member.getMemberId());
 		
-		if(checkPassword(companyId, memberPassword) == 1) companyId = company.getCompanyId();
+//		if(checkPassword(companyId, memberPassword) == 1) companyId = company.getCompanyId();
 			
 		return companyId;
 	}

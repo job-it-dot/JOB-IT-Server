@@ -24,8 +24,7 @@ public interface CompanyService {
 	/**
 	 * 기업 회원가입
 	 */
-//	int join 
-	
+	int join(Companys company) throws IOException;
 	
 	/**
 	 * 기업 로그인
