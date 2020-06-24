@@ -24,7 +24,7 @@ public interface CompanyService {
 	/**
 	 * 기업 회원가입
 	 */
-//	int join
+//	int join 
 	
 	
 	/**
