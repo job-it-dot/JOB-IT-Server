@@ -23,12 +23,12 @@ public interface CompanyService {
 	
 	/**
 	 * 기업 회원가입
+	 * @return '0'이면 가입실패 / '1'이면 가입성공
 	 */
-//	int join 
-	
+	int insertCompany(Companys company) throws IOException;
 	
 	/**
-	 * 기업 로그인
+	 * 기업 로그인 - 시큐리티에서 된답니다
 	 * @return companyId / '0L' 로그인 오류
 	 */
 //	Long login(String memberEmail, String memberPassword) throws IOException, NotFoundException;

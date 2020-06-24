@@ -3,6 +3,8 @@ package kosta.mvc.service;
 import java.io.IOException;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -64,6 +66,7 @@ public class CompanyServiceImpl implements CompanyService {
 		return result;
 	}
 
+<<<<<<< HEAD
 //	@Override
 //	public Long login(String memberEmail, String memberPassword) throws IOException, NotFoundException {
 //		Long companyId = 0L;
@@ -80,6 +83,43 @@ public class CompanyServiceImpl implements CompanyService {
 //		Companys company = companysRepository.findByMemberId(member.getMemberId());
 //		
 //		if(checkPassword(companyId, memberPassword) == 1) companyId = company.getCompanyId();
+//			
+//		return companyId;
+//	}
+=======
+	@Transactional
+	@Override
+	public int insertCompany(Companys company) throws IOException {
+		int result = 0;
+		
+		if(company != null && company.getMember() != null) {
+			String pwd = passwordEncoder.encode(company.getMember().getMemberPassword());
+			company.getMember().setMemberPassword(pwd);
+			membersRepository.save(company.getMember());
+			companysRepository.save(company);
+			result = 1;
+		}
+		
+		return result;
+	}
+>>>>>>> branch 'develop' of https://github.com/job-it-dot/jobit-server.git
+
+//	@Override
+//	public Long login(String memberEmail, String memberPassword) throws IOException, NotFoundException {
+//		Long companyId = 0L;
+//		Members member = null;
+//		
+//		List<Members> members = membersRepository.findByMemberEmail(memberEmail);
+//		
+//		for(Members mem : members) {
+//			if(mem.getMemberStatus() == 2) {
+//				member = mem;
+//			}
+//		}
+//		
+////		Companys company = companysRepository.findByMemberId(member.getMemberId());
+//		
+////		if(checkPassword(companyId, memberPassword) == 1) companyId = company.getCompanyId();
 //			
 //		return companyId;
 //	}
