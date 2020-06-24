@@ -73,8 +73,13 @@ public class RecruitServiceImpl implements RecruitService {
 
 	@Override
 	public int cancleInterestCompany(Long followId) {
-		followRep.deleteById(followId);
-		return 1;
+		int result = 0;
+		if(followId != null) {
+			followRep.deleteById(followId);
+			result = 1;
+		}
+		
+		return result;
 	}
 	
 	//관심기업 조회
