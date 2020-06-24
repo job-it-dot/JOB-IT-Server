@@ -68,33 +68,39 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Transactional
 	@Override
-	public int join(Companys company) throws IOException {
+	public int insertCompany(Companys company) throws IOException {
 		int result = 0;
 		
-//		membersRepository
+		if(company != null && company.getMember() != null) {
+			String pwd = passwordEncoder.encode(company.getMember().getMemberPassword());
+			company.getMember().setMemberPassword(pwd);
+			membersRepository.save(company.getMember());
+			companysRepository.save(company);
+			result = 1;
+		}
 		
 		return result;
 	}
 
-	@Override
-	public Long login(String memberEmail, String memberPassword) throws IOException, NotFoundException {
-		Long companyId = 0L;
-		Members member = null;
-		
-		List<Members> members = membersRepository.findByMemberEmail(memberEmail);
-		
-		for(Members mem : members) {
-			if(mem.getMemberStatus() == 2) {
-				member = mem;
-			}
-		}
-		
-//		Companys company = companysRepository.findByMemberId(member.getMemberId());
-		
-//		if(checkPassword(companyId, memberPassword) == 1) companyId = company.getCompanyId();
-			
-		return companyId;
-	}
+//	@Override
+//	public Long login(String memberEmail, String memberPassword) throws IOException, NotFoundException {
+//		Long companyId = 0L;
+//		Members member = null;
+//		
+//		List<Members> members = membersRepository.findByMemberEmail(memberEmail);
+//		
+//		for(Members mem : members) {
+//			if(mem.getMemberStatus() == 2) {
+//				member = mem;
+//			}
+//		}
+//		
+////		Companys company = companysRepository.findByMemberId(member.getMemberId());
+//		
+////		if(checkPassword(companyId, memberPassword) == 1) companyId = company.getCompanyId();
+//			
+//		return companyId;
+//	}
 
 	@Override
 	public Companys selectCompanyById(Long companyId) throws IOException {
