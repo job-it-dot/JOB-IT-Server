@@ -30,25 +30,23 @@ public class MemberAuthenticationProvider  implements AuthenticationProvider {
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		System.out.println(authentication.getName());
 		
-		Members member = memberRepository.findByMemberId(Long.parseLong(authentication.getName()));	//찾아봐야함... 입력할 땐 email이라서..
-		List<Members> list = memberRepository.findByMemberEmail(authentication.getName());
-		int status = 0;
-//		for(Members m : list) {
-//			if(m.getMemberStatus() == )
-//			status = m.getMemberStatus();
-//		}
-		Members me = memberRepository.findByMemberEmailAndMemberStatus(authentication.getName(), status);
+		List<Members> members = memberRepository.findByMemberEmail(authentication.getName());
+		Members member = null;
+		
+		for(Members m : members) {
+			if(m.getMemberStatus() == 1 || m.getMemberStatus() == 2 || m.getMemberStatus() == 3) member = m;
+		}
 		
 		if(member == null) {
-			throw new UsernameNotFoundException("정보 확인 바람"); //아이디
+			throw new UsernameNotFoundException("정보 확인 바람"); //아이디에 해당하는 정보 없는 경우
 		}
 		
 		if(!encoder.matches(authentication.getCredentials().toString(), member.getMemberPassword())) {
-			throw new UsernameNotFoundException("정보 확인 바람");  //비번
+			throw new UsernameNotFoundException("정보 확인 바람");  //비밀번호 불일치
 		}
 		List<SimpleGrantedAuthority> authList = new ArrayList<>();
 		
-		//일반회원이 1, 기업이 2, 관리자가 3
+		//일반회원 1, 기업 2, 관리자 3
 		for(long i = member.getMemberStatus(); i > 0; i--) {
 			authList.add(new SimpleGrantedAuthority(roles[(int)(i - 1)]));
 		}

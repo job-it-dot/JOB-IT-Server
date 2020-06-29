@@ -13,7 +13,4 @@ public interface MembersRepository extends JpaRepository<Members, Long> {
 	
 	public List<Members> findByMemberEmail(String memberEmail);
 	
-	@Query("SELECT * FROM members where member_email =?1 and status=?2")
-	public Members findByMemberEmailAndMemberStatus(String memberEmail, int i);
-	
 }

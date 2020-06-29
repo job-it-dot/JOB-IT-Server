@@ -32,8 +32,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.formLogin()
 				.loginPage("/common/loginForm")
 				.loginProcessingUrl("/login")
-				.failureUrl("/common/loginForm") //�떎�뙣�븯硫� 濡쒓렇�씤�쑝濡�
-				.defaultSuccessUrl("/common/index")	//�꽦怨듯뻽�쓣�븣 湲곕낯�쟻�쑝濡� index濡�
+				.failureUrl("/common/loginForm") 
+				.defaultSuccessUrl("/common/index")	
 				.usernameParameter("email")
 				.passwordParameter("password")
 				.permitAll();
@@ -41,7 +41,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.logout()
 				.invalidateHttpSession(true)
 				.logoutUrl("/logout")
-				.logoutSuccessUrl("/common/loginForm")	//濡쒓렇�븘�썐 �꽦怨듭떆 濡쒓렇�씤 �럹�씠吏�濡�
+				.logoutSuccessUrl("/common/loginForm")	
 				.permitAll();
     }
 	

@@ -29,6 +29,8 @@ public class CompanyController {
 	@Autowired
 	private CompanyService companyService;
 	
+	//////////////////모든 사람이 접속할 수 있는 컨트롤러로 옮겨야함
+	
 	@ApiOperation(value = "이메일 중복체크", notes = "return : 0-중복아님 / 1-중복")
 	@RequestMapping("/idDuplicate")
 	public int idDuplicate(@ApiParam("가입할 이메일")String memberEmail) throws IOException {
@@ -43,6 +45,8 @@ public class CompanyController {
 		}
 		return companyService.insertCompany(company);
 	}
+	
+	///////////////////
 	
 	@ApiOperation(value = "기업 정보 조회", notes = "return : 기업회원 정보")
 	@RequestMapping("/info")
