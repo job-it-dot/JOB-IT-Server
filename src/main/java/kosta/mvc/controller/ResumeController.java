@@ -31,7 +31,7 @@ import kosta.mvc.service.ResumeService;
 
 
 @RestController
-@RequestMapping("/resume")
+@RequestMapping("/user/resume")
 @Api(tags = {"이력서 controller"})
 @Transactional
 public class ResumeController {

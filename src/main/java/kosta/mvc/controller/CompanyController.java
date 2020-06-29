@@ -29,25 +29,6 @@ public class CompanyController {
 	@Autowired
 	private CompanyService companyService;
 	
-	//////////////////모든 사람이 접속할 수 있는 컨트롤러로 옮겨야함
-	
-	@ApiOperation(value = "이메일 중복체크", notes = "return : 0-중복아님 / 1-중복")
-	@RequestMapping("/idDuplicate")
-	public int idDuplicate(@ApiParam("가입할 이메일")String memberEmail) throws IOException {
-		return companyService.duplicateEmail(memberEmail);
-	}
-	
-	@ApiOperation(value = "기업 회원가입", notes = "return : 0-가입실패 / 1-가입성공")
-	@RequestMapping("/join")
-	public int join(@ApiParam("기업 가입 정보")Companys company) throws IOException {
-		if(companyService.duplicateEmail(company.getMember().getMemberEmail()) == 1) {
-			throw new RuntimeException("이미 사용중인 이메일 입니다.");
-		}
-		return companyService.insertCompany(company);
-	}
-	
-	///////////////////
-	
 	@ApiOperation(value = "기업 정보 조회", notes = "return : 기업회원 정보")
 	@RequestMapping("/info")
 	public Companys info(HttpSession session) throws IOException {

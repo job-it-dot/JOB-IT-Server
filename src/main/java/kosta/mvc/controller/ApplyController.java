@@ -21,7 +21,7 @@ import kosta.mvc.domain.Resume;
 import kosta.mvc.service.ApplyService;
 
 @RestController
-@RequestMapping("/apply")
+@RequestMapping("/user/apply")
 @Api(tags = {"지원하기 Controller"})
 public class ApplyController {
 	

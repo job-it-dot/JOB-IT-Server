@@ -20,34 +20,12 @@ import kosta.mvc.domain.Recruit;
 import kosta.mvc.service.RecruitService;
 
 @RestController
-@RequestMapping("/recruit")
+@RequestMapping("/user/recruit")
 @Api(tags = {"채용정보 관련 컨트롤러 입니다."})
 public class RecruitController {
 	
 	@Autowired
 	private RecruitService recruitService;
-	
-	@RequestMapping("/selectAll")
-	@ApiOperation("채용정보 목록보기")
-	public List<Recruit> selectAllRecruit() {
-		List<Recruit> list = recruitService.selectAllRecruitInfoList();
-//		Recruit re = new Recruit();
-//		for(Recruit r : list) {
-//			r.getCompany().getCompanyName();
-//			Companys c = new Companys();
-//			c.setCompanyName(r.getCompany().getCompanyName());
-//			c.setCompanyPoints(r.getCompany().getCompanyPoints());
-//			re.setCompany(c);
-//		}
-		return list;
-	}
-	
-	@GetMapping("/readRecruit")
-	@ApiOperation("채용정보 상세보기")
-	public Recruit readRecruit(@ApiParam("각 채용공고id")Long recruitId) throws NotFoundException {
-		Recruit recruit = recruitService.selectRecruitById(recruitId);
-		return recruit;
-	}
 	
 	//관심기업 등록하기
 	@GetMapping("/register")
