@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,13 +15,14 @@ import kosta.mvc.service.PublicService;
 
 @Controller
 @Api(tags = {"PublicMethod. 로그인 불필요."})
+@RequestMapping("/users")
 public class PublicController {
 	
 	@Autowired
 	private PublicService publicService;
 
 	
-	@PostMapping("/search")
+	@RequestMapping("/search")
 	@ApiOperation("채용공고 검색 Method. Integer의 경우 null, String의경우 null혹은 empty이면 조건에서 제외됨")
 	public List<Recruit> searchRecruit(
 			@ApiParam("입력받은 String을 포함한 회사명")String companyName, 
