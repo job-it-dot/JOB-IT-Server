@@ -193,7 +193,7 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public int unpostRecruit(Long recruitId) throws IOException {
+	public int unpostRecruit(Long recruitId)  throws IOException, NotFoundException {
 
 		int result = 0;
 		Recruit dbRecruit = recruitRepository.findByRecruitId(recruitId);
@@ -297,12 +297,24 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public List<Resume> selectOpenResumeAll() throws IOException {
+	public List<Resume> selectOpenResumeAll(Long companyId) throws IOException {
+		Companys company = companysRepository.findByCompanyId(companyId);
+		Members member = membersRepository.findByMemberId(company.getMember().getMemberId());
+		
+		if(company == null || member == null || member.getMemberStatus() != 2)
+			throw new RuntimeException("권한이 부족합니다.");
+		
 		return resumeRepository.findByResumeStatus(1);
 	}
 
 	@Override
-	public Resume selectOpenResumeByResumeId(Long resumeId) throws IOException, NotFoundException {
+	public Resume selectOpenResumeByResumeId(Long companyId, Long resumeId) throws IOException, NotFoundException {
+		Companys company = companysRepository.findByCompanyId(companyId);
+		Members member = membersRepository.findByMemberId(company.getMember().getMemberId());
+		
+		if(company == null || member == null || member.getMemberStatus() != 2)
+			throw new RuntimeException("권한이 부족합니다.");
+		
 		return resumeRepository.findByResumeIdAndResumeStatus(resumeId, 1);
 	}
 

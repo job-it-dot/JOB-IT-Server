@@ -74,7 +74,7 @@ public interface CompanyService {
 	 * 기업 채용공고 내리기
 	 * recruitStatus가 1이면 공고 올라감 / 2면 공고 내려감
 	 */
-	int unpostRecruit(Long recruitId) throws IOException;
+	int unpostRecruit(Long recruitId) throws IOException, NotFoundException;
 	
 	/**
 	 * 예상 채용일정 목록 조회
@@ -126,10 +126,10 @@ public interface CompanyService {
 	 * 오픈 이력서 목록 조회
 	 * : resume 테이블의 resume_open이 1이면 열람가능, 2이면 열람불가능
 	 */
-	List<Resume> selectOpenResumeAll() throws IOException;
+	List<Resume> selectOpenResumeAll(Long companyId) throws IOException;
 	
 	/**
 	 * 오픈 이력서 상세보기(열람)
 	 */
-	Resume selectOpenResumeByResumeId(Long resumeId) throws IOException, NotFoundException;
+	Resume selectOpenResumeByResumeId(Long companyId, Long resumeId) throws IOException, NotFoundException;
 }
