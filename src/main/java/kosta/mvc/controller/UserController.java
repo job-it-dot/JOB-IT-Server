@@ -26,17 +26,6 @@ public class UserController {
 	private ResumeService resumeService;
 	
 	/**
-	 * 회원가입 result 1-성공, result 0-실패 
-	 */
-	@ApiOperation(value = "유저회원가입")
-	@RequestMapping("/insertUser")
-	public int insertUser(@ApiParam("회원가입할 유저 정보")Users user) throws IOException{
-		int result = resumeService.insertUser(user);
-		
-		return result;
-	}
-	
-	/**
 	 * 회원정보수정 result 1-성공, result 0-실패
 	 */
 	@ApiOperation(value = "유저회원 정보 수정")

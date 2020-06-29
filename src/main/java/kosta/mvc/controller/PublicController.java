@@ -15,9 +15,11 @@ import io.swagger.annotations.ApiParam;
 import javassist.NotFoundException;
 import kosta.mvc.domain.Companys;
 import kosta.mvc.domain.Recruit;
+import kosta.mvc.domain.Users;
 import kosta.mvc.service.CompanyService;
 import kosta.mvc.service.PublicService;
 import kosta.mvc.service.RecruitService;
+import kosta.mvc.service.ResumeService;
 
 @Controller
 @Api(tags = {"PublicMethod. 로그인 불필요."})
@@ -32,6 +34,20 @@ public class PublicController {
 
 	@Autowired
 	private RecruitService recruitService;
+
+	@Autowired
+	private ResumeService resumeService;
+	
+	/**
+	 * 회원가입 result 1-성공, result 0-실패 
+	 */
+	@ApiOperation(value = "유저회원가입")
+	@RequestMapping("/insertUser")
+	public int insertUser(@ApiParam("회원가입할 유저 정보")Users user) throws IOException{
+		int result = resumeService.insertUser(user);
+		
+		return result;
+	}
 	
 	@ApiOperation(value = "이메일 중복체크", notes = "return : 0-중복아님 / 1-중복")
 	@RequestMapping("/idDuplicate")
