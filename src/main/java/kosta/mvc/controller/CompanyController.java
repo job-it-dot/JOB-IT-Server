@@ -7,15 +7,18 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import kosta.mvc.domain.Apply;
 import kosta.mvc.domain.Companys;
+import kosta.mvc.domain.Members;
 import kosta.mvc.domain.Perchase;
 import kosta.mvc.domain.Recruit;
 import kosta.mvc.domain.RecruitPlan;
@@ -23,6 +26,7 @@ import kosta.mvc.domain.Resume;
 import kosta.mvc.service.CompanyService;
 
 @RestController
+@Api(tags = {"기업 컨트롤러"})
 @RequestMapping("/company")
 public class CompanyController {
 	
@@ -31,16 +35,23 @@ public class CompanyController {
 	
 	@ApiOperation(value = "기업 정보 조회", notes = "return : 기업회원 정보")
 	@RequestMapping("/info")
-	public Companys info(HttpSession session) throws IOException {
-		Long companyId = Long.parseLong((String)session.getAttribute("companyId"));
+	public Companys info() throws IOException, NotFoundException {
+		Members member = (Members)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Long companyId = companyService.getCompanyId(member.getMemberId());
 		return companyService.selectCompanyById(companyId);
 	}
 	
 	@ApiOperation(value = "비밀번호 확인", notes = "return : 0-비밀번호 불일치 / 1-일치")
 	@RequestMapping("/checkPwd")
-	public int checkPwd(HttpSession session, @ApiParam("입력받은 비밀번호")String password) throws IOException, NotFoundException{
-		Long companyId = Long.parseLong((String)session.getAttribute("companyId"));
-		return companyService.checkPassword(companyId, password);
+	public int checkPwd(@ApiParam("입력받은 비밀번호")String password) throws IOException, NotFoundException{
+		int result = 0;
+
+		Members member = (Members)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Long companyId = companyService.getCompanyId(member.getMemberId());
+		
+		if(member.getMemberPassword().equals(password)) result = 1;
+		
+		return result;
 	}
 	
 	@ApiOperation(value = "기업정보(회원정보) 수정", notes = "return : 0-수정실패 / 1-성공")

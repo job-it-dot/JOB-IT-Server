@@ -51,6 +51,11 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	@Autowired
 	private ResumeRepository resumeRepository;
+	
+	@Override
+	public Long getCompanyId(Long memberId) throws IOException, NotFoundException {
+		return companysRepository.findByMemberId(memberId);
+	}
 
 	@Override
 	public int duplicateEmail(String memberEmail) throws IOException {

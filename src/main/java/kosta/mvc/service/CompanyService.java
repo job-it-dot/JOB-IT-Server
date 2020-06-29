@@ -15,6 +15,11 @@ import kosta.mvc.domain.Resume;
 public interface CompanyService {
 	
 	/**
+	 * 로그인 시 저장된 Members 객체 정보로 companyId 찾아오기
+	 */
+	Long getCompanyId(Long memberId) throws IOException, NotFoundException;
+	
+	/**
 	 * 이메일 중복체크
 	 * Members의 memberStatus - 1:일반회원 / 2:기업회원 / 3:관리자 / 4:탈퇴회원 / 5:강제탈퇴회원
 	 * @return '0'이면 중복아님 / '1'이면 중복
