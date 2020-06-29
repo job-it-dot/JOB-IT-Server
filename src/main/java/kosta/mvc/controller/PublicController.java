@@ -42,7 +42,7 @@ public class PublicController {
 	 * 회원가입 result 1-성공, result 0-실패 
 	 */
 	@ApiOperation(value = "유저회원가입")
-	@RequestMapping("/insertUser")
+	@PostMapping("/insertUser")
 	public int insertUser(@ApiParam("회원가입할 유저 정보")Users user) throws IOException{
 		int result = resumeService.insertUser(user);
 		
@@ -50,13 +50,13 @@ public class PublicController {
 	}
 	
 	@ApiOperation(value = "이메일 중복체크", notes = "return : 0-중복아님 / 1-중복")
-	@RequestMapping("/idDuplicate")
+	@PostMapping("/idDuplicate")
 	public int idDuplicate(@ApiParam("가입할 이메일")String memberEmail) throws IOException {
 		return companyService.duplicateEmail(memberEmail);
 	}
 	
 	@ApiOperation(value = "기업 회원가입", notes = "return : 0-가입실패 / 1-가입성공")
-	@RequestMapping("/join")
+	@PostMapping("/join")
 	public int join(@ApiParam("기업 가입 정보")Companys company) throws IOException {
 		if(companyService.duplicateEmail(company.getMember().getMemberEmail()) == 1) {
 			throw new RuntimeException("이미 사용중인 이메일 입니다.");
@@ -64,7 +64,7 @@ public class PublicController {
 		return companyService.insertCompany(company);
 	}
 	
-	@RequestMapping("/search")
+	@PostMapping("/search")
 	@ApiOperation("채용공고 검색 Method. Integer의 경우 null, String의경우 null혹은 empty이면 조건에서 제외됨")
 	public List<Recruit> searchRecruit(
 			@ApiParam("입력받은 String을 포함한 회사명")String companyName, 
@@ -79,7 +79,7 @@ public class PublicController {
 		
 	}
 	
-	@RequestMapping("/selectAll")
+	@GetMapping("/selectAll")
 	@ApiOperation("채용정보 목록보기")
 	public List<Recruit> selectAllRecruit() {
 		List<Recruit> list = recruitService.selectAllRecruitInfoList();
@@ -94,7 +94,7 @@ public class PublicController {
 		return list;
 	}
 	
-	@GetMapping("/readRecruit")
+	@PostMapping("/readRecruit")
 	@ApiOperation("채용정보 상세보기")
 	public Recruit readRecruit(@ApiParam("각 채용공고id")Long recruitId) throws NotFoundException {
 		Recruit recruit = recruitService.selectRecruitById(recruitId);

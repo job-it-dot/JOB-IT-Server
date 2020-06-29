@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,7 +30,7 @@ public class UserController {
 	 * 회원정보수정 result 1-성공, result 0-실패
 	 */
 	@ApiOperation(value = "유저회원 정보 수정")
-	@RequestMapping("/updateUser")
+	@PostMapping("/updateUser")
 	public int updateUser(@ApiParam("수정될 유저정보")Users user) throws NotFoundException{
 		int result = resumeService.updateUser(user);
 		
@@ -40,7 +41,7 @@ public class UserController {
 	 * 회원비밀번호 변경 result 1-성공, result 0-실패
 	 */
 	@ApiOperation(value = "유저 비밀번호 변경")
-	@RequestMapping("/updatePwd")
+	@PostMapping("/updatePwd")
 	public int updatePwd(@ApiParam("비밀번호가 변경될 유저정보")Users user) throws IOException, NotFoundException{
 		int result = resumeService.updatePwd(user);
 		
@@ -51,7 +52,7 @@ public class UserController {
 	 * 회원 탈퇴 result 1-성공, result 0-실패
 	 */
 	@ApiOperation(value = "유저 회원탈퇴")
-	@RequestMapping("/deleteUser")
+	@PostMapping("/deleteUser")
 	public int deleteUser(Users user) throws IOException{
 		int result = resumeService.deleteUser(user);
 		

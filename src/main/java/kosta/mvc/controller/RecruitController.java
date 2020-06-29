@@ -28,7 +28,7 @@ public class RecruitController {
 	private RecruitService recruitService;
 	
 	//관심기업 등록하기
-	@GetMapping("/register")
+	@PostMapping("/register")
 	@ApiOperation("관심기업 등록하기")
 	public String registerInterestCompany(@ApiParam("기업ID")Long companyId, @ApiParam("유저ID")Long userId) {
 		String msg;
@@ -43,7 +43,7 @@ public class RecruitController {
 	}
 	
 	//관심 기업 해지하기
-	@GetMapping("/cancle")
+	@PostMapping("/cancle")
 	@ApiOperation("관심기업 해지하기")
 	public String cancleInterestCompany(@ApiParam("팔로우ID(관심기업)")Long followId) {
 		String msg;
@@ -57,7 +57,7 @@ public class RecruitController {
 	}
 	
 	//관심 기업 조회하기
-	@GetMapping("/showAllCompany")
+	@PostMapping("/showAllCompany")
 	public List<Companys> selectCompany(Long userId){
 		List<Companys> list = recruitService.selectAllInterestCompany(userId);
 		
