@@ -147,13 +147,13 @@ public class CompanyController {
 	
 	@ApiOperation(value = "패키지 환불신청", notes = "return : 0-신청실패 / 1-성공")
 	@RequestMapping("/refund/{perchaseId}")
-	public int refund(@ApiParam("환불신청할 구매내역의 아이디")@PathVariable Long perchaseId) throws IOException, NotFoundException {
+	public int refund(@ApiParam("환불신청할 구매내역의 아이디")@PathVariable Long perchaseId) throws IOException, NotFoundException, RuntimeException {
 		return companyService.updatePerchase(perchaseId);
 	}
 	
 	@ApiOperation(value = "오픈 이력서 목록 조회", notes = "return : 오픈 이력서 list")
 	@RequestMapping("/openResume")
-	public List<Resume> openResume(@ApiParam("로그인한 기업회원의 아이디")HttpSession session) throws IOException {
+	public List<Resume> openResume(@ApiParam("로그인한 기업회원의 아이디")HttpSession session) throws IOException, RuntimeException {
 		Long companyId = Long.parseLong((String)session.getAttribute("companyId"));
 		return companyService.selectOpenResumeAll(companyId);
 	}
