@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import kosta.mvc.domain.Members;
 import kosta.mvc.domain.Users;
 import kosta.mvc.service.ResumeService;
+import kosta.mvc.service.UserService;
 
 @RestController
 @RequestMapping("/user")
@@ -25,6 +28,17 @@ public class UserController {
 
 	@Autowired
 	private ResumeService resumeService;
+	
+	@Autowired
+	private UserService userService;
+	
+	@ApiOperation(value = "회원정보 조회", notes = "return : 일반회원(Users)의 정보")
+	@PostMapping("/info")
+	public Users userInfo() throws IOException, NotFoundException {
+		Members member = (Members)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Long userId = userService.getUserId(member.getMemberId());
+		return userService.selectUserById(userId);
+	}
 	
 	/**
 	 * 회원정보수정 result 1-성공, result 0-실패
