@@ -7,8 +7,6 @@ import kosta.mvc.domain.Companys;
 
 public interface CompanysRepository extends JpaRepository<Companys, Long> {
 
-	public Companys findByCompanyId(Long companyId);
-
 	@Query("SELECT c.companyId FROM Companys c WHERE c.member.memberId=?1")
 	public Long findByMemberId(Long memberId);
 	

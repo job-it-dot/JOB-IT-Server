@@ -6,6 +6,4 @@ import kosta.mvc.domain.Recruit;
 
 public interface RecruitRepository extends JpaRepository<Recruit, Long>, RecruitRepositoryCustom {
 
-	public Recruit findByRecruitId(Long recruitId);
-
 }
