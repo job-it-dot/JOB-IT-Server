@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,9 @@ public class CompanyController {
 	
 	@Autowired
 	private CompanyService companyService;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@ApiOperation(value = "기업 정보 조회", notes = "return : 기업회원 정보")
 	@RequestMapping("/info")
@@ -47,9 +51,8 @@ public class CompanyController {
 		int result = 0;
 
 		Members member = (Members)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Long companyId = companyService.getCompanyId(member.getMemberId());
 		
-		if(member.getMemberPassword().equals(password)) result = 1;
+		if(passwordEncoder.matches(password, member.getMemberPassword())) result = 1;
 		
 		return result;
 	}
@@ -57,13 +60,27 @@ public class CompanyController {
 	@ApiOperation(value = "기업정보(회원정보) 수정", notes = "return : 0-수정실패 / 1-성공")
 	@RequestMapping("/updateInfo")
 	public int updateInfo(@ApiParam("수정할 기업 정보")Companys company) throws IOException, NotFoundException {
-		return companyService.updateCompany(company);
+		int result = companyService.updateCompany(company);
+		
+		if(result == 1 && company.getMember().getMemberPassword() != null) {	//수정이 제대로 이루어지고, 비밀번호를 수정한 경우
+			//회원정보 수정위해 Spring Security 세션 회원정보를 반환받는다
+			Members member = (Members)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			
+			//변경할 비밀번호를 암호화한다 
+			String encodePassword=passwordEncoder.encode(company.getMember().getMemberPassword());
+			
+			// 수정한 회원정보로 Spring Security 세션 회원정보를 업데이트한다
+			member.setMemberPassword(encodePassword);
+		}
+		
+		return result;
 	}
 	
 	@ApiOperation(value = "로그인한 기업회원이 올린 채용공고 목록 조회", notes = "return : 공고 list")
 	@RequestMapping("/recruitList")
-	public List<Recruit> recruitList(HttpSession session) throws IOException {
-		Long companyId = Long.parseLong((String)session.getAttribute("companyId"));
+	public List<Recruit> recruitList() throws IOException, NotFoundException {
+		Members member = (Members)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Long companyId = companyService.getCompanyId(member.getMemberId());
 		return companyService.selectRecruitByCompanyId(companyId);
 	}
 	
@@ -93,8 +110,9 @@ public class CompanyController {
 	
 	@ApiOperation(value = "예상 채용일정 목록 조회", notes = "return : 예상 채용일정 list")
 	@RequestMapping("/recruitPlanList")
-	public List<RecruitPlan> recruitPlanList(@ApiParam("로그인한 기업의 아이디")HttpSession session) throws IOException {
-		Long companyId = Long.parseLong((String)session.getAttribute("companyId"));
+	public List<RecruitPlan> recruitPlanList() throws IOException, NotFoundException {
+		Members member = (Members)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Long companyId = companyService.getCompanyId(member.getMemberId());
 		return companyService.selectRecruitPlanByCompanyId(companyId);
 	}
 	
@@ -118,8 +136,9 @@ public class CompanyController {
 	
 	@ApiOperation(value = "예상 채용일정 삭제", notes = "return : 0-삭제실패 / 1-성공")
 	@RequestMapping("/deleteRecruitPlan/{recruitPlanId}")
-	public int deleteRecruitPlan(@ApiParam("로그인한 기업회원의 아이디")HttpSession session, @ApiParam("삭제할 예상 채용일정 아이디")@PathVariable Long recruitPlanId) throws IOException, NotFoundException {
-		Long companyId = Long.parseLong((String)session.getAttribute("companyId"));
+	public int deleteRecruitPlan( @ApiParam("삭제할 예상 채용일정 아이디")@PathVariable Long recruitPlanId) throws IOException, NotFoundException {
+		Members member = (Members)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Long companyId = companyService.getCompanyId(member.getMemberId());
 		return companyService.deleteRecruitPlan(companyId, recruitPlanId);
 	}
 	
@@ -149,15 +168,17 @@ public class CompanyController {
 	
 	@ApiOperation(value = "오픈 이력서 목록 조회", notes = "return : 오픈 이력서 list")
 	@RequestMapping("/openResume")
-	public List<Resume> openResume(@ApiParam("로그인한 기업회원의 아이디")HttpSession session) throws IOException, RuntimeException {
-		Long companyId = Long.parseLong((String)session.getAttribute("companyId"));
+	public List<Resume> openResume() throws IOException, NotFoundException, RuntimeException {
+		Members member = (Members)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Long companyId = companyService.getCompanyId(member.getMemberId());
 		return companyService.selectOpenResumeAll(companyId);
 	}
 	
 	@ApiOperation(value = "오픈 이력서 상세보기", notes = "return : 오픈 이력서 내용")
 	@RequestMapping("/openResume/{resumeId}")
-	public Resume openResumeInfo(@ApiParam("로그인한 기업회원의 아이디")HttpSession session, @ApiParam("링크로 넘어오는 예상 채용일정 아이디")@PathVariable Long resumeId) throws IOException, NotFoundException {
-		Long companyId = Long.parseLong((String)session.getAttribute("companyId"));
+	public Resume openResumeInfo(@ApiParam("링크로 넘어오는 예상 채용일정 아이디")@PathVariable Long resumeId) throws IOException, NotFoundException {
+		Members member = (Members)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Long companyId = companyService.getCompanyId(member.getMemberId());
 		return companyService.selectOpenResumeByResumeId(companyId, resumeId);
 	}
 	
@@ -170,6 +191,12 @@ public class CompanyController {
 	@ExceptionHandler(RuntimeException.class)
 	@ApiOperation("에러메시지 출력 메소드")
 	public String runtimeError(@ApiParam("오류파라미터") Exception e) {
+		return e.getMessage();
+	}
+	
+	@ExceptionHandler(NotFoundException.class)
+	@ApiOperation("에러메시지 출력 메소드")
+	public String notFoundError(@ApiParam("오류파라미터") Exception e) {
 		return e.getMessage();
 	}
 }

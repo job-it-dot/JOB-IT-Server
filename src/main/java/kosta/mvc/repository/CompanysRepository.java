@@ -11,8 +11,5 @@ public interface CompanysRepository extends JpaRepository<Companys, Long> {
 
 	@Query("SELECT c.companyId FROM Companys c WHERE c.member.memberId=?1")
 	public Long findByMemberId(Long memberId);
-
-//	@Query("SELECT * FROM members m WHERE m.membe_id=?1")
-//	public Companys findByMemberId(Long memberId);
 	
 }
