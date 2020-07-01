@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import kosta.mvc.DTO.CompanyTypeDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CompanyType {
+	
+	CompanyType(CompanyTypeDTO companyTypeDTO){}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

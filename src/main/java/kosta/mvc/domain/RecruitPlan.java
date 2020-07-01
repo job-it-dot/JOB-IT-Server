@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import kosta.mvc.DTO.RecruitPlanDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RecruitPlan {
+	
+	RecruitPlan(RecruitPlanDTO recruitPlanDTO){}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

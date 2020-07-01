@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import kosta.mvc.DTO.MembersDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Members {
+	
+	Members(MembersDTO membersDTO){}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

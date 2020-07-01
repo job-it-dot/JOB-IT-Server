@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import kosta.mvc.DTO.UsersDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Users{
+	
+	Users(UsersDTO usersDTO){}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

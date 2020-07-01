@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import kosta.mvc.DTO.RecruitDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Recruit {
+	
+	Recruit(RecruitDTO recruitDTO){}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
