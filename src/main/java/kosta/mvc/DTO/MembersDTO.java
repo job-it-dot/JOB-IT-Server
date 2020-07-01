@@ -1,7 +1,5 @@
 package kosta.mvc.DTO;
 
-import java.sql.Timestamp;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,5 +16,4 @@ public class MembersDTO {
 	private String memberEmail;
 	private String memberPassword;
 	private int memberStatus;
-	private Timestamp memberJoinDate;
 }

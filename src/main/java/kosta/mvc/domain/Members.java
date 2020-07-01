@@ -4,12 +4,15 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import kosta.mvc.DTO.MembersDTO;
 import lombok.AllArgsConstructor;
@@ -30,7 +33,6 @@ public class Members {
 		this.memberEmail = membersDTO.getMemberEmail();
 		this.memberPassword = membersDTO.getMemberPassword();
 		this.memberStatus = membersDTO.getMemberStatus();
-		this.memberJoinDate = membersDTO.getMemberJoinDate();
 	}
 	
 	@Id
@@ -40,6 +42,9 @@ public class Members {
 	private String memberEmail;
 	private String memberPassword;
 	private int memberStatus;
+	
+	@Column(nullable = false, updatable = false)
+	@CreationTimestamp
 	private Timestamp memberJoinDate;
 	
 	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
