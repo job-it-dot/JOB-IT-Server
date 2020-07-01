@@ -18,7 +18,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Product {
 	
-	Product(ProductDTO productDTO){
+	public Product(ProductDTO productDTO){
 		this.productId = productDTO.getProductId();
 		this.productName = productDTO.getProductName();
 		this.productPrice = productDTO.getProductPrice();

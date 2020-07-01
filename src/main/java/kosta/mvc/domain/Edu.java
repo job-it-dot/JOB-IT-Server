@@ -20,7 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Edu {
 	
-	Edu(EduDTO eduDTO){
+	public Edu(EduDTO eduDTO){
 		this.eduId = eduDTO.getEduId();
 		this.eduJoinAt = eduDTO.getEduJoinAt();
 		this.eduGraduateAt = eduDTO.getEduGraduateAt();

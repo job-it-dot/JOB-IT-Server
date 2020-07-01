@@ -20,7 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class License {
 	
-	License(LicenseDTO licenseDTO){
+	public License(LicenseDTO licenseDTO){
 		this.licenseId = licenseDTO.getLicenseId();
 		this.licenseAt = licenseDTO.getLicenseAt();
 		this.licenseName = licenseDTO.getLicenseName();

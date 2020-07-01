@@ -22,7 +22,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Perchase {
 	
-	Perchase(PerchaseDTO perchaseDTO){
+	public Perchase(PerchaseDTO perchaseDTO){
 		this.perchaseId = perchaseDTO.getPerchaseId();
 		this.perchasePrice = perchaseDTO.getPerchasePrice();
 		this.perchaseStatus = perchaseDTO.getPerchaseStatus();

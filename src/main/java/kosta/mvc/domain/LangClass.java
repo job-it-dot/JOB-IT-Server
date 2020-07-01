@@ -18,7 +18,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class LangClass {
 	
-	LangClass(LangClassDTO langClassDTO){
+	public LangClass(LangClassDTO langClassDTO){
 		this.langClassId = langClassDTO.getLangClassId();
 		this.langClassName = langClassDTO.getLangClassName();
 	}

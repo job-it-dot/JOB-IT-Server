@@ -20,7 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Apply {
 	
-	Apply(ApplyDTO applyDTO){
+	public Apply(ApplyDTO applyDTO){
 		this.applyId = applyDTO.getApplyId();
 		this.applyStatus = applyDTO.getApplyStatus();
 		this.recruit = new Recruit(applyDTO.getRecruit());

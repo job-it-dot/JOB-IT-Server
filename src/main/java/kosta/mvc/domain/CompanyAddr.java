@@ -20,7 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CompanyAddr {
 	
-	CompanyAddr(CompanyAddrDTO companyAddrDTO){
+	public CompanyAddr(CompanyAddrDTO companyAddrDTO){
 		this.companyAddrId = companyAddrDTO.getCompanyAddrId();
 		this.companyAddrName = companyAddrDTO.getCompanyAddrName();
 		this.companyAddrDetail = companyAddrDTO.getCompanyAddrDetail();

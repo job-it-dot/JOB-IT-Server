@@ -25,7 +25,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Lang {
 	
-	Lang(LangDTO langDTO){
+	public Lang(LangDTO langDTO){
 		this.langId = langDTO.getLangId();
 		this.langClass = new LangClass(langDTO.getLangClass());
 		this.langLevel = new LangLevel(langDTO.getLangLevel());

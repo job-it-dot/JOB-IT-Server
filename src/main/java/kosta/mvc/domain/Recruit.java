@@ -27,7 +27,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Recruit {
 	
-	Recruit(RecruitDTO recruitDTO){
+	public Recruit(RecruitDTO recruitDTO){
 		this.recruitId = recruitDTO.getRecruitId();
 		this.recruitCareer = recruitDTO.getRecruitCareer();
 		this.recruitDetail = recruitDTO.getRecruitDetail();

@@ -25,7 +25,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Users{
 	
-	Users(UsersDTO usersDTO){
+	public Users(UsersDTO usersDTO){
 		this.userId = usersDTO.getUserId();
 		this.userName = usersDTO.getUserName();
 		this.userPhone = usersDTO.getUserPhone();

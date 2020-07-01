@@ -26,7 +26,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Companys{
 	
-	Companys(CompanysDTO companysDTO){
+	public Companys(CompanysDTO companysDTO){
 		this.companyId = companysDTO.getCompanyId();
 		this.companyName = companysDTO.getCompanyName();
 		this.companyDetail = companysDTO.getCompanyDetail();

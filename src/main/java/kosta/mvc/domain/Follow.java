@@ -20,7 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Follow {
 	
-	Follow(FollowDTO followDTO){
+	public Follow(FollowDTO followDTO){
 		this.followId = followDTO.getFollowId();
 		this.company = new Companys(followDTO.getCompany());
 		this.user = new Users(followDTO.getUser());

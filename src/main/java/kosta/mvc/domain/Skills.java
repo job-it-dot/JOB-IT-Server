@@ -18,7 +18,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Skills {
 	
-	Skills(SkillsDTO skillsDTO){
+	public Skills(SkillsDTO skillsDTO){
 		this.skillId = skillsDTO.getSkillId();
 		this.skillName = skillsDTO.getSkillName();
 	}

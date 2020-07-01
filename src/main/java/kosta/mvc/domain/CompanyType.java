@@ -18,7 +18,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CompanyType {
 	
-	CompanyType(CompanyTypeDTO companyTypeDTO){
+	public CompanyType(CompanyTypeDTO companyTypeDTO){
 		this.companyTypeId = companyTypeDTO.getCompanyTypeId();
 		this.companyTypeName = companyTypeDTO.getCompanyTypeName();
 	}

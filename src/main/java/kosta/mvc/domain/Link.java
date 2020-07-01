@@ -20,7 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Link {
 	
-	Link(LinkDTO linkDTO){
+	public Link(LinkDTO linkDTO){
 		this.linkId = linkDTO.getLinkId();
 		this.linkContent = linkDTO.getLinkContent();
 		this.resume = new Resume(linkDTO.getResume());

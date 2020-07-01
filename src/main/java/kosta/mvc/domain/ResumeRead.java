@@ -20,7 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ResumeRead {
 	
-	ResumeRead(ResumeReadDTO resumeReadDTO){
+	public ResumeRead(ResumeReadDTO resumeReadDTO){
 		this.resumeReadId = resumeReadDTO.getResumeReadId();
 		this.isNew = resumeReadDTO.isNew();
 		this.resume = new Resume(resumeReadDTO.getResume());

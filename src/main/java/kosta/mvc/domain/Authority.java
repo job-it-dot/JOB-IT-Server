@@ -20,7 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Authority {
 	
-	Authority(AuthorityDTO authorityDTO){
+	public Authority(AuthorityDTO authorityDTO){
 		this.authorityId = authorityDTO.getAuthorityId();
 		this.authorityName = authorityDTO.getAuthorityName();
 		this.member = new Members(authorityDTO.getMember());

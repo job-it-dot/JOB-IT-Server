@@ -20,7 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Project {
 	
-	Project(ProjectDTO projectDTO){
+	public Project(ProjectDTO projectDTO){
 		this.projectId = projectDTO.getProjectId();
 		this.projectName = projectDTO.getProjectName();
 		this.projectStartAt = projectDTO.getProjectStartAt();

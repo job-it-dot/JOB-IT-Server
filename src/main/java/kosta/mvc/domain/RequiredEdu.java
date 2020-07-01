@@ -18,7 +18,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RequiredEdu {
 	
-	RequiredEdu(RequiredEduDTO requiredEduDTO){
+	public RequiredEdu(RequiredEduDTO requiredEduDTO){
 		this.requiredEduId = requiredEduDTO.getRequiredEduId();
 		this.reqEduGrade = requiredEduDTO.getReqEduGrade();
 		this.reqEduName = requiredEduDTO.getReqEduName();

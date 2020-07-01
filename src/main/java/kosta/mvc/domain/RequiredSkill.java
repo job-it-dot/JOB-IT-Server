@@ -20,7 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RequiredSkill {
 	
-	RequiredSkill(RequiredSkillDTO requiredSkillDTO){
+	public RequiredSkill(RequiredSkillDTO requiredSkillDTO){
 		this.reqSkillsId = requiredSkillDTO.getReqSkillsId();
 		this.skill = new Skills(requiredSkillDTO.getSkill());
 		this.recruit = new Recruit(requiredSkillDTO.getRecruit());

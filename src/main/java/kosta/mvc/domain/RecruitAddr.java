@@ -20,7 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RecruitAddr {
 	
-	RecruitAddr(RecruitAddrDTO recruitAddrDTO){
+	public RecruitAddr(RecruitAddrDTO recruitAddrDTO){
 		this.recruitAddrId = recruitAddrDTO.getRecruitAddrId();
 		this.companyAddr = new CompanyAddr(recruitAddrDTO.getCompanyAddr());
 		this.recruit = new Recruit(recruitAddrDTO.getRecruit());

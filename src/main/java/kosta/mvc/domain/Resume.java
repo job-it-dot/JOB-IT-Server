@@ -25,7 +25,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Resume {
 	
-	Resume(ResumeDTO resumeDTO){
+	public Resume(ResumeDTO resumeDTO){
 		this.resumeId = resumeDTO.getResumeId();
 		this.resumeName = resumeDTO.getResumeName();
 		this.resumePhone = resumeDTO.getResumePhone();

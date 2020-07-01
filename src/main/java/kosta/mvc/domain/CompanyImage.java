@@ -20,7 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CompanyImage {
 	
-	CompanyImage(CompanyImageDTO companyImageDTO){
+	public CompanyImage(CompanyImageDTO companyImageDTO){
 		this.companyImgId = companyImageDTO.getCompanyImgId();
 		this.companyImgName = companyImageDTO.getCompanyImgName();
 		this.company = new Companys(companyImageDTO.getCompany());

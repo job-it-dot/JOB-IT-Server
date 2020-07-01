@@ -20,7 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Scrap {
 	
-	Scrap(ScrapDTO scrapDTO){
+	public Scrap(ScrapDTO scrapDTO){
 		this.scrapId = scrapDTO.getScrapId();
 		this.recruit = new Recruit(scrapDTO.getRecruit());
 		this.user = new Users(scrapDTO.getUser());

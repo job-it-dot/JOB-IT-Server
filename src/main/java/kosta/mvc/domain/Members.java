@@ -24,7 +24,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Members {
 	
-	Members(MembersDTO membersDTO){
+	public Members(MembersDTO membersDTO){
 		this.memberId = membersDTO.getMemberId();
 		this.kakaoId = membersDTO.getKakaoId();
 		this.memberEmail = membersDTO.getMemberEmail();

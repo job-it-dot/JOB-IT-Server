@@ -20,7 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class LangLicense {
 	
-	LangLicense(LangLicenseDTO langLicenseDTO){
+	public LangLicense(LangLicenseDTO langLicenseDTO){
 		this.langLicenseId = langLicenseDTO.getLangLicenseId();
 		this.langLicenseName = langLicenseDTO.getLangLicenseName();
 		this.langLicenseAt = langLicenseDTO.getLangLicenseAt();
