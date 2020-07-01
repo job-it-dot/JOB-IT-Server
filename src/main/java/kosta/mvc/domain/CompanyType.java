@@ -18,7 +18,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CompanyType {
 	
-	CompanyType(CompanyTypeDTO companyTypeDTO){}
+	CompanyType(CompanyTypeDTO companyTypeDTO){
+		this.companyTypeId = companyTypeDTO.getCompanyTypeId();
+		this.companyTypeName = companyTypeDTO.getCompanyTypeName();
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

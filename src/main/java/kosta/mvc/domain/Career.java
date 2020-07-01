@@ -25,7 +25,15 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Career {
 	
-	Career(CareerDTO careerDTO){}
+	Career(CareerDTO careerDTO){
+		this.careerId = careerDTO.getCareerId();
+		this.careerCompanyName = careerDTO.getCareerCompanyName();
+		this.careerPosition = careerDTO.getCareerPosition();
+		this.careerStartAt = careerDTO.getCareerStartAt();
+		this.careerEndAt = careerDTO.getCareerEndAt();
+		this.careerStatus = careerDTO.getCareerStatus();
+		this.resume = new Resume(careerDTO.getResume());
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

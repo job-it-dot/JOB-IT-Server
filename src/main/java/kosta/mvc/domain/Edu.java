@@ -20,7 +20,15 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Edu {
 	
-	Edu(EduDTO eduDTO){}
+	Edu(EduDTO eduDTO){
+		this.eduId = eduDTO.getEduId();
+		this.eduJoinAt = eduDTO.getEduJoinAt();
+		this.eduGraduateAt = eduDTO.getEduGraduateAt();
+		this.eduStatus = eduDTO.getEduStatus();
+		this.eduName = eduDTO.getEduName();
+		this.eduDetail = eduDTO.getEduDetail();
+		this.resume = new Resume(eduDTO.getResume());
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

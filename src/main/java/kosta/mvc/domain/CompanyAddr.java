@@ -21,7 +21,12 @@ import lombok.Setter;
 public class CompanyAddr {
 	
 	CompanyAddr(CompanyAddrDTO companyAddrDTO){
-		
+		this.companyAddrId = companyAddrDTO.getCompanyAddrId();
+		this.companyAddrName = companyAddrDTO.getCompanyAddrName();
+		this.companyAddrDetail = companyAddrDTO.getCompanyAddrDetail();
+		this.companyAddrCoordX = companyAddrDTO.getCompanyAddrCoordX();
+		this.companyAddrCoordY = companyAddrDTO.getCompanyAddrCoordY();
+		this.company = new Companys(companyAddrDTO.getCompany());
 	}
 	
 	@Id

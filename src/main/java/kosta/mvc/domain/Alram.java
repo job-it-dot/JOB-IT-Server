@@ -20,6 +20,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Alram {
 	
+	Alram(AlramDTO alramDTO){
+		this.alramId = alramDTO.getAlramId();
+		this.isNew = alramDTO.isNew();
+		this.recruit = new Recruit(alramDTO.getRecruit());
+		this.user = new Users(alramDTO.getUser());
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long alramId;

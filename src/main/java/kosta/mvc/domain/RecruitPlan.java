@@ -20,7 +20,12 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RecruitPlan {
 	
-	RecruitPlan(RecruitPlanDTO recruitPlanDTO){}
+	RecruitPlan(RecruitPlanDTO recruitPlanDTO){
+		this.recruitPlanId = recruitPlanDTO.getRecruitPlanId();
+		this.recruitPlanDetail = recruitPlanDTO.getRecruitPlanDetail();
+		this.company = new Companys(recruitPlanDTO.getCompany());
+		this.position = new Positions(recruitPlanDTO.getPosition());
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

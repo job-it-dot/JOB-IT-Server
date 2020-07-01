@@ -20,7 +20,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ResumeRead {
 	
-	ResumeRead(ResumeReadDTO resumeReadDTO){}
+	ResumeRead(ResumeReadDTO resumeReadDTO){
+		this.resumeReadId = resumeReadDTO.getResumeReadId();
+		this.isNew = resumeReadDTO.isNew();
+		this.resume = new Resume(resumeReadDTO.getResume());
+		this.company = new Companys(resumeReadDTO.getCompany());
+		this.user = new Users(resumeReadDTO.getUser());
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

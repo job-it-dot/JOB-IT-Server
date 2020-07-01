@@ -25,7 +25,12 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Users{
 	
-	Users(UsersDTO usersDTO){}
+	Users(UsersDTO usersDTO){
+		this.userId = usersDTO.getUserId();
+		this.userName = usersDTO.getUserName();
+		this.userPhone = usersDTO.getUserPhone();
+		this.member = new Members(usersDTO.getMember());
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

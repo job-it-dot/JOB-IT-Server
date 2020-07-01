@@ -27,11 +27,27 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Recruit {
 	
-	Recruit(RecruitDTO recruitDTO){}
+	Recruit(RecruitDTO recruitDTO){
+		this.recruitId = recruitDTO.getRecruitId();
+		this.recruitCareer = recruitDTO.getRecruitCareer();
+		this.recruitDetail = recruitDTO.getRecruitDetail();
+		this.recruitEndDate = recruitDTO.getRecruitEndDate();
+		this.recruitSalary = recruitDTO.getRecruitSalary();
+		this.recruitStatus = recruitDTO.getRecruitStatus();
+		this.position = new Positions(recruitDTO.getPosition());
+		this.requiredEdu = new RequiredEdu(recruitDTO.getRequiredEdu());
+		this.company = new Companys(recruitDTO.getCompany());
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long recruitId;
+	
+	private int recruitCareer;
+	private String recruitDetail;
+	private Date recruitEndDate;
+	private int recruitSalary;
+	private int recruitStatus;
 	
 	@ManyToOne
 	@JoinColumn(name="position_id")
@@ -44,12 +60,6 @@ public class Recruit {
 	@ManyToOne
 	@JoinColumn(name="company_id")
 	private Companys company;
-	
-	private int recruitCareer;
-	private String recruitDetail;
-	private Date recruitEndDate;
-	private int recruitSalary;
-	private int recruitStatus;
 	
 	@OneToMany(mappedBy = "recruit", fetch = FetchType.LAZY)
 	private List<Apply> applys = new ArrayList<Apply>();

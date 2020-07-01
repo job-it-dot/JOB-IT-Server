@@ -20,7 +20,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Follow {
 	
-	Follow(FollowDTO followDTO){}
+	Follow(FollowDTO followDTO){
+		this.followId = followDTO.getFollowId();
+		this.company = new Companys(followDTO.getCompany());
+		this.user = new Users(followDTO.getUser());
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

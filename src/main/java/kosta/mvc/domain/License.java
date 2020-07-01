@@ -20,7 +20,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class License {
 	
-	License(LicenseDTO licenseDTO){}
+	License(LicenseDTO licenseDTO){
+		this.licenseId = licenseDTO.getLicenseId();
+		this.licenseAt = licenseDTO.getLicenseAt();
+		this.licenseName = licenseDTO.getLicenseName();
+		this.licenseContent = licenseDTO.getLicenseContent();
+		this.resume = new Resume(licenseDTO.getResume());
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -20,7 +20,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserSkill {
 	
-	UserSkill(UserSkillDTO userSkillDTO){}
+	UserSkill(UserSkillDTO userSkillDTO){
+		this.userSkillId = userSkillDTO.getUserSkillId();
+		this.skill = new Skills(userSkillDTO.getSkill());
+		this.resume = new Resume(userSkillDTO.getResume());
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -18,7 +18,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Positions {
 	
-	Positions(PositionsDTO positionsDTO){}
+	Positions(PositionsDTO positionsDTO){
+		this.positionId = positionsDTO.getPositionId();
+		this.positionName = positionsDTO.getPositionName();
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

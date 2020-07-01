@@ -26,11 +26,26 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Companys{
 	
-	Companys(CompanysDTO companysDTO){}
+	Companys(CompanysDTO companysDTO){
+		this.companyId = companysDTO.getCompanyId();
+		this.companyName = companysDTO.getCompanyName();
+		this.companyDetail = companysDTO.getCompanyDetail();
+		this.companyEmployeeCount = companysDTO.getCompanyEmployeeCount();
+		this.companyPremiumAt = companysDTO.getCompanyPremiumAt();
+		this.companyPoints = companysDTO.getCompanyPoints();
+		this.member = new Members(companysDTO.getMember());
+		this.companyType = new CompanyType(companysDTO.getCompanyType());
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long companyId;
+	
+	private String companyName;
+	private String companyDetail;
+	private int companyEmployeeCount;
+	private Date companyPremiumAt;
+	private int companyPoints;
 	
 	@ManyToOne
 	@JoinColumn(name="member_id")
@@ -39,11 +54,6 @@ public class Companys{
 	@ManyToOne
 	@JoinColumn(name="company_type_id")
 	private CompanyType companyType;
-	private String companyName;
-	private String companyDetail;
-	private int companyEmployeeCount;
-	private Date companyPremiumAt;
-	private int companyPoints;
 	
 	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
 	private List<CompanyImage> companyImages  = new ArrayList<CompanyImage>();

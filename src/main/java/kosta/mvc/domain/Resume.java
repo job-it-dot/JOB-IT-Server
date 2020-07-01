@@ -25,7 +25,14 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Resume {
 	
-	Resume(ResumeDTO resumeDTO){}
+	Resume(ResumeDTO resumeDTO){
+		this.resumeId = resumeDTO.getResumeId();
+		this.resumeName = resumeDTO.getResumeName();
+		this.resumePhone = resumeDTO.getResumePhone();
+		this.resumeContent = resumeDTO.getResumeContent();
+		this.resumeStatus = resumeDTO.getResumeStatus();
+		this.user = new Users(resumeDTO.getUser());
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

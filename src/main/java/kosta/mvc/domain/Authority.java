@@ -20,7 +20,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Authority {
 	
-	Authority(AuthorityDTO authorityDTO){}
+	Authority(AuthorityDTO authorityDTO){
+		this.authorityId = authorityDTO.getAuthorityId();
+		this.authorityName = authorityDTO.getAuthorityName();
+		this.member = new Members(authorityDTO.getMember());
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

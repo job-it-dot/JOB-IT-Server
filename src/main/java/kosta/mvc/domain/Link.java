@@ -20,7 +20,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Link {
 	
-	Link(LinkDTO linkDTO){}
+	Link(LinkDTO linkDTO){
+		this.linkId = linkDTO.getLinkId();
+		this.linkContent = linkDTO.getLinkContent();
+		this.resume = new Resume(linkDTO.getResume());
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

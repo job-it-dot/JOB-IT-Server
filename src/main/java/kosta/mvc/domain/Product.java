@@ -18,7 +18,12 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Product {
 	
-	Product(ProductDTO productDTO){}
+	Product(ProductDTO productDTO){
+		this.productId = productDTO.getProductId();
+		this.productName = productDTO.getProductName();
+		this.productPrice = productDTO.getProductPrice();
+		this.productStatus = productDTO.getProductStatus();
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -20,6 +20,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Apply {
 	
+	Apply(ApplyDTO applyDTO){
+		this.applyId = applyDTO.getApplyId();
+		this.applyStatus = applyDTO.getApplyStatus();
+		this.recruit = new Recruit(applyDTO.getRecruit());
+		this.resume = new Resume(applyDTO.getResume());
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long applyId;

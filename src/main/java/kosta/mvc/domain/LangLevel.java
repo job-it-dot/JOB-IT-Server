@@ -18,7 +18,10 @@ import lombok.Setter;
 @AllArgsConstructor
 public class LangLevel {
 	
-	LangLevel(LangLevelDTO langLevelDTO){}
+	LangLevel(LangLevelDTO langLevelDTO){
+		this.langLevelId = langLevelDTO.getLangLevelId();
+		this.langLevelName = langLevelDTO.getLangLevelName();
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

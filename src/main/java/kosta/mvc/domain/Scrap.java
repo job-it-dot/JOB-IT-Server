@@ -20,7 +20,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Scrap {
 	
-	Scrap(ScrapDTO scrapDTO){}
+	Scrap(ScrapDTO scrapDTO){
+		this.scrapId = scrapDTO.getScrapId();
+		this.recruit = new Recruit(scrapDTO.getRecruit());
+		this.user = new Users(scrapDTO.getUser());
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

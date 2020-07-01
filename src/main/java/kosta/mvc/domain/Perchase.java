@@ -22,7 +22,15 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Perchase {
 	
-	Perchase(PerchaseDTO perchaseDTO){}
+	Perchase(PerchaseDTO perchaseDTO){
+		this.perchaseId = perchaseDTO.getPerchaseId();
+		this.perchasePrice = perchaseDTO.getPerchasePrice();
+		this.perchaseStatus = perchaseDTO.getPerchaseStatus();
+		this.perchaseTime = perchaseDTO.getPerchaseTime();
+		this.product = new Product(perchaseDTO.getProduct());
+		this.company = new Companys(perchaseDTO.getCompany());
+		
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
