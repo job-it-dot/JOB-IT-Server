@@ -15,6 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import kosta.mvc.DTO.CareerDTO;
+import kosta.mvc.DTO.EduDTO;
+import kosta.mvc.DTO.LangClassDTO;
+import kosta.mvc.DTO.LangDTO;
+import kosta.mvc.DTO.LangLevelDTO;
+import kosta.mvc.DTO.LangLicenseDTO;
+import kosta.mvc.DTO.LicenseDTO;
+import kosta.mvc.DTO.LinkDTO;
+import kosta.mvc.DTO.ProjectDTO;
+import kosta.mvc.DTO.ResumeDTO;
+import kosta.mvc.DTO.UserSkillDTO;
+import kosta.mvc.DTO.UsersDTO;
 import kosta.mvc.domain.Career;
 //import kosta.mvc.domain.Companys;
 import kosta.mvc.domain.Edu;
@@ -45,7 +57,8 @@ public class ResumeController {
 	 */
 	@ApiOperation(value = "이력서 등록하기")
 	@PostMapping("/insertResume")
-	public int insertResume(@ApiParam("등록할 이력서 정보")Resume resume) throws IOException {
+	public int insertResume(@ApiParam("등록할 이력서 정보")ResumeDTO resumeDTO) throws IOException {
+		Resume resume = new Resume(resumeDTO);
 		int result = resumeService.insertResume(resume);
 		
 		return result;
@@ -56,7 +69,8 @@ public class ResumeController {
 	 */
 	@ApiOperation(value = "이력서 학력 등록")
 	@PostMapping("/insertEdu")
-	public int insertEdu(@ApiParam("학력정보가 포함될 이력서정보")Resume resume) throws IOException {
+	public int insertEdu(@ApiParam("학력정보가 포함될 이력서정보")ResumeDTO resumeDTO) throws IOException {
+		Resume resume = new Resume(resumeDTO);
 		int result = resumeService.insertEdu(resume);
 		
 		return result;
@@ -67,7 +81,8 @@ public class ResumeController {
 	 */
 	@ApiOperation(value = "이력서 커리어 등록")
 	@PostMapping("/insertCareer")
-	public int insertCareer(@ApiParam("커리어정보가 포함될 이력서정보")Resume resume) throws IOException {
+	public int insertCareer(@ApiParam("커리어정보가 포함될 이력서정보")ResumeDTO resumeDTO) throws IOException {
+		Resume resume = new Resume(resumeDTO);
 		int result = resumeService.insertCareer(resume);
 		
 		return result;
@@ -78,7 +93,8 @@ public class ResumeController {
 	 */
 	@ApiOperation(value = "이력서 커리어-프로젝트 등록")
 	@PostMapping("/insertProject")
-	public int insertProject(@ApiParam("프로젝트정보가 포함될 커리어정보")Career career) throws IOException {
+	public int insertProject(@ApiParam("프로젝트정보가 포함될 커리어정보")CareerDTO careerDTO) throws IOException {
+		Career career = new Career(careerDTO);
 		int result = resumeService.insertProject(career);
 		
 		return result;
@@ -89,7 +105,8 @@ public class ResumeController {
 	 */
 	@ApiOperation(value = "이력서 자격증 등록")
 	@PostMapping("/insertLicense")
-	public int insertLicense(@ApiParam("자격증정보가 포함될 이력서정보")Resume resume) throws IOException {
+	public int insertLicense(@ApiParam("자격증정보가 포함될 이력서정보")ResumeDTO resumeDTO) throws IOException {
+		Resume resume = new Resume(resumeDTO);
 		int result = resumeService.insertLicense(resume);
 		
 		return result;
@@ -100,7 +117,8 @@ public class ResumeController {
 	 */
 	@ApiOperation(value = "이력서 언어 등록")
 	@PostMapping("/insertLang")
-	public int insertLang(@ApiParam("언어정보가 포함될 이력서정보")Resume resume) throws IOException {
+	public int insertLang(@ApiParam("언어정보가 포함될 이력서정보")ResumeDTO resumeDTO) throws IOException {
+		Resume resume = new Resume(resumeDTO);
 		int result=resumeService.insertLang(resume);
 		
 		return result;
@@ -111,7 +129,8 @@ public class ResumeController {
 	 */
 	@ApiOperation(value = "이력서 언어-클래스 등록")
 	@PostMapping("/insertLangClass")
-	public int insertLangClass(@ApiParam("클래스정보가 포함될 언어정보")Lang lang) throws IOException{
+	public int insertLangClass(@ApiParam("클래스정보가 포함될 언어정보")LangDTO langDTO) throws IOException{
+		Lang lang = new Lang(langDTO);
 		int result = resumeService.insertClass(lang);;
 		
 		return result;
@@ -122,7 +141,8 @@ public class ResumeController {
 	 */
 	@ApiOperation(value = "이력서 언어-레벨 등록")
 	@PostMapping("/insertLangLevel")
-	public int insertLangLevel(@ApiParam("레벨정보가 포함될 언어정보")Lang lang) throws IOException{
+	public int insertLangLevel(@ApiParam("레벨정보가 포함될 언어정보")LangDTO langDTO) throws IOException{
+		Lang lang = new Lang(langDTO);
 		int result=resumeService.insertLevel(lang);
 		
 		return result;
@@ -133,7 +153,8 @@ public class ResumeController {
 	 */
 	@ApiOperation(value = "이력서 언어-자격증 등록")
 	@PostMapping("/insetLangLicense")
-	public int insertLangLicense(@ApiParam("자격증정보가 포함될 언어정보")Lang lang) throws IOException {
+	public int insertLangLicense(@ApiParam("자격증정보가 포함될 언어정보")LangDTO langDTO) throws IOException {
+		Lang lang = new Lang(langDTO);
 		int result=resumeService.insertLangLicense(lang);
 		
 		return result;
@@ -144,7 +165,8 @@ public class ResumeController {
 	 */
 	@ApiOperation(value = "이력서 스킬등록")
 	@PostMapping("/insertUserSkill")
-	public int insertUserSkill(@ApiParam("스킬이 포함될 이력서정보")Resume resume) throws IOException{
+	public int insertUserSkill(@ApiParam("스킬이 포함될 이력서정보")ResumeDTO resumeDTO) throws IOException{
+		Resume resume = new Resume(resumeDTO);
 		int result=resumeService.insertUserSkill(resume);
 		
 		return result;
@@ -155,7 +177,8 @@ public class ResumeController {
 	 */
 	@ApiOperation(value = "이력서 링크 등록")
 	@PostMapping("/insertLink")
-	public int insertLink(Resume resume) throws IOException{
+	public int insertLink(ResumeDTO resumeDTO) throws IOException{
+		Resume resume = new Resume(resumeDTO);
 		int result = resumeService.insertLink(resume);
 		
 		return result;
@@ -166,7 +189,8 @@ public class ResumeController {
 	 */
 	@ApiOperation(value = "이력서 수정하기")
 	@PostMapping("/updateResume")
-	public int updateResume(@ApiParam("수정할 이력서 정보")Resume resume) throws NotFoundException {
+	public int updateResume(@ApiParam("수정할 이력서 정보")ResumeDTO resumeDTO) throws NotFoundException {
+		Resume resume = new Resume(resumeDTO);
 		int result = resumeService.updateResume(resume);
 		
 		return result;
@@ -177,7 +201,8 @@ public class ResumeController {
 	 */
 	@ApiOperation("이력서 학력 수정")
 	@PostMapping("/updateEdu")
-	public int updateEdu(@ApiParam("수정할 학력정보")Edu edu) throws NotFoundException {
+	public int updateEdu(@ApiParam("수정할 학력정보")EduDTO eduDTO) throws NotFoundException {
+		Edu edu = new Edu(eduDTO);
 		int result = resumeService.updateEdu(edu);
 		
 		return result;
@@ -188,7 +213,8 @@ public class ResumeController {
 	 */
 	@ApiOperation("이력서 커리어 수정")
 	@PostMapping("/updateCareer")
-	public int updateCareer(@ApiParam("수정할 커리어정보")Career career) throws NotFoundException{
+	public int updateCareer(@ApiParam("수정할 커리어정보")CareerDTO careerDTO) throws NotFoundException{
+		Career career = new Career(careerDTO);
 		int result = resumeService.updateCareer(career);
 		
 		return result;
@@ -199,7 +225,8 @@ public class ResumeController {
 	 */
 	@ApiOperation("이력서 커리어-프로젝트 수정")
 	@PostMapping("/updateProject")
-	public int updateProject(@ApiParam("수정할 프로젝트정보")Project project) throws NotFoundException{
+	public int updateProject(@ApiParam("수정할 프로젝트정보")ProjectDTO projectDTO) throws NotFoundException{
+		Project project = new Project(projectDTO);
 		int result = resumeService.updateProject(project);
 		
 		return result;
@@ -210,7 +237,8 @@ public class ResumeController {
 	 */
 	@ApiOperation("이력서 자격증 수정")
 	@PostMapping("/updateLicense")
-	public int updateLicense(@ApiParam("수정할 자격증정보")License license) throws NotFoundException{
+	public int updateLicense(@ApiParam("수정할 자격증정보")LicenseDTO licenseDTO) throws NotFoundException{
+		License license = new License(licenseDTO);
 		int result = resumeService.updateLicense(license);
 		
 		return result;
@@ -221,7 +249,8 @@ public class ResumeController {
 	 */
 	@ApiOperation("이력서 언어 수정")
 	@PostMapping("/updateLang")
-	public int updateLang(@ApiParam("수정할 언어정보")Lang lang) throws NotFoundException{
+	public int updateLang(@ApiParam("수정할 언어정보")LangDTO langDTO) throws NotFoundException{
+		Lang lang = new Lang(langDTO);
 		int result = resumeService.updateLang(lang);
 		
 		return result;
@@ -232,7 +261,8 @@ public class ResumeController {
 	 */
 	@ApiOperation("이력서 언어-클래스 수정")
 	@PostMapping("/updateLangClass")
-	public int updateLangClass(@ApiParam("수정할 언어클래스정보")LangClass langClass) throws NotFoundException{
+	public int updateLangClass(@ApiParam("수정할 언어클래스정보")LangClassDTO langClassDTO) throws NotFoundException{
+		LangClass langClass = new LangClass(langClassDTO);
 		int result = resumeService.updateLangClass(langClass);
 		
 		return result;
@@ -243,7 +273,8 @@ public class ResumeController {
 	 */
 	@ApiOperation("이력서 언어-레벨 수정")
 	@PostMapping("/updateLangLevel")
-	public int updateLangLevel(@ApiParam("수정할 언어레벨정보")LangLevel langLevel) throws NotFoundException{
+	public int updateLangLevel(@ApiParam("수정할 언어레벨정보")LangLevelDTO langLevelDTO) throws NotFoundException{
+		LangLevel langLevel = new LangLevel(langLevelDTO);
 		int result = resumeService.updateLangLevel(langLevel);
 		
 		return result;
@@ -254,7 +285,8 @@ public class ResumeController {
 	 */
 	@ApiOperation("이력서 언어-자격증 수정")
 	@PostMapping("/updateLangLicense")
-	public int updateLangLicense(@ApiParam("수정할 언어자격증정보")LangLicense langLicense) throws NotFoundException{
+	public int updateLangLicense(@ApiParam("수정할 언어자격증정보")LangLicenseDTO langLicenseDTO) throws NotFoundException{
+		LangLicense langLicense = new LangLicense(langLicenseDTO); 
 		int result = resumeService.updateLangLicense(langLicense);
 		
 		return result;
@@ -265,7 +297,8 @@ public class ResumeController {
 	 */
 	@ApiOperation("이력서 유저스킬 수정")
 	@PostMapping("/updateUserSkill")
-	public int updateUserSkill(@ApiParam("수정할 유저스킬정보")UserSkill userSkill) throws NotFoundException{
+	public int updateUserSkill(@ApiParam("수정할 유저스킬정보")UserSkillDTO userSkillDTO) throws NotFoundException{
+		UserSkill userSkill = new UserSkill(userSkillDTO);
 		int result = resumeService.updateUserSkill(userSkill);
 		
 		return result;
@@ -276,7 +309,8 @@ public class ResumeController {
 	 */
 	@ApiOperation("이력서 링크 수정")
 	@PostMapping("/updateLink")
-	public int updateLink(@ApiParam("수정할 링크정보")Link link) throws NotFoundException{
+	public int updateLink(@ApiParam("수정할 링크정보")LinkDTO linkDTO) throws NotFoundException{
+		Link link = new Link(linkDTO);
 		int result = resumeService.updateLink(link);
 		
 		return result;
@@ -299,7 +333,8 @@ public class ResumeController {
 	 */
 	@ApiOperation(value = "이력서 상세보기")
 	@PostMapping("/resumeDetail")
-	public Resume resumeDetail(@ApiParam("클릭된 이력서")Resume resume) throws IOException, NotFoundException{
+	public Resume resumeDetail(@ApiParam("클릭된 이력서")ResumeDTO resumeDTO) throws IOException, NotFoundException{
+		Resume resume = new Resume(resumeDTO);
 		Resume resultResume = resumeService.resumeDetail(resume);
 		
 		return resultResume;
@@ -310,7 +345,8 @@ public class ResumeController {
 	 */
 	@ApiOperation(value = "이력서 목록보기")
 	@PostMapping("/resumeList")
-	public List<Resume> resumeList(@ApiParam("이력서를 가진 유저정보")Users user) throws IOException, NotFoundException{
+	public List<Resume> resumeList(@ApiParam("이력서를 가진 유저정보")UsersDTO userDTO) throws IOException, NotFoundException{
+		Users user = new Users(userDTO);
 		List<Resume> resumeList = resumeService.resumeList(user);
 		
 		return resumeList;

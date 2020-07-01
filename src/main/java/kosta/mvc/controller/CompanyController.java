@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import kosta.mvc.DTO.CompanysDTO;
+import kosta.mvc.DTO.PerchaseDTO;
+import kosta.mvc.DTO.RecruitDTO;
+import kosta.mvc.DTO.RecruitPlanDTO;
 import kosta.mvc.domain.Apply;
 import kosta.mvc.domain.Companys;
 import kosta.mvc.domain.Members;
@@ -59,7 +63,8 @@ public class CompanyController {
 	
 	@ApiOperation(value = "기업정보(회원정보) 수정", notes = "return : 0-수정실패 / 1-성공")
 	@PostMapping("/updateInfo")
-	public int updateInfo(@ApiParam("수정할 기업 정보")Companys company) throws IOException, NotFoundException {
+	public int updateInfo(@ApiParam("수정할 기업 정보")CompanysDTO companyDTO) throws IOException, NotFoundException {
+		Companys company = new Companys(companyDTO);
 		int result = companyService.updateCompany(company);
 		
 		if(result == 1 && company.getMember().getMemberPassword() != null) {	//수정이 제대로 이루어지고, 비밀번호를 수정한 경우
@@ -92,13 +97,15 @@ public class CompanyController {
 	
 	@ApiOperation(value = "채용공고 등록", notes = "return : 0-등록실패 / 1-등록성공")
 	@PostMapping("/uploadRecruit")
-	public int uploadRecruit(@ApiParam("등록할 채용공고 정보")Recruit recruit) throws IOException {
+	public int uploadRecruit(@ApiParam("등록할 채용공고 정보")RecruitDTO recruitDTO) throws IOException {
+		Recruit recruit = new Recruit(recruitDTO);
 		return companyService.insertRecruit(recruit);
 	}
 	
 	@ApiOperation(value = "채용공고 수정", notes = "return : 0-수정실패 / 1-성공")
 	@PostMapping("/updateRecruit")
-	public int updateRecruit(@ApiParam("수정할 채용공고 정보")Recruit recruit) throws IOException, NotFoundException {
+	public int updateRecruit(@ApiParam("수정할 채용공고 정보")RecruitDTO recruitDTO) throws IOException, NotFoundException {
+		Recruit recruit = new Recruit(recruitDTO);
 		return companyService.updateRecruit(recruit);
 	}
 	
@@ -124,13 +131,15 @@ public class CompanyController {
 	
 	@ApiOperation(value = "예상 채용일정 등록", notes = "return : 0-등록실패 / 1-등록성공")
 	@PostMapping("/uploadRecruitPlan")
-	public int uploadRecruitPlan(@ApiParam("등록할 예상 채용일정 정보")RecruitPlan recruitPlan) throws IOException {
+	public int uploadRecruitPlan(@ApiParam("등록할 예상 채용일정 정보")RecruitPlanDTO recruitPlanDTO) throws IOException {
+		RecruitPlan recruitPlan = new RecruitPlan(recruitPlanDTO);
 		return companyService.insertRecruitPlan(recruitPlan);
 	}
 	
 	@ApiOperation(value = "예상 채용일정 수정", notes = "return : 0-수정실패 / 1-성공")
 	@PostMapping("/updateRecruitPlan")
-	public int updateRecruitPlan(@ApiParam("수정할 예상 채용일정 정보")RecruitPlan recruitPlan) throws IOException, NotFoundException {
+	public int updateRecruitPlan(@ApiParam("수정할 예상 채용일정 정보")RecruitPlanDTO recruitPlanDTO) throws IOException, NotFoundException {
+		RecruitPlan recruitPlan = new RecruitPlan(recruitPlanDTO);
 		return companyService.updateRecruitPlan(recruitPlan);
 	}
 	
@@ -156,7 +165,8 @@ public class CompanyController {
 	
 	@ApiOperation(value = "웹 최상단 공고 노출 패키지 구매", notes = "return : 0-구매실패 / 1-성공")
 	@PostMapping("/perchase")
-	public int perchase(@ApiParam("구매 정보")Perchase perchase) throws IOException {
+	public int perchase(@ApiParam("구매 정보")PerchaseDTO perchaseDTO) throws IOException {
+		Perchase perchase = new Perchase(perchaseDTO);
 		return companyService.insertPerchase(perchase);
 	}
 	

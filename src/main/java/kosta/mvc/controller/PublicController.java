@@ -13,6 +13,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import javassist.NotFoundException;
+import kosta.mvc.DTO.CompanysDTO;
+import kosta.mvc.DTO.UsersDTO;
 import kosta.mvc.domain.Companys;
 import kosta.mvc.domain.Recruit;
 import kosta.mvc.domain.Users;
@@ -43,7 +45,8 @@ public class PublicController {
 	 */
 	@ApiOperation(value = "유저회원가입")
 	@PostMapping("/insertUser")
-	public int insertUser(@ApiParam("회원가입할 유저 정보")Users user) throws IOException{
+	public int insertUser(@ApiParam("회원가입할 유저 정보")UsersDTO userDTO) throws IOException{
+		Users user = new Users(userDTO);
 		int result = resumeService.insertUser(user);
 		
 		return result;
@@ -57,7 +60,8 @@ public class PublicController {
 	
 	@ApiOperation(value = "기업 회원가입", notes = "return : 0-가입실패 / 1-가입성공")
 	@PostMapping("/join")
-	public int join(@ApiParam("기업 가입 정보")Companys company) throws IOException {
+	public int join(@ApiParam("기업 가입 정보")CompanysDTO companyDTO) throws IOException {
+		Companys company = new Companys(companyDTO);
 		if(companyService.duplicateEmail(company.getMember().getMemberEmail()) == 1) {
 			throw new RuntimeException("이미 사용중인 이메일 입니다.");
 		}

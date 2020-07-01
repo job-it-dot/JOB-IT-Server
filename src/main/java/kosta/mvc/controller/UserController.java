@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import kosta.mvc.DTO.UsersDTO;
 import kosta.mvc.domain.Members;
 import kosta.mvc.domain.Users;
 import kosta.mvc.service.ResumeService;
@@ -45,7 +46,8 @@ public class UserController {
 	 */
 	@ApiOperation(value = "유저회원 정보 수정")
 	@PostMapping("/updateUser")
-	public int updateUser(@ApiParam("수정될 유저정보")Users user) throws NotFoundException{
+	public int updateUser(@ApiParam("수정될 유저정보")UsersDTO userDTO) throws NotFoundException{
+		Users user = new Users(userDTO);
 		int result = resumeService.updateUser(user);
 		
 		return result;
@@ -56,7 +58,8 @@ public class UserController {
 	 */
 	@ApiOperation(value = "유저 비밀번호 변경")
 	@PostMapping("/updatePwd")
-	public int updatePwd(@ApiParam("비밀번호가 변경될 유저정보")Users user) throws IOException, NotFoundException{
+	public int updatePwd(@ApiParam("비밀번호가 변경될 유저정보")UsersDTO userDTO) throws IOException, NotFoundException{
+		Users user = new Users(userDTO);
 		int result = resumeService.updatePwd(user);
 		
 		return result;
@@ -67,7 +70,8 @@ public class UserController {
 	 */
 	@ApiOperation(value = "유저 회원탈퇴")
 	@PostMapping("/deleteUser")
-	public int deleteUser(Users user) throws IOException{
+	public int deleteUser(UsersDTO userDTO) throws IOException{
+		Users user = new Users(userDTO);
 		int result = resumeService.deleteUser(user);
 		
 		return result;
