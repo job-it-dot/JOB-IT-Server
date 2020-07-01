@@ -86,8 +86,8 @@ public class CompanyController {
 	
 	@ApiOperation(value = "채용공고 상세보기", notes = "return : 채용공고내용")
 	@GetMapping("/recruit/{recruitId}")
-	public Recruit recruitInfo(@ApiParam("링크로 넘어오는 채용공고 아이디")@PathVariable Long recruitId) throws IOException, NotFoundException {
-		return companyService.selectRecruitById(recruitId);
+	public Recruit recruitInfo(@ApiParam("링크로 넘어오는 채용공고 아이디")@PathVariable String recruitId) throws IOException, NotFoundException {
+		return companyService.selectRecruitById(Long.parseLong(recruitId));
 	}
 	
 	@ApiOperation(value = "채용공고 등록", notes = "return : 0-등록실패 / 1-등록성공")
@@ -104,8 +104,8 @@ public class CompanyController {
 	
 	@ApiOperation(value = "채용공고 내리기", notes = "return : 0-내리기 실패 / 1-성공")
 	@GetMapping("/unpostRecruit/{recruitId}")
-	public int unpostRecruit(@ApiParam("내릴 채용공고의 아이디")@PathVariable Long recruitId) throws IOException, NotFoundException {
-		return companyService.unpostRecruit(recruitId);
+	public int unpostRecruit(@ApiParam("내릴 채용공고의 아이디")@PathVariable String recruitId) throws IOException, NotFoundException {
+		return companyService.unpostRecruit(Long.parseLong(recruitId));
 	}
 	
 	@ApiOperation(value = "예상 채용일정 목록 조회", notes = "return : 예상 채용일정 list")
@@ -118,8 +118,8 @@ public class CompanyController {
 	
 	@ApiOperation(value = "예상 채용일정 상세보기", notes = "return : 예상 채용일정 내용")
 	@GetMapping("/recruitPlan/{recruitPlanId}")
-	public RecruitPlan recruitPlanInfo(@ApiParam("링크로 넘어오는 예상 채용일정 아이디")@PathVariable Long recruitPlanId) throws IOException, NotFoundException {
-		return companyService.selectRecruitPlanById(recruitPlanId);
+	public RecruitPlan recruitPlanInfo(@ApiParam("링크로 넘어오는 예상 채용일정 아이디")@PathVariable String recruitPlanId) throws IOException, NotFoundException {
+		return companyService.selectRecruitPlanById(Long.parseLong(recruitPlanId));
 	}
 	
 	@ApiOperation(value = "예상 채용일정 등록", notes = "return : 0-등록실패 / 1-등록성공")
@@ -136,22 +136,22 @@ public class CompanyController {
 	
 	@ApiOperation(value = "예상 채용일정 삭제", notes = "return : 0-삭제실패 / 1-성공")
 	@GetMapping("/deleteRecruitPlan/{recruitPlanId}")
-	public int deleteRecruitPlan( @ApiParam("삭제할 예상 채용일정 아이디")@PathVariable Long recruitPlanId) throws IOException, NotFoundException {
+	public int deleteRecruitPlan(@ApiParam("삭제할 예상 채용일정 아이디")@PathVariable String recruitPlanId) throws IOException, NotFoundException {
 		Members member = (Members)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Long companyId = companyService.getCompanyId(member.getMemberId());
-		return companyService.deleteRecruitPlan(companyId, recruitPlanId);
+		return companyService.deleteRecruitPlan(companyId, Long.parseLong(recruitPlanId));
 	}
 	
 	@ApiOperation(value = "한 공고의 지원 리스트", notes = "return : 지원(Apply table)의 list")
 	@GetMapping("/applyList/{recruitId}")
-	public List<Apply> applyList(@ApiParam("지원자를 확인하고 싶은 채용공고의 아이디")@PathVariable Long recruitId) throws IOException {
-		return companyService.selectApplyByRecruitId(recruitId);
+	public List<Apply> applyList(@ApiParam("지원자를 확인하고 싶은 채용공고의 아이디")@PathVariable String recruitId) throws IOException {
+		return companyService.selectApplyByRecruitId(Long.parseLong(recruitId));
 	}
 	
 	@ApiOperation(value = "한 공고의 지원 상세보기", notes = "return : 지원(Apply table)의 정보")
 	@GetMapping("/apply/{applyId}")
-	public Apply applyInfo(@ApiParam("확인할 지원아이디")@PathVariable Long applyId) throws IOException, NotFoundException {
-		return companyService.selectApplyById(applyId);
+	public Apply applyInfo(@ApiParam("확인할 지원아이디")@PathVariable String applyId) throws IOException, NotFoundException {
+		return companyService.selectApplyById(Long.parseLong(applyId));
 	}
 	
 	@ApiOperation(value = "웹 최상단 공고 노출 패키지 구매", notes = "return : 0-구매실패 / 1-성공")
@@ -162,8 +162,8 @@ public class CompanyController {
 	
 	@ApiOperation(value = "패키지 환불신청", notes = "return : 0-신청실패 / 1-성공")
 	@GetMapping("/refund/{perchaseId}")
-	public int refund(@ApiParam("환불신청할 구매내역의 아이디")@PathVariable Long perchaseId) throws IOException, NotFoundException, RuntimeException {
-		return companyService.updatePerchase(perchaseId);
+	public int refund(@ApiParam("환불신청할 구매내역의 아이디")@PathVariable String perchaseId) throws IOException, NotFoundException, RuntimeException {
+		return companyService.updatePerchase(Long.parseLong(perchaseId));
 	}
 	
 	@ApiOperation(value = "오픈 이력서 목록 조회", notes = "return : 오픈 이력서 list")
@@ -176,10 +176,10 @@ public class CompanyController {
 	
 	@ApiOperation(value = "오픈 이력서 상세보기", notes = "return : 오픈 이력서 내용")
 	@GetMapping("/openResume/{resumeId}")
-	public Resume openResumeInfo(@ApiParam("링크로 넘어오는 예상 채용일정 아이디")@PathVariable Long resumeId) throws IOException, NotFoundException {
+	public Resume openResumeInfo(@ApiParam("링크로 넘어오는 예상 채용일정 아이디")@PathVariable String resumeId) throws IOException, NotFoundException {
 		Members member = (Members)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Long companyId = companyService.getCompanyId(member.getMemberId());
-		return companyService.selectOpenResumeByResumeId(companyId, resumeId);
+		return companyService.selectOpenResumeByResumeId(companyId, Long.parseLong(resumeId));
 	}
 	
 	@ExceptionHandler(IOException.class)
