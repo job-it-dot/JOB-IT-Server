@@ -43,6 +43,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 				.logoutUrl("/logout")
 				.logoutSuccessUrl("/common/loginForm")	
 				.permitAll();
+		
+		http.csrf()
+				.ignoringAntMatchers("/**");
     }
 	
 	@Override
