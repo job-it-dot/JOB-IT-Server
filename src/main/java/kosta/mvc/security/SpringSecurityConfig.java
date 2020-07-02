@@ -32,7 +32,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.formLogin()
 				.loginPage("/common/loginForm")
 				.loginProcessingUrl("/login")
-				.failureUrl("/common/loginForm") 
+				.failureUrl("/common/loginForm?") 
 				.defaultSuccessUrl("/common/index")	
 				.usernameParameter("email")
 				.passwordParameter("password")

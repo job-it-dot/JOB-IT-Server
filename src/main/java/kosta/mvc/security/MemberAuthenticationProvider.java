@@ -12,12 +12,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kosta.mvc.domain.Members;
 import kosta.mvc.repository.MembersRepository;
 
-@Component
+@Service
+@Transactional
 public class MemberAuthenticationProvider  implements AuthenticationProvider {
 	@Autowired
 	private MembersRepository memberRepository;
