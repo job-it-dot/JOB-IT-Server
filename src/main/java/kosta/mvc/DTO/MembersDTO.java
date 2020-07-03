@@ -11,9 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class MembersDTO {
 	
-	private Long memberId;
-	private Long kakaoId;
 	private String memberEmail;
 	private String memberPassword;
-	private int memberStatus;
 }

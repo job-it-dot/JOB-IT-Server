@@ -11,7 +11,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import kosta.mvc.DTO.MembersDTO;
@@ -28,17 +30,15 @@ import lombok.Setter;
 public class Members {
 	
 	public Members(MembersDTO membersDTO){
-		this.memberId = membersDTO.getMemberId();
-		this.kakaoId = membersDTO.getKakaoId();
 		this.memberEmail = membersDTO.getMemberEmail();
 		this.memberPassword = membersDTO.getMemberPassword();
-		this.memberStatus = membersDTO.getMemberStatus();
 	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long memberId;
-	private Long kakaoId;
+	
+	@Column(unique=true)
 	private String memberEmail;
 	private String memberPassword;
 	private int memberStatus;
@@ -49,4 +49,5 @@ public class Members {
 	
 	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
 	private List<Authority> authorities = new ArrayList<Authority>();
+	
 }

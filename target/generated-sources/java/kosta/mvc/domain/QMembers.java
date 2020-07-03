@@ -22,8 +22,6 @@ public class QMembers extends EntityPathBase<Members> {
 
     public final ListPath<Authority, QAuthority> authorities = this.<Authority, QAuthority>createList("authorities", Authority.class, QAuthority.class, PathInits.DIRECT2);
 
-    public final NumberPath<Long> kakaoId = createNumber("kakaoId", Long.class);
-
     public final StringPath memberEmail = createString("memberEmail");
 
     public final NumberPath<Long> memberId = createNumber("memberId", Long.class);

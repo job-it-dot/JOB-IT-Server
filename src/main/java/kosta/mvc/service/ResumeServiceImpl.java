@@ -6,8 +6,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 
 import kosta.mvc.domain.Career;
 import kosta.mvc.domain.Companys;
@@ -18,6 +20,7 @@ import kosta.mvc.domain.LangLevel;
 import kosta.mvc.domain.LangLicense;
 import kosta.mvc.domain.License;
 import kosta.mvc.domain.Link;
+import kosta.mvc.domain.Members;
 import kosta.mvc.domain.Project;
 import kosta.mvc.domain.Resume;
 import kosta.mvc.domain.ResumeRead;
@@ -79,19 +82,25 @@ public class ResumeServiceImpl implements ResumeService {
 	@Autowired
 	private LangLicenseRepository LangLicenseRepository;
 	
+	private PasswordEncoder encoder = new BCryptPasswordEncoder();
+	
 	/**
 	 * 회원가입 result 1-성공, result 0-실패 
 	 */
 	@Override
+	@Transactional
 	public int insertUser(Users user) {
 		
-		int result;
+		int result=0;
 		
-		if(user==null) {
-			result=0;
-		}else {
+		if(user!=null) {
+			Members member = user.getMember();
+			member.setMemberPassword(encoder.encode(member.getMemberPassword()));
+			member.setMemberStatus(1);
+			MembersRepository.save(member);
+			user.setMember(member);
 			UsersRepository.save(user);
-			MembersRepository.save(user.getMember());
+			
 			result=1;
 		}
 		
@@ -111,7 +120,6 @@ public class ResumeServiceImpl implements ResumeService {
 		}else {
 			dbuser.setUserName(user.getUserName());
 			dbuser.setUserPhone(user.getUserPhone());
-			dbuser.getMember().setKakaoId(user.getMember().getKakaoId());
 			dbuser.getMember().setMemberEmail(user.getMember().getMemberEmail());
 			result=1;
 		}

@@ -4,16 +4,18 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import javassist.NotFoundException;
 import kosta.mvc.DTO.CompanysDTO;
+import kosta.mvc.DTO.MembersDTO;
 import kosta.mvc.DTO.UsersDTO;
 import kosta.mvc.domain.Companys;
 import kosta.mvc.domain.Recruit;
@@ -23,7 +25,7 @@ import kosta.mvc.service.PublicService;
 import kosta.mvc.service.RecruitService;
 import kosta.mvc.service.ResumeService;
 
-@Controller
+@RestController
 @Api(tags = {"PublicMethod. 로그인 불필요."})
 @RequestMapping("/guest")
 public class PublicController {
@@ -40,12 +42,13 @@ public class PublicController {
 	@Autowired
 	private ResumeService resumeService;
 	
+	
 	/**
 	 * 회원가입 result 1-성공, result 0-실패 
 	 */
 	@ApiOperation(value = "유저회원가입")
 	@PostMapping("/insertUser")
-	public int insertUser(@ApiParam("회원가입할 유저 정보")UsersDTO userDTO) throws IOException{
+	public int insertUser(@ApiParam("회원가입할 유저 정보") @RequestBody UsersDTO userDTO) throws IOException{
 		Users user = new Users(userDTO);
 		int result = resumeService.insertUser(user);
 		

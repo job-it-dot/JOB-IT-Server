@@ -14,6 +14,7 @@ import kosta.mvc.domain.LangLevel;
 import kosta.mvc.domain.LangLicense;
 import kosta.mvc.domain.License;
 import kosta.mvc.domain.Link;
+import kosta.mvc.domain.Members;
 import kosta.mvc.domain.Project;
 import kosta.mvc.domain.Resume;
 import kosta.mvc.domain.UserSkill;
