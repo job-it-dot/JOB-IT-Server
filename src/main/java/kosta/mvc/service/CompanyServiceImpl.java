@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +34,6 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	@Autowired
 	private MembersRepository membersRepository;
-
-	@Autowired
-	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private RecruitRepository recruitRepository;
@@ -51,6 +49,8 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	@Autowired
 	private ResumeRepository resumeRepository;
+	
+	private PasswordEncoder encoder = new BCryptPasswordEncoder();
 	
 	@Override
 	public Long getCompanyId(Long memberId) throws IOException, NotFoundException {
@@ -76,14 +76,16 @@ public class CompanyServiceImpl implements CompanyService {
 	public int insertCompany(Companys company) throws IOException {
 		int result = 0;
 		
-		if(company != null && company.getMember() != null) {
-			String pwd = passwordEncoder.encode(company.getMember().getMemberPassword());
-			company.getMember().setMemberPassword(pwd);
-			membersRepository.save(company.getMember());
+		if(company!=null) {
+			Members member = company.getMember();
+			member.setMemberPassword(encoder.encode(member.getMemberPassword()));
+			member.setMemberStatus(2);
+			membersRepository.save(member);
+			company.setMember(member);
 			companysRepository.save(company);
 			result = 1;
 		}
-		
+				
 		return result;
 	}
 
@@ -121,7 +123,7 @@ public class CompanyServiceImpl implements CompanyService {
 		if(dbCompany != null) {
 			Members dbMember = membersRepository.findById(dbCompany.getMember().getMemberId()).orElse(null);
 			
-			if(passwordEncoder.matches(memberPassword, dbMember.getMemberPassword())) result = 1;
+			if(encoder.matches(memberPassword, dbMember.getMemberPassword())) result = 1;
 		}
 		
 		return result;
