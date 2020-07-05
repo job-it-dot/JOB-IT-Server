@@ -23,7 +23,7 @@ public class RequiredSkill {
 	public RequiredSkill(RequiredSkillDTO requiredSkillDTO){
 		this.reqSkillsId = requiredSkillDTO.getReqSkillsId();
 		this.skill = new Skills(requiredSkillDTO.getSkill());
-		this.recruit = new Recruit(requiredSkillDTO.getRecruit());
+		this.recruitForm = new RecruitForm(requiredSkillDTO.getRecruitForm());
 	}
 	
 	@Id
@@ -36,5 +36,5 @@ public class RequiredSkill {
 	
 	@ManyToOne
 	@JoinColumn(name="recruit_id")
-	private Recruit recruit;
+	private RecruitForm recruitForm;
 }

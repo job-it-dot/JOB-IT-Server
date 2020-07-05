@@ -65,7 +65,7 @@ public class Companys{
 	private List<CompanyAddr> companyAddrs = new ArrayList<CompanyAddr>();
 	
 	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
-	private List<Recruit> recruits = new ArrayList<Recruit>();
+	private List<RecruitForm> recruitForms = new ArrayList<RecruitForm>();
 	
 	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
 	private List<RecruitPlan> recruitPlans = new ArrayList<RecruitPlan>();

@@ -15,5 +15,5 @@ public class RecruitAddrDTO {
 	
 	private CompanyAddrDTO companyAddr;
 	
-	private RecruitDTO recruit;
+	private RecruitFormDTO recruitForm;
 }

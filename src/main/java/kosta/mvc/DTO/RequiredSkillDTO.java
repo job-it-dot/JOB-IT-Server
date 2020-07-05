@@ -15,5 +15,5 @@ public class RequiredSkillDTO {
 	
 	private SkillsDTO skill;
 	
-	private RecruitDTO recruit;
+	private RecruitFormDTO recruitForm;
 }

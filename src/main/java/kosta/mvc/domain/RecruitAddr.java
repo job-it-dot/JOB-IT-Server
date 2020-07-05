@@ -23,7 +23,7 @@ public class RecruitAddr {
 	public RecruitAddr(RecruitAddrDTO recruitAddrDTO){
 		this.recruitAddrId = recruitAddrDTO.getRecruitAddrId();
 		this.companyAddr = new CompanyAddr(recruitAddrDTO.getCompanyAddr());
-		this.recruit = new Recruit(recruitAddrDTO.getRecruit());
+		this.recruitForm = new RecruitForm(recruitAddrDTO.getRecruitForm());
 	}
 	
 	@Id
@@ -36,5 +36,5 @@ public class RecruitAddr {
 	
 	@ManyToOne
 	@JoinColumn(name="recruit_id")
-	private Recruit recruit;
+	private RecruitForm recruitForm;
 }
