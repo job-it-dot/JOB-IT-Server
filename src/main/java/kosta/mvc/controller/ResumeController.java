@@ -43,7 +43,6 @@ import kosta.mvc.domain.UserSkill;
 import kosta.mvc.domain.Users;
 import kosta.mvc.service.ResumeService;
 
-
 //@RestController
 //@RequestMapping("/user/resume")
 //@Api(tags = {"이력서 controller"})

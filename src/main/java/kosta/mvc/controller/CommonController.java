@@ -1,21 +1,19 @@
 package kosta.mvc.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import kosta.mvc.DTO.LoginResultDTO;
 import kosta.mvc.domain.Members;
-import kosta.mvc.domain.Users;
 import kosta.mvc.service.CompanyService;
 import kosta.mvc.service.UserService;
 
@@ -30,7 +28,7 @@ public class CommonController {
 	@Autowired
 	private CompanyService companyService;
 	
-	@RequestMapping("/index")
+	@PostMapping("/index")
 	public LoginResultDTO loginSuccess(@AuthenticationPrincipal Members member) throws IOException, NotFoundException{
 		Authentication   obj=SecurityContextHolder.getContext().getAuthentication();
 		
