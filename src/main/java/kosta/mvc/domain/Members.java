@@ -46,8 +46,5 @@ public class Members {
 	@Column(nullable = false, updatable = false)
 	@CreationTimestamp
 	private Timestamp memberJoinDate;
-	
-	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-	private List<Authority> authorities = new ArrayList<Authority>();
-	
+		
 }

@@ -22,7 +22,11 @@ public class QApply extends EntityPathBase<Apply> {
 
     public static final QApply apply = new QApply("apply");
 
+    public final StringPath applyEmail = createString("applyEmail");
+
     public final NumberPath<Long> applyId = createNumber("applyId", Long.class);
+
+    public final StringPath applyPhone = createString("applyPhone");
 
     public final NumberPath<Integer> applyStatus = createNumber("applyStatus", Integer.class);
 

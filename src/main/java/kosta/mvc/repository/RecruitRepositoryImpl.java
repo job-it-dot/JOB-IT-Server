@@ -35,37 +35,37 @@ public class RecruitRepositoryImpl implements RecruitRepositoryCustom {
 	private BooleanExpression conCompanyName(String companyName) {
 		if(StringUtils.isEmpty(companyName))
 			return null;
-		return recruit.company.companyName.contains(companyName);
+		return recruit.recruitForm.company.companyName.contains(companyName);
 	}
 	
 	private BooleanExpression loeCareer(Integer career) {
 		if(career == null)
 			return null;
-		return recruit.recruitCareer.loe(career);
+		return recruit.recruitForm.recruitCareer.loe(career);
 	}
 	
 	private BooleanExpression conAddr(String addr) {
 		if(StringUtils.isEmpty(addr))
 			return null;
-		return recruit.recruitAddr.companyAddr.companyAddrDetail.contains(addr);
+		return recruit.recruitForm.recruitAddr.companyAddr.companyAddrDetail.contains(addr);
 	}
 	
 	private BooleanExpression loeEdu(Integer edu) {
 		if(edu == null)
 			return null;
-		return recruit.requiredEdu.reqEduGrade.loe(edu);
+		return recruit.recruitForm.requiredEdu.reqEduGrade.loe(edu);
 	}
 	
 	private BooleanExpression eqCompanyType(String companyType) {
 		if(StringUtils.isEmpty(companyType))
 			return null;
-		return recruit.company.companyType.companyTypeName.eq(companyType);
+		return recruit.recruitForm.company.companyType.companyTypeName.eq(companyType);
 	}
 	
 	private BooleanExpression goeSalary(Integer salary) {
 		if(salary == null)
 			return null;
-		return recruit.recruitSalary.goe(salary);
+		return recruit.recruitForm.recruitSalary.goe(salary);
 	}
 	
 	private BooleanExpression eqPosition(String position) {

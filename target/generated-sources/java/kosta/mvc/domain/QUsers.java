@@ -22,19 +22,11 @@ public class QUsers extends EntityPathBase<Users> {
 
     public static final QUsers users = new QUsers("users");
 
-    public final ListPath<Alram, QAlram> alrams = this.<Alram, QAlram>createList("alrams", Alram.class, QAlram.class, PathInits.DIRECT2);
-
     public final ListPath<Apply, QApply> apply = this.<Apply, QApply>createList("apply", Apply.class, QApply.class, PathInits.DIRECT2);
-
-    public final ListPath<Follow, QFollow> follows = this.<Follow, QFollow>createList("follows", Follow.class, QFollow.class, PathInits.DIRECT2);
 
     public final QMembers member;
 
-    public final ListPath<ResumeRead, QResumeRead> resumeReads = this.<ResumeRead, QResumeRead>createList("resumeReads", ResumeRead.class, QResumeRead.class, PathInits.DIRECT2);
-
     public final ListPath<Resume, QResume> resumes = this.<Resume, QResume>createList("resumes", Resume.class, QResume.class, PathInits.DIRECT2);
-
-    public final ListPath<Scrap, QScrap> scraps = this.<Scrap, QScrap>createList("scraps", Scrap.class, QScrap.class, PathInits.DIRECT2);
 
     public final NumberPath<Long> userId = createNumber("userId", Long.class);
 

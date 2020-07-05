@@ -15,6 +15,8 @@ public class ApplyDTO {
 	
 	private ResumeDTO resume;
 	
+	private String applyEmail;
+	private String applyPhone;
 	private int applyStatus;
 	
 	private RecruitDTO recruit;

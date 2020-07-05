@@ -24,27 +24,11 @@ public class QRecruit extends EntityPathBase<Recruit> {
 
     public final ListPath<Apply, QApply> applys = this.<Apply, QApply>createList("applys", Apply.class, QApply.class, PathInits.DIRECT2);
 
-    public final QCompanys company;
-
     public final QPositions position;
 
-    public final QRecruitAddr recruitAddr;
-
-    public final NumberPath<Integer> recruitCareer = createNumber("recruitCareer", Integer.class);
-
-    public final StringPath recruitDetail = createString("recruitDetail");
-
-    public final DateTimePath<java.util.Date> recruitEndDate = createDateTime("recruitEndDate", java.util.Date.class);
+    public final QRecruitForm recruitForm;
 
     public final NumberPath<Long> recruitId = createNumber("recruitId", Long.class);
-
-    public final NumberPath<Integer> recruitSalary = createNumber("recruitSalary", Integer.class);
-
-    public final NumberPath<Integer> recruitStatus = createNumber("recruitStatus", Integer.class);
-
-    public final QRequiredEdu requiredEdu;
-
-    public final ListPath<RequiredSkill, QRequiredSkill> requiredSkills = this.<RequiredSkill, QRequiredSkill>createList("requiredSkills", RequiredSkill.class, QRequiredSkill.class, PathInits.DIRECT2);
 
     public QRecruit(String variable) {
         this(Recruit.class, forVariable(variable), INITS);
@@ -64,10 +48,8 @@ public class QRecruit extends EntityPathBase<Recruit> {
 
     public QRecruit(Class<? extends Recruit> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.company = inits.isInitialized("company") ? new QCompanys(forProperty("company"), inits.get("company")) : null;
         this.position = inits.isInitialized("position") ? new QPositions(forProperty("position")) : null;
-        this.recruitAddr = inits.isInitialized("recruitAddr") ? new QRecruitAddr(forProperty("recruitAddr"), inits.get("recruitAddr")) : null;
-        this.requiredEdu = inits.isInitialized("requiredEdu") ? new QRequiredEdu(forProperty("requiredEdu")) : null;
+        this.recruitForm = inits.isInitialized("recruitForm") ? new QRecruitForm(forProperty("recruitForm"), inits.get("recruitForm")) : null;
     }
 
 }

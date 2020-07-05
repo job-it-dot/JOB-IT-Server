@@ -23,6 +23,8 @@ public class Apply {
 	public Apply(ApplyDTO applyDTO){
 		this.applyId = applyDTO.getApplyId();
 		this.applyStatus = applyDTO.getApplyStatus();
+		this.applyEmail = applyDTO.getApplyEmail();
+		this.applyPhone = applyDTO.getApplyPhone();
 		this.recruit = new Recruit(applyDTO.getRecruit());
 		this.resume = new Resume(applyDTO.getResume());
 	}
@@ -35,6 +37,8 @@ public class Apply {
 	@JoinColumn(name="resume_id")
 	private Resume resume;
 	
+	private String applyEmail;
+	private String applyPhone;
 	private int applyStatus;
 	
 	@ManyToOne

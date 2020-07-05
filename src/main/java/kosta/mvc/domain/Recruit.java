@@ -29,44 +29,23 @@ public class Recruit {
 	
 	public Recruit(RecruitDTO recruitDTO){
 		this.recruitId = recruitDTO.getRecruitId();
-		this.recruitCareer = recruitDTO.getRecruitCareer();
-		this.recruitDetail = recruitDTO.getRecruitDetail();
-		this.recruitEndDate = recruitDTO.getRecruitEndDate();
-		this.recruitSalary = recruitDTO.getRecruitSalary();
-		this.recruitStatus = recruitDTO.getRecruitStatus();
 		this.position = new Positions(recruitDTO.getPosition());
-		this.requiredEdu = new RequiredEdu(recruitDTO.getRequiredEdu());
-		this.company = new Companys(recruitDTO.getCompany());
+		this.recruitForm = new RecruitForm(recruitDTO.getRecruitForm());
 	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long recruitId;
 	
-	private int recruitCareer;
-	private String recruitDetail;
-	private Date recruitEndDate;
-	private int recruitSalary;
-	private int recruitStatus;
-	
 	@ManyToOne
 	@JoinColumn(name="position_id")
 	private Positions position;
 	
 	@ManyToOne
-	@JoinColumn(name="required_edu_id")
-	private RequiredEdu requiredEdu;
-	
-	@ManyToOne
-	@JoinColumn(name="company_id")
-	private Companys company;
+	@JoinColumn(name="recruit_form_id")
+	private RecruitForm recruitForm;
 	
 	@OneToMany(mappedBy = "recruit", fetch = FetchType.LAZY)
 	private List<Apply> applys = new ArrayList<Apply>();
-	
-	@OneToMany(mappedBy = "recruit", fetch = FetchType.LAZY)
-	private List<RequiredSkill> requiredSkills = new ArrayList<RequiredSkill>();
-	
-	@OneToOne(mappedBy = "recruit", fetch = FetchType.LAZY)
-	private RecruitAddr recruitAddr;
+
 }

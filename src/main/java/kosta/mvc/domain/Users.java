@@ -46,18 +46,6 @@ public class Users{
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Resume> resumes = new ArrayList<Resume>();
 	
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	private List<Alram> alrams = new ArrayList<Alram>();
-	
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	private List<Follow> follows = new ArrayList<Follow>();
-	
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	private List<ResumeRead> resumeReads = new ArrayList<ResumeRead>();
-	
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	private List<Scrap> scraps = new ArrayList<Scrap>();
-	
 	@OneToMany(mappedBy = "resume", fetch = FetchType.LAZY)
 	private List<Apply> apply = new ArrayList<Apply>();
 	

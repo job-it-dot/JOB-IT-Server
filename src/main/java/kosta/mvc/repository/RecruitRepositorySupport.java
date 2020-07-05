@@ -25,7 +25,7 @@ public class RecruitRepositorySupport extends QuerydslRepositorySupport {
     public List<Recruit> findByName(String companyName) {
         return queryFactory
                 .selectFrom(recruit)
-                .where(recruit.company.companyName.eq(companyName))
+                .where(recruit.recruitForm.company.companyName.eq(companyName))
                 .fetch();
     }
 
