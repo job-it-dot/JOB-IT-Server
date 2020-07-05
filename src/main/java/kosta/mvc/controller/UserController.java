@@ -9,6 +9,7 @@ import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,8 +38,8 @@ public class UserController {
 	@PostMapping("/info")
 	public Users userInfo() throws IOException, NotFoundException {
 		Members member = (Members)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Long userId = userService.getUserId(member.getMemberId());
-		return userService.selectUserById(userId);
+		
+		return userService.selectUserByMemberId(member.getMemberId());
 	}
 	
 	/**
@@ -46,7 +47,7 @@ public class UserController {
 	 */
 	@ApiOperation(value = "유저회원 정보 수정")
 	@PostMapping("/updateUser")
-	public int updateUser(@ApiParam("수정될 유저정보")UsersDTO userDTO) throws NotFoundException{
+	public int updateUser(@ApiParam("수정될 유저정보") @RequestBody UsersDTO userDTO) throws NotFoundException{
 		Users user = new Users(userDTO);
 		int result = resumeService.updateUser(user);
 		
@@ -58,7 +59,7 @@ public class UserController {
 	 */
 	@ApiOperation(value = "유저 비밀번호 변경")
 	@PostMapping("/updatePwd")
-	public int updatePwd(@ApiParam("비밀번호가 변경될 유저정보")UsersDTO userDTO) throws IOException, NotFoundException{
+	public int updatePwd(@ApiParam("비밀번호가 변경될 유저정보") @RequestBody UsersDTO userDTO) throws IOException, NotFoundException{
 		Users user = new Users(userDTO);
 		int result = resumeService.updatePwd(user);
 		
@@ -70,7 +71,7 @@ public class UserController {
 	 */
 	@ApiOperation(value = "유저 회원탈퇴")
 	@PostMapping("/deleteUser")
-	public int deleteUser(UsersDTO userDTO) throws IOException{
+	public int deleteUser(@RequestBody UsersDTO userDTO) throws IOException{
 		Users user = new Users(userDTO);
 		int result = resumeService.deleteUser(user);
 		

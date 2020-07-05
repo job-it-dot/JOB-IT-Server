@@ -16,6 +16,7 @@ import kosta.mvc.domain.Companys;
 import kosta.mvc.domain.Members;
 import kosta.mvc.domain.Perchase;
 import kosta.mvc.domain.Recruit;
+import kosta.mvc.domain.RecruitForm;
 import kosta.mvc.domain.RecruitPlan;
 import kosta.mvc.domain.Resume;
 import kosta.mvc.repository.ApplyRepository;
@@ -28,46 +29,46 @@ import kosta.mvc.repository.ResumeRepository;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
-	
+
 	@Autowired
 	private CompanysRepository companysRepository;
-	
+
 	@Autowired
 	private MembersRepository membersRepository;
-	
+
 	@Autowired
 	private RecruitRepository recruitRepository;
 
 	@Autowired
 	private RecruitPlanRepository recruitPlanRepository;
-	
+
 	@Autowired
 	private ApplyRepository applyRepository;
-	
+
 	@Autowired
 	private PerchaseRepository perchaseRepository;
-	
+
 	@Autowired
 	private ResumeRepository resumeRepository;
-	
+
 	private PasswordEncoder encoder = new BCryptPasswordEncoder();
-	
+
 	@Override
-	public Long getCompanyId(Long memberId) throws IOException, NotFoundException {
+	public Companys selectCompanyByMemberId(Long memberId) throws IOException, NotFoundException {
 		return companysRepository.findByMemberId(memberId);
-	}
+	};
 
 	@Override
 	public int duplicateEmail(String memberEmail) throws IOException {
 		int result = 0;
-		
+
 		List<Members> members = membersRepository.findByMemberEmail(memberEmail);
-		
-		for(Members member : members) {
-			if(member != null && member.getMemberStatus() != 4 && member.getMemberStatus() != 5)
+
+		for (Members member : members) {
+			if (member != null && member.getMemberStatus() != 4 && member.getMemberStatus() != 5)
 				result = 1;
 		}
-		
+
 		return result;
 	}
 
@@ -75,8 +76,8 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public int insertCompany(Companys company) throws IOException {
 		int result = 0;
-		
-		if(company!=null) {
+
+		if (company != null) {
 			Members member = company.getMember();
 			member.setMemberPassword(encoder.encode(member.getMemberPassword()));
 			member.setMemberStatus(2);
@@ -85,7 +86,7 @@ public class CompanyServiceImpl implements CompanyService {
 			companysRepository.save(company);
 			result = 1;
 		}
-				
+
 		return result;
 	}
 
@@ -113,104 +114,112 @@ public class CompanyServiceImpl implements CompanyService {
 	public Companys selectCompanyById(Long companyId) throws IOException {
 		return companysRepository.findById(companyId).orElse(null);
 	}
-	
+
 	@Override
-	public int checkPassword(Long companyId, String memberPassword) throws IOException, NotFoundException{
-		
+	public int checkPassword(Long companyId, String memberPassword) throws IOException, NotFoundException {
+
 		int result = 0;
 		Companys dbCompany = companysRepository.findById(companyId).orElse(null);
-		
-		if(dbCompany != null) {
+
+		if (dbCompany != null) {
 			Members dbMember = membersRepository.findById(dbCompany.getMember().getMemberId()).orElse(null);
-			
-			if(encoder.matches(memberPassword, dbMember.getMemberPassword())) result = 1;
+
+			if (encoder.matches(memberPassword, dbMember.getMemberPassword()))
+				result = 1;
 		}
-		
+
 		return result;
 	}
 
 	@Override
 	public int updateCompany(Companys company) throws IOException, NotFoundException {
-		
+
 		int result = 0;
 		Companys dbCompany = companysRepository.findById(company.getCompanyId()).orElse(null);
-		
-		if(dbCompany != null) {
-			if(company.getCompanyDetail() != null) {
+
+		if (dbCompany != null) {
+			if (company.getCompanyDetail() != null) {
 				dbCompany.setCompanyDetail(company.getCompanyDetail());
 			}
-			if(company.getCompanyEmployeeCount() != 0) {
+			if (company.getCompanyEmployeeCount() != 0) {
 				dbCompany.setCompanyEmployeeCount(company.getCompanyEmployeeCount());
 			}
-			if(company.getCompanyName() != null) {
+			if (company.getCompanyName() != null) {
 				dbCompany.setCompanyName(company.getCompanyName());
 			}
-			if(company.getCompanyType() != null) {
+			if (company.getCompanyType() != null) {
 				dbCompany.setCompanyType(company.getCompanyType());
 			}
-			if(company.getMember().getMemberPassword() != null) {
+			if (company.getMember().getMemberPassword() != null) {
 				dbCompany.getMember().setMemberPassword(company.getMember().getMemberPassword());
 			}
 			companysRepository.save(dbCompany);
 			result = 1;
 		}
-		
+
 		return result;
 	}
 
 	@Override
-	public List<Recruit> selectRecruitByCompanyId(Long companyId) throws IOException {
-		return companysRepository.findById(companyId).orElse(null).getRecruits();
+	public List<RecruitForm> selectRecruitByCompanyId(Long companyId) throws IOException {
+		return companysRepository.findById(companyId).orElse(null).getRecruitForms();
 	}
 
 	@Override
 	public Recruit selectRecruitById(Long recruitId) throws IOException, NotFoundException {
-		
+
 		return recruitRepository.findById(recruitId).orElse(null);
 	}
 
 	@Override
 	public int insertRecruit(Recruit recruit) throws IOException {
-		
+
 		int result = 0;
 		Recruit saveRecruit = recruitRepository.save(recruit);
-		if(saveRecruit != null) result = 1;
-		
+		if (saveRecruit != null)
+			result = 1;
+
 		return result;
 	}
 
 	@Override
 	public int updateRecruit(Recruit recruit) throws IOException, NotFoundException {
-		
+
 		int result = 0;
 		Recruit dbRecruit = recruitRepository.findById(recruit.getRecruitId()).orElse(null);
-		
-		if(dbRecruit != null) {
-			if(recruit.getPosition() != null) dbRecruit.setPosition(recruit.getPosition());
-			if(recruit.getRecruitCareer() != 0) dbRecruit.setRecruitCareer(recruit.getRecruitCareer());
-			if(recruit.getRecruitDetail() != null) dbRecruit.setRecruitDetail(recruit.getRecruitDetail());
-			if(recruit.getRecruitEndDate() != null) dbRecruit.setRecruitEndDate(recruit.getRecruitEndDate());
-			if(recruit.getRecruitSalary() != 0) dbRecruit.setRecruitSalary(recruit.getRecruitSalary());
-			if(recruit.getRequiredEdu() != null) dbRecruit.setRequiredEdu(recruit.getRequiredEdu());
+
+		if (dbRecruit != null) {
+			if (recruit.getPosition() != null)
+				dbRecruit.setPosition(recruit.getPosition());
+			if (recruit.getRecruitForm().getRecruitCareer() != 0)
+				dbRecruit.getRecruitForm().setRecruitCareer(recruit.getRecruitForm().getRecruitCareer());
+			if (recruit.getRecruitForm().getRecruitDetail() != null)
+				dbRecruit.getRecruitForm().setRecruitDetail(recruit.getRecruitForm().getRecruitDetail());
+			if (recruit.getRecruitForm().getRecruitEndDate() != null)
+				dbRecruit.getRecruitForm().setRecruitEndDate(recruit.getRecruitForm().getRecruitEndDate());
+			if (recruit.getRecruitForm().getRecruitSalary() != 0)
+				dbRecruit.getRecruitForm().setRecruitSalary(recruit.getRecruitForm().getRecruitSalary());
+			if (recruit.getRecruitForm().getRequiredEdu() != null)
+				dbRecruit.getRecruitForm().setRequiredEdu(recruit.getRecruitForm().getRequiredEdu());
 			recruitRepository.save(dbRecruit);
 			result = 1;
 		}
-		
+
 		return result;
 	}
 
 	@Override
-	public int unpostRecruit(Long recruitId)  throws IOException, NotFoundException {
+	public int unpostRecruit(Long recruitId) throws IOException, NotFoundException {
 
 		int result = 0;
 		Recruit dbRecruit = recruitRepository.findById(recruitId).orElse(null);
-		
-		if(dbRecruit != null) {
-			dbRecruit.setRecruitStatus(2);
+
+		if (dbRecruit != null) {
+			dbRecruit.getRecruitForm().setRecruitStatus(2);
 			recruitRepository.save(dbRecruit);
 			result = 1;
 		}
-		
+
 		return result;
 	}
 
@@ -229,8 +238,9 @@ public class CompanyServiceImpl implements CompanyService {
 
 		int result = 0;
 		RecruitPlan saveRecruitPlan = recruitPlanRepository.save(recruitPlan);
-		if(saveRecruitPlan != null) result = 1;
-		
+		if (saveRecruitPlan != null)
+			result = 1;
+
 		return result;
 	}
 
@@ -239,18 +249,18 @@ public class CompanyServiceImpl implements CompanyService {
 
 		int result = 0;
 		RecruitPlan dbRecruitPlan = recruitPlanRepository.findById(recruitPlan.getRecruitPlanId()).orElse(null);
-		
-		if(dbRecruitPlan != null) {
-			if(recruitPlan.getPosition() != null) {
+
+		if (dbRecruitPlan != null) {
+			if (recruitPlan.getPosition() != null) {
 				dbRecruitPlan.setPosition(recruitPlan.getPosition());
 			}
-			if(recruitPlan.getRecruitPlanDetail() != null) {
+			if (recruitPlan.getRecruitPlanDetail() != null) {
 				dbRecruitPlan.setRecruitPlanDetail(recruitPlan.getRecruitPlanDetail());
 			}
 			recruitPlanRepository.save(dbRecruitPlan);
 			result = 1;
 		}
-		
+
 		return result;
 	}
 
@@ -259,12 +269,12 @@ public class CompanyServiceImpl implements CompanyService {
 
 		int result = 0;
 		RecruitPlan dbRecruitPlan = recruitPlanRepository.findById(recruitPlanId).orElse(null);
-		
-		if(dbRecruitPlan != null && dbRecruitPlan.getCompany().getCompanyId() == companyId) {
+
+		if (dbRecruitPlan != null && dbRecruitPlan.getCompany().getCompanyId() == companyId) {
 			recruitPlanRepository.delete(dbRecruitPlan);
 			result = 1;
 		}
-		
+
 		return result;
 	}
 
@@ -283,8 +293,9 @@ public class CompanyServiceImpl implements CompanyService {
 
 		int result = 0;
 		Perchase savePerchase = perchaseRepository.save(perchase);
-		if(savePerchase != null) result = 1;
-		
+		if (savePerchase != null)
+			result = 1;
+
 		return result;
 	}
 
@@ -293,13 +304,13 @@ public class CompanyServiceImpl implements CompanyService {
 
 		int result = 0;
 		Perchase dbPerchase = perchaseRepository.findById(perchaseId).orElse(null);
-		
-		if(dbPerchase != null) {
+
+		if (dbPerchase != null) {
 			dbPerchase.setPerchaseStatus(2);
 			perchaseRepository.save(dbPerchase);
 			result = 1;
 		}
-		
+
 		return result;
 	}
 

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kosta.mvc.domain.Career;
-import kosta.mvc.domain.Companys;
 import kosta.mvc.domain.Edu;
 import kosta.mvc.domain.Lang;
 import kosta.mvc.domain.LangClass;
@@ -23,7 +22,6 @@ import kosta.mvc.domain.Link;
 import kosta.mvc.domain.Members;
 import kosta.mvc.domain.Project;
 import kosta.mvc.domain.Resume;
-import kosta.mvc.domain.ResumeRead;
 import kosta.mvc.domain.UserSkill;
 import kosta.mvc.domain.Users;
 import kosta.mvc.repository.CareerRepository;
@@ -642,19 +640,17 @@ public class ResumeServiceImpl implements ResumeService {
 	 * 이력서 상세보기
 	 */
 	@Override
-	public Resume resumeDetail(Resume resume) {
-		Resume dbResume = ResumeRepository.findById(resume.getResumeId()).orElse(null);
+	public Resume resumeDetail(Long resumeId) {
 		
-		
-		return dbResume;
+		return ResumeRepository.findById(resumeId).orElse(null);
 	}
 
 	/**
 	 * 이력서 목록보기
 	 */
 	@Override
-	public List<Resume> resumeList(Users user) throws IOException, NotFoundException{
-		Users dbuser = UsersRepository.findById(user.getUserId()).orElse(null);
+	public List<Resume> resumeList(Long userId) throws IOException, NotFoundException{
+		Users dbuser = UsersRepository.findById(userId).orElse(null);
 		List<Resume> resumelist = new ArrayList<Resume>();
 			
 		if(dbuser==null) {
@@ -690,20 +686,20 @@ public class ResumeServiceImpl implements ResumeService {
 		return result;
 	}
 
-	/**
-	 * 오픈이력서 조회기업목록
-	 */
-	@Override
-	public List<Companys> readCompany(Users user) {
-		Users dbUsers = UsersRepository.findById(user.getUserId()).orElse(null);
-		List<ResumeRead> resumeReadlist = dbUsers.getResumeReads();
-		List<Companys> comlist = new ArrayList<Companys>();
-		
-		for(ResumeRead re : resumeReadlist) {
-			comlist.add(re.getCompany());
-		}
-		
-		return comlist;
-	}
+//	/**
+//	 * 오픈이력서 조회기업목록
+//	 */
+//	@Override
+//	public List<Companys> readCompany(Users user) {
+//		Users dbUsers = UsersRepository.findById(user.getUserId()).orElse(null);
+//		List<ResumeRead> resumeReadlist = dbUsers.getResumeReads();
+//		List<Companys> comlist = new ArrayList<Companys>();
+//		
+//		for(ResumeRead re : resumeReadlist) {
+//			comlist.add(re.getCompany());
+//		}
+//		
+//		return comlist;
+//	}
 
 }

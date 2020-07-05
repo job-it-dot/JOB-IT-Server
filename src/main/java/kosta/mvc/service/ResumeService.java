@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 
 import kosta.mvc.domain.Career;
-import kosta.mvc.domain.Companys;
 import kosta.mvc.domain.Edu;
 import kosta.mvc.domain.Lang;
 import kosta.mvc.domain.LangClass;
@@ -14,7 +13,6 @@ import kosta.mvc.domain.LangLevel;
 import kosta.mvc.domain.LangLicense;
 import kosta.mvc.domain.License;
 import kosta.mvc.domain.Link;
-import kosta.mvc.domain.Members;
 import kosta.mvc.domain.Project;
 import kosta.mvc.domain.Resume;
 import kosta.mvc.domain.UserSkill;
@@ -160,21 +158,21 @@ public interface ResumeService {
 	/**
 	 * 이력서 상세보기
 	 */
-	Resume resumeDetail(Resume resume) throws IOException, NotFoundException;
+	Resume resumeDetail(Long resumeId) throws IOException, NotFoundException;
 	
 	/**
 	 * 이력서 목록보기
 	 */
-	List<Resume> resumeList(Users user) throws IOException, NotFoundException;
+	List<Resume> resumeList(Long userId) throws IOException, NotFoundException;
 	
 	/**
 	 * 이력서 온/오프 result 1-온, result 0-오프
 	 */
 	int resumeOnOff(Resume resume) throws IOException, NotFoundException;
 	
-	/**
-	 * 오픈이력서 조회기업목록
-	 */
-	List<Companys> readCompany(Users user) throws IOException, NotFoundException;
+//	/**
+//	 * 오픈이력서 조회기업목록
+//	 */
+//	List<Companys> readCompany(Users user) throws IOException, NotFoundException;
 
 }

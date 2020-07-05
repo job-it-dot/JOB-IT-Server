@@ -11,7 +11,7 @@ public interface UserService {
 	/**
 	 * 로그인 시 저장된 Members 객체 정보로 userId 찾아오기
 	 */
-	Long getUserId(Long memberId) throws IOException, NotFoundException;
+	Users selectUserByMemberId(Long memberId) throws IOException, NotFoundException;
 	
 	/**
 	 * 회원 정보 조회

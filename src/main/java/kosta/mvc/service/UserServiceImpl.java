@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
 	private UsersRepository usersRepository;
 
 	@Override
-	public Long getUserId(Long memberId) throws IOException, NotFoundException {
+	public Users selectUserByMemberId(Long memberId) throws IOException, NotFoundException {
 		return usersRepository.findByMemberId(memberId); 
 	}
 

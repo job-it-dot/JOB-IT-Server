@@ -9,16 +9,13 @@ import kosta.mvc.domain.Apply;
 import kosta.mvc.domain.Companys;
 import kosta.mvc.domain.Perchase;
 import kosta.mvc.domain.Recruit;
+import kosta.mvc.domain.RecruitForm;
 import kosta.mvc.domain.RecruitPlan;
 import kosta.mvc.domain.Resume;
 
 public interface CompanyService {
 	
-	/**
-	 * 로그인 시 저장된 Members 객체 정보로 companyId 찾아오기
-	 */
-	Long getCompanyId(Long memberId) throws IOException, NotFoundException;
-	
+		
 	/**
 	 * 이메일 중복체크
 	 * Members의 memberStatus - 1:일반회원 / 2:기업회원 / 3:관리자 / 4:탈퇴회원 / 5:강제탈퇴회원
@@ -43,6 +40,8 @@ public interface CompanyService {
 	 */
 	Companys selectCompanyById(Long companyId) throws IOException;
 	
+	Companys selectCompanyByMemberId(Long memberId) throws IOException, NotFoundException;
+	
 	/**
 	 * 비밀번호 확인
 	 * @return '0'은 비밀번호 불일치 / '1'이면 비밀번호 일치
@@ -58,7 +57,7 @@ public interface CompanyService {
 	/**
 	 * 기업 채용공고 목록 조회
 	 */
-	List<Recruit> selectRecruitByCompanyId(Long companyId) throws IOException;
+	List<RecruitForm> selectRecruitByCompanyId(Long companyId) throws IOException;
 	
 	/**
 	 * 기업 채용공고 상세보기

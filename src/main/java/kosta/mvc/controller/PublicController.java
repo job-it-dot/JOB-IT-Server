@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import kosta.mvc.DTO.MembersDTO;
 import kosta.mvc.DTO.UsersDTO;
 import kosta.mvc.domain.Companys;
 import kosta.mvc.domain.Recruit;
+import kosta.mvc.domain.RecruitForm;
 import kosta.mvc.domain.Users;
 import kosta.mvc.service.CompanyService;
 import kosta.mvc.service.PublicService;
@@ -88,8 +90,8 @@ public class PublicController {
 	
 	@GetMapping("/selectAll")
 	@ApiOperation("채용정보 목록보기")
-	public List<Recruit> selectAllRecruit() {
-		List<Recruit> list = recruitService.selectAllRecruitInfoList();
+	public List<RecruitForm> selectAllRecruit() {
+		List<RecruitForm> list = recruitService.selectAllRecruitInfoList();
 //		Recruit re = new Recruit();
 //		for(Recruit r : list) {
 //			r.getCompany().getCompanyName();
@@ -101,10 +103,11 @@ public class PublicController {
 		return list;
 	}
 	
-	@PostMapping("/readRecruit")
+	@PostMapping("/readRecruit/{recruitFormId}")
 	@ApiOperation("채용정보 상세보기")
-	public Recruit readRecruit(@ApiParam("각 채용공고id") @RequestBody Long recruitId) throws NotFoundException {
-		Recruit recruit = recruitService.selectRecruitById(recruitId);
+	public RecruitForm readRecruit(@ApiParam("각 채용공고id") @PathVariable String recruitFormId) throws NotFoundException {
+		Long recruitFormIdL = Long.parseLong(recruitFormId);
+		RecruitForm recruit = recruitService.selectRecruitById(recruitFormIdL);
 		return recruit;
 	}
 }

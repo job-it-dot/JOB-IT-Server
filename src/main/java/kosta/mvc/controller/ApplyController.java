@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,7 +32,7 @@ public class ApplyController {
 	@ApiOperation(value = "지원하기")
 	@PostMapping("/company")
 	@ApiResponses(value = {@ApiResponse(code = 200, message = "Success", response = String.class )})
-	public String apply(@ApiParam("공고ID")Long recruitId, @ApiParam("이력서id")Long resumeId) {
+	public String apply(@ApiParam("공고ID") @RequestBody Long recruitId, @ApiParam("이력서id") @RequestBody Long resumeId) {
 		int status = applyService.apply(recruitId, resumeId);
 		
 		String msg;
@@ -47,7 +48,7 @@ public class ApplyController {
 	
 	@PostMapping("/cancle")
 	@ApiOperation("지원 취소")
-	public String cancleApply(@ApiParam("지원ID")Long applyId) {
+	public String cancleApply(@ApiParam("지원ID") @RequestBody Long applyId) {
 		String message;
 		int status = applyService.cancleApply(applyId);
 		if(status == 0) {
@@ -61,7 +62,7 @@ public class ApplyController {
 	//지원한곳 지원상태 조회(서류 심사중, 서류 탈락, 서류 합격,면접 진행 중, 최종 합격) 조회
 	@PostMapping("/showstatus")
 	@ApiOperation("지원상태보기")
-	public String showStatus(Long applyId) {
+	public String showStatus(@ApiParam("지원ID") @RequestBody Long applyId) {
 		String msg;
 		int status = applyService.selectApplyStatus(applyId);
 		if(status == 0) {
@@ -80,7 +81,7 @@ public class ApplyController {
 	
 	@PostMapping("/showApplyList")
 	@ApiOperation("지원회사 목록 보기")
-	public List<Recruit> showApplyCompany(@ApiParam("유저ID")Long userId) throws NotFoundException{
+	public List<Recruit> showApplyCompany(@ApiParam("유저ID") @RequestBody Long userId) throws NotFoundException{
 		List<Recruit> list = applyService.selectApplyCompany(userId);
 		if(list == null) {
 			throw new NotFoundException("지원한 기업이 존재하지 않습니다.");
