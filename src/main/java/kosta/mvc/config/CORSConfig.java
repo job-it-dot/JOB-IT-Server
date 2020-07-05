@@ -6,8 +6,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Configuration
-@EnableWebSecurity
+//security/SpringSecurityConfig.java 에 동일설정 존재 
+//@Configuration
+//@EnableWebSecurity
 public class CORSConfig implements WebMvcConfigurer {
 
     @Override
