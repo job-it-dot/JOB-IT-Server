@@ -29,6 +29,7 @@ public class RecruitForm {
 	
 	RecruitForm(RecruitFormDTO recruitFormDTO){
 		this.recruitFormId = recruitFormDTO.getRecruitFormId();
+		this.recruitName = recruitFormDTO.getRecruitName();
 		this.recruitCareer = recruitFormDTO.getRecruitCareer();
 		this.recruitDetail = recruitFormDTO.getRecruitDetail();
 		this.recruitEndDate = recruitFormDTO.getRecruitEndDate();
@@ -42,6 +43,7 @@ public class RecruitForm {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long recruitFormId;
 	
+	private String recruitName;
 	private int recruitCareer;
 	private String recruitDetail;
 	private Date recruitEndDate;

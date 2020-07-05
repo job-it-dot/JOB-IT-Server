@@ -2,6 +2,11 @@ package kosta.mvc.DTO;
 
 import java.util.Date;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import kosta.mvc.domain.Companys;
+import kosta.mvc.domain.RequiredEdu;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +20,7 @@ public class RecruitFormDTO {
 	
 	private Long recruitFormId;
 	
+	private String recruitName;
 	private int recruitCareer;
 	private String recruitDetail;
 	private Date recruitEndDate;
@@ -24,5 +30,5 @@ public class RecruitFormDTO {
 	private RequiredEduDTO requiredEdu;
 	
 	private CompanysDTO company;
-
+	
 }
