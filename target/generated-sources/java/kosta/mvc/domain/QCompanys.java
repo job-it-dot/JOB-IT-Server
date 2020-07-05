@@ -44,9 +44,9 @@ public class QCompanys extends EntityPathBase<Companys> {
 
     public final ListPath<Perchase, QPerchase> perchases = this.<Perchase, QPerchase>createList("perchases", Perchase.class, QPerchase.class, PathInits.DIRECT2);
 
-    public final ListPath<RecruitPlan, QRecruitPlan> recruitPlans = this.<RecruitPlan, QRecruitPlan>createList("recruitPlans", RecruitPlan.class, QRecruitPlan.class, PathInits.DIRECT2);
+    public final ListPath<RecruitForm, QRecruitForm> recruitForms = this.<RecruitForm, QRecruitForm>createList("recruitForms", RecruitForm.class, QRecruitForm.class, PathInits.DIRECT2);
 
-    public final ListPath<Recruit, QRecruit> recruits = this.<Recruit, QRecruit>createList("recruits", Recruit.class, QRecruit.class, PathInits.DIRECT2);
+    public final ListPath<RecruitPlan, QRecruitPlan> recruitPlans = this.<RecruitPlan, QRecruitPlan>createList("recruitPlans", RecruitPlan.class, QRecruitPlan.class, PathInits.DIRECT2);
 
     public QCompanys(String variable) {
         this(Companys.class, forVariable(variable), INITS);

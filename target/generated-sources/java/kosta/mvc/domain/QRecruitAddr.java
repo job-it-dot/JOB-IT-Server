@@ -24,9 +24,9 @@ public class QRecruitAddr extends EntityPathBase<RecruitAddr> {
 
     public final QCompanyAddr companyAddr;
 
-    public final QRecruit recruit;
-
     public final NumberPath<Long> recruitAddrId = createNumber("recruitAddrId", Long.class);
+
+    public final QRecruitForm recruitForm;
 
     public QRecruitAddr(String variable) {
         this(RecruitAddr.class, forVariable(variable), INITS);
@@ -47,7 +47,7 @@ public class QRecruitAddr extends EntityPathBase<RecruitAddr> {
     public QRecruitAddr(Class<? extends RecruitAddr> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.companyAddr = inits.isInitialized("companyAddr") ? new QCompanyAddr(forProperty("companyAddr"), inits.get("companyAddr")) : null;
-        this.recruit = inits.isInitialized("recruit") ? new QRecruit(forProperty("recruit"), inits.get("recruit")) : null;
+        this.recruitForm = inits.isInitialized("recruitForm") ? new QRecruitForm(forProperty("recruitForm"), inits.get("recruitForm")) : null;
     }
 
 }

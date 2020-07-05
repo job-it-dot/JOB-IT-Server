@@ -1,13 +1,10 @@
-/AlramDTO.class
 /ApplyDTO.class
-/AuthorityDTO.class
 /CareerDTO.class
 /CompanyAddrDTO.class
 /CompanyImageDTO.class
 /CompanyTypeDTO.class
 /CompanysDTO.class
 /EduDTO.class
-/FollowDTO.class
 /LangClassDTO.class
 /LangDTO.class
 /LangLevelDTO.class
@@ -21,12 +18,11 @@
 /ProjectDTO.class
 /RecruitAddrDTO.class
 /RecruitDTO.class
+/RecruitFormDTO.class
 /RecruitPlanDTO.class
 /RequiredEduDTO.class
 /RequiredSkillDTO.class
 /ResumeDTO.class
-/ResumeReadDTO.class
-/ScrapDTO.class
 /SkillsDTO.class
 /UserSkillDTO.class
 /UsersDTO.class

@@ -34,6 +34,8 @@ public class QRecruitForm extends EntityPathBase<RecruitForm> {
 
     public final NumberPath<Long> recruitFormId = createNumber("recruitFormId", Long.class);
 
+    public final StringPath recruitName = createString("recruitName");
+
     public final ListPath<Recruit, QRecruit> recruits = this.<Recruit, QRecruit>createList("recruits", Recruit.class, QRecruit.class, PathInits.DIRECT2);
 
     public final NumberPath<Integer> recruitSalary = createNumber("recruitSalary", Integer.class);

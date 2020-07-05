@@ -6,9 +6,9 @@ server:
 spring:
   datasource:
     #HS homeserver
-    #url: jdbc:mysql://mysql.jobit.co.kr:13306/job_it?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://mysql.jobit.co.kr:13306/job_it?serverTimezone=Asia/Seoul
     #AWS rds
-    url: jdbc:mysql://database-1.cbl0i75q3kog.ap-northeast-2.rds.amazonaws.com:3306/job_it
+    #url: jdbc:mysql://database-1.cbl0i75q3kog.ap-northeast-2.rds.amazonaws.com:3306/job_it
     username: root
     password: kosta!234
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -16,7 +16,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
     generate-ddl: false
     show-sql: true
     database: mysql

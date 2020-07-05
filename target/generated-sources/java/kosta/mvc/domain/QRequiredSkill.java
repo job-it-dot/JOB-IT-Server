@@ -22,7 +22,7 @@ public class QRequiredSkill extends EntityPathBase<RequiredSkill> {
 
     public static final QRequiredSkill requiredSkill = new QRequiredSkill("requiredSkill");
 
-    public final QRecruit recruit;
+    public final QRecruitForm recruitForm;
 
     public final NumberPath<Long> reqSkillsId = createNumber("reqSkillsId", Long.class);
 
@@ -46,7 +46,7 @@ public class QRequiredSkill extends EntityPathBase<RequiredSkill> {
 
     public QRequiredSkill(Class<? extends RequiredSkill> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.recruit = inits.isInitialized("recruit") ? new QRecruit(forProperty("recruit"), inits.get("recruit")) : null;
+        this.recruitForm = inits.isInitialized("recruitForm") ? new QRecruitForm(forProperty("recruitForm"), inits.get("recruitForm")) : null;
         this.skill = inits.isInitialized("skill") ? new QSkills(forProperty("skill")) : null;
     }
 
