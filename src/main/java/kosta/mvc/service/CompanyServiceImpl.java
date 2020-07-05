@@ -62,12 +62,10 @@ public class CompanyServiceImpl implements CompanyService {
 	public int duplicateEmail(String memberEmail) throws IOException {
 		int result = 0;
 
-		List<Members> members = membersRepository.findByMemberEmail(memberEmail);
+		Members member = membersRepository.findByMemberEmail(memberEmail);
 
-		for (Members member : members) {
 			if (member != null && member.getMemberStatus() != 4 && member.getMemberStatus() != 5)
 				result = 1;
-		}
 
 		return result;
 	}

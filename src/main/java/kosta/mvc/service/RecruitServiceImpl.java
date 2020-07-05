@@ -9,7 +9,7 @@ import javassist.NotFoundException;
 import kosta.mvc.domain.RecruitForm;
 import kosta.mvc.repository.RecruitFormRepository;
 
-@Service
+//@Service
 public class RecruitServiceImpl implements RecruitService {
 	
 	@Autowired

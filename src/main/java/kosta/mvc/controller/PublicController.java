@@ -51,6 +51,8 @@ public class PublicController {
 	@ApiOperation(value = "유저회원가입")
 	@PostMapping("/insertUser")
 	public int insertUser(@ApiParam("회원가입할 유저 정보") @RequestBody UsersDTO userDTO) throws IOException{
+		
+		System.out.println(123);
 		Users user = new Users(userDTO);
 		int result = resumeService.insertUser(user);
 		
@@ -87,6 +89,7 @@ public class PublicController {
 		return publicService.searchRecruit(companyName, career, addr, edu, companyType, salary, position);
 		
 	}
+	
 	
 	@GetMapping("/selectAll")
 	@ApiOperation("채용정보 목록보기")

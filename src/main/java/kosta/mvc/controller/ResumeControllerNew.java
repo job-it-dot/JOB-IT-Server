@@ -3,19 +3,17 @@ package kosta.mvc.controller;
 import java.io.IOException;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import kosta.mvc.DTO.CareerDTO;
 import kosta.mvc.DTO.EduDTO;
 import kosta.mvc.DTO.LangClassDTO;
@@ -37,344 +35,383 @@ import kosta.mvc.domain.License;
 import kosta.mvc.domain.Link;
 import kosta.mvc.domain.Project;
 import kosta.mvc.domain.Resume;
+import kosta.mvc.domain.Skills;
 import kosta.mvc.domain.UserSkill;
-import kosta.mvc.service.ResumeService;
+import kosta.mvc.domain.Users;
+import kosta.mvc.service.ResumeServiceNew;
 
-//@RestController
-//@RequestMapping("/user/resume")
-//@Api(tags = {"이력서 controller"})
-//@Transactional
+@RestController
+@RequestMapping("/resume")
+@Api(tags = {"new 이력서 controller"})
 public class ResumeControllerNew {
 
 	@Autowired
-	private ResumeService resumeService;
-	
-	/**
-	 * 이력서 등록 성공 result=1 실패 result=0
+	private ResumeServiceNew resumeService;
+
+	/*
+	 * insertPart: return = 해당 Entity의 등록된 id값
 	 */
-	@ApiOperation(value = "이력서 등록하기")
+
 	@PostMapping("/insertResume")
-	public int insertResume(@ApiParam("등록할 이력서 정보") @RequestBody ResumeDTO resumeDTO) throws IOException {
-		Resume resume = new Resume(resumeDTO);
-		int result = resumeService.insertResume(resume);
-		
-		return result;
+	public Long insertResume(@RequestBody Long userId) throws IOException {
+		Users user = new Users();
+		user.setUserId(userId);
+		Resume resume = new Resume();
+		resume.setUser(user);
+		return resumeService.insertResume(resume);
 	}
-	
-	/**
-	 * 이력서 등록 학력 성공 result=1 실패 result=0
-	 */
-	@ApiOperation(value = "이력서 학력 등록")
+
 	@PostMapping("/insertEdu")
-	public int insertEdu(@ApiParam("학력정보") @RequestBody EduDTO eduDTO) throws IOException {
-		Edu edu = new Edu(eduDTO);
-		
-		return 0;
+	public Long insertEdu(@RequestBody Long resumeId) throws IOException {
+		Resume resume = new Resume();
+		resume.setResumeId(resumeId);
+		Edu edu = new Edu();
+		edu.setResume(resume);
+		return resumeService.insertEdu(edu);
 	}
-	
-	/**
-	 * 이력서 등록 커리어 성공 result=1 실패 result=0
-	 */
-	@ApiOperation(value = "이력서 커리어 등록")
+
 	@PostMapping("/insertCareer")
-	public int insertCareer(@ApiParam("커리어정보") @RequestBody CareerDTO careerDTO) throws IOException {
-		Career career = new Career(careerDTO);
-		
-		return 0;
+	public Long insertCareer(@RequestBody Long resumeId) throws IOException {
+		Resume resume = new Resume();
+		resume.setResumeId(resumeId);
+		Career career = new Career();
+		career.setResume(resume);
+		return resumeService.insertCareer(career);
 	}
-	
-	/**
-	 * 이력서 등록 커리어-프로젝트 성공 result=1 실패 result=0
-	 */
-	@ApiOperation(value = "이력서 커리어-프로젝트 등록")
+
 	@PostMapping("/insertProject")
-	public int insertProject(@ApiParam("프로젝트정보") @RequestBody ProjectDTO projectDTO) throws IOException {
-		Project project = new Project(projectDTO);
-		
-		return 0;
+	public Long insertProject(@RequestBody Long careerId) throws IOException {
+		Career career = new Career();
+		career.setCareerId(careerId);
+		Project project = new Project();
+		project.setCareer(career);
+		return resumeService.insertProject(project);
 	}
-	
-	/**
-	 * 이력서 등록 자격증 성공 result=1 실패 result=0
-	 */
-	@ApiOperation(value = "이력서 자격증 등록")
+
 	@PostMapping("/insertLicense")
-	public int insertLicense(@ApiParam("자격증정보") @RequestBody LicenseDTO licenseDTO) throws IOException {
-		License license = new License(licenseDTO);
-		
-		return 0;
+	public Long insertLicense(@RequestBody Long resumeId) throws IOException {
+		Resume resume = new Resume();
+		resume.setResumeId(resumeId);
+		License license = new License();
+		license.setResume(resume);
+		return resumeService.insertLicense(license);
 	}
-	
-	/**
-	 * 이력서 등록 언어 성공 result=1 실패 result=0
-	 */
-	@ApiOperation(value = "이력서 언어 등록")
+
 	@PostMapping("/insertLang")
-	public int insertLang(@ApiParam("어학정보") @RequestBody LangDTO langDTO) throws IOException {
-		Lang lang = new Lang(langDTO);
-		
-		return 0;
+	public Long insertLang(@RequestBody Long resumeId) throws IOException {
+		Resume resume = new Resume();
+		resume.setResumeId(resumeId);
+		Lang lang = new Lang();
+		lang.setResume(resume);
+		return resumeService.insertLang(lang);
 	}
-	
-	/**
-	 * 이력서 등록 언어-클래스 성공 result=1 실패 result=0
-	 */
-	@ApiOperation(value = "이력서 언어-클래스 등록")
+
 	@PostMapping("/insertLangClass")
-	public int insertLangClass(@ApiParam("클래스정보가 포함될 언어정보") @RequestBody LangDTO langDTO) throws IOException{
-		Lang lang = new Lang(langDTO);
-		int result = resumeService.insertClass(lang);;
-		
-		return result;
-	}
-	
-	/**
-	 * 이력서 등록 언어-레벨 성공 result=1 실패 result=0
-	 */
-	@ApiOperation(value = "이력서 언어-레벨 등록")
-	@PostMapping("/insertLangLevel")
-	public int insertLangLevel(@ApiParam("레벨정보가 포함될 언어정보") @RequestBody LangDTO langDTO) throws IOException{
-		Lang lang = new Lang(langDTO);
-		int result=resumeService.insertLevel(lang);
-		
-		return result;
-	}
-	
-	/**
-	 * 이력서 등록 언어-라이센스 성공 result=1 실패 result=0
-	 */
-	@ApiOperation(value = "이력서 언어-자격증 등록")
-	@PostMapping("/insetLangLicense")
-	public int insertLangLicense(@ApiParam("자격증정보가 포함될 언어정보") @RequestBody LangLicenseDTO langLicenseDTO) throws IOException {
-		LangLicense langLicense = new LangLicense(langLicenseDTO);
-		
-		return 0;
-	}
-	
-	/**
-	 * 이력서 등록 유저스킬 성공 result=1 실패 result=0
-	 */
-	@ApiOperation(value = "이력서 스킬등록")
-	@PostMapping("/insertUserSkill")
-	public int insertUserSkill(@ApiParam("스킬정보") @RequestBody UserSkillDTO userSkillDTO) throws IOException{
-		UserSkill userSkill = new UserSkill(userSkillDTO);
-		
-		return 0;
-	}
-	
-	/**
-	 * 이력서 등록 링크  성공 result=1 실패 result=0
-	 */
-	@ApiOperation(value = "이력서 링크 등록")
-	@PostMapping("/insertLink")
-	public int insertLink(@ApiParam("링크") @RequestBody LinkDTO linkDTO) throws IOException{
-		Link link = new Link(linkDTO);
-		
-		return 0;
-	}
-	
-	/**
-	 * 이력서 수정하기 성공 result=1 실패 result=0
-	 */
-	@ApiOperation(value = "이력서 수정하기")
-	@PostMapping("/updateResume")
-	public int updateResume(@ApiParam("수정할 이력서 정보") @RequestBody ResumeDTO resumeDTO) throws NotFoundException {
-		Resume resume = new Resume(resumeDTO);
-		int result = resumeService.updateResume(resume);
-		
-		return result;
-	}
-	
-	/**
-	 * 이력서 수정 학력 성공 result=1 실패 result=0
-	 */
-	@ApiOperation("이력서 학력 수정")
-	@PostMapping("/updateEdu")
-	public int updateEdu(@ApiParam("수정할 학력정보") @RequestBody EduDTO eduDTO) throws NotFoundException {
-		Edu edu = new Edu(eduDTO);
-		int result = resumeService.updateEdu(edu);
-		
-		return result;
-	}
-	
-	/**
-	 * 이력서 수정 커리어 성공 result=1 실패 result=0
-	 */
-	@ApiOperation("이력서 커리어 수정")
-	@PostMapping("/updateCareer")
-	public int updateCareer(@ApiParam("수정할 커리어정보") @RequestBody CareerDTO careerDTO) throws NotFoundException{
-		Career career = new Career(careerDTO);
-		int result = resumeService.updateCareer(career);
-		
-		return result;
-	}
-	
-	/**
-	 * 이력서 수정 커리어-프로젝트 성공 result=1 실패 result=0
-	 */
-	@ApiOperation("이력서 커리어-프로젝트 수정")
-	@PostMapping("/updateProject")
-	public int updateProject(@ApiParam("수정할 프로젝트정보") @RequestBody ProjectDTO projectDTO) throws NotFoundException{
-		Project project = new Project(projectDTO);
-		int result = resumeService.updateProject(project);
-		
-		return result;
-	}
-	
-	/**
-	 * 이력서 수정 자격증 성공 result=1 실패 result=0
-	 */
-	@ApiOperation("이력서 자격증 수정")
-	@PostMapping("/updateLicense")
-	public int updateLicense(@ApiParam("수정할 자격증정보") @RequestBody LicenseDTO licenseDTO) throws NotFoundException{
-		License license = new License(licenseDTO);
-		int result = resumeService.updateLicense(license);
-		
-		return result;
-	}
-	
-	/**
-	 * 이력서 수정 언어 성공 result=1 실패 result=0
-	 */
-	@ApiOperation("이력서 언어 수정")
-	@PostMapping("/updateLang")
-	public int updateLang(@ApiParam("수정할 언어정보") @RequestBody LangDTO langDTO) throws NotFoundException{
-		Lang lang = new Lang(langDTO);
-		int result = resumeService.updateLang(lang);
-		
-		return result;
-	}
-	
-	/**
-	 * 이력서 수정 언어 클래스 성공 result=1 실패 result=0
-	 */
-	@ApiOperation("이력서 언어-클래스 수정")
-	@PostMapping("/updateLangClass")
-	public int updateLangClass(@ApiParam("수정할 언어클래스정보") @RequestBody LangClassDTO langClassDTO) throws NotFoundException{
+	public Long insertLangClass(@RequestBody LangClassDTO langClassDTO) throws IOException {
 		LangClass langClass = new LangClass(langClassDTO);
-		int result = resumeService.updateLangClass(langClass);
-		
-		return result;
+		return resumeService.insertLangClass(langClass);
 	}
-	
-	/**
-	 * 이력서 수정 언어 레벨 성공 result=1 실패 result=0
-	 */
-	@ApiOperation("이력서 언어-레벨 수정")
-	@PostMapping("/updateLangLevel")
-	public int updateLangLevel(@ApiParam("수정할 언어레벨정보") @RequestBody LangLevelDTO langLevelDTO) throws NotFoundException{
+
+	@PostMapping("/insertLangLevel")
+	public Long insertLangLevel(@RequestBody LangLevelDTO langLevelDTO) throws IOException {
 		LangLevel langLevel = new LangLevel(langLevelDTO);
-		int result = resumeService.updateLangLevel(langLevel);
-		
-		return result;
+		return resumeService.insertLangLevel(langLevel);
 	}
-	
-	/**
-	 * 이력서 수정 언어 자격증 성공 result=1 실패 result=0
+
+	@PostMapping("/insetLangLicense")
+	public Long insertLangLicense(@RequestBody Long langId) throws IOException {
+		Lang lang = new Lang();
+		lang.setLangId(langId);
+		LangLicense langLicense = new LangLicense();
+		langLicense.setLang(lang);
+		return resumeService.insertLangLicense(langLicense);
+	}
+
+	@PostMapping("/insertUserSkill")
+	public Long insertUserSkill(@RequestBody Long resumeId, @RequestBody Long skillId) throws IOException {
+		Resume resume = new Resume();
+		resume.setResumeId(resumeId);
+		Skills skill = new Skills();
+		skill.setSkillId(skillId);
+		UserSkill userSkill = new UserSkill();
+		userSkill.setResume(resume);
+		userSkill.setSkill(skill);
+		return resumeService.insertUserSkill(userSkill);
+	}
+
+	@PostMapping("/insertLink")
+	public Long insertLink(@RequestBody Long resumeId) throws IOException {
+		Resume resume = new Resume();
+		resume.setResumeId(resumeId);
+		Link link = new Link();
+		link.setResume(resume);
+		return resumeService.insertLink(link);
+	}
+
+	/////////////////////////////////////////
+
+	/*
+	 * updatePart: return = 1.성공 0.실패
 	 */
-	@ApiOperation("이력서 언어-자격증 수정")
+
+	@PostMapping("/updateResume")
+	public int updateResume(@RequestBody ResumeDTO resumeDTO) throws NotFoundException {
+		Resume resume = new Resume(resumeDTO);
+		return resumeService.updateResume(resume);
+	}
+
+	@PostMapping("/updateEdu")
+	public int updateEdu(@RequestBody EduDTO eduDTO) throws NotFoundException {
+		Edu edu = new Edu(eduDTO);
+		return resumeService.updateEdu(edu);
+	}
+
+	@PostMapping("/updateCareer")
+	public int updateCareer(@RequestBody CareerDTO careerDTO) throws NotFoundException {
+		Career career = new Career(careerDTO);
+		return resumeService.updateCareer(career);
+	}
+
+	@PostMapping("/updateProject")
+	public int updateProject(@RequestBody ProjectDTO projectDTO) throws NotFoundException {
+		Project project = new Project(projectDTO);
+		return resumeService.updateProject(project);
+	}
+
+	@PostMapping("/updateLicense")
+	public int updateLicense(@RequestBody LicenseDTO licenseDTO) throws NotFoundException {
+		License license = new License(licenseDTO);
+		return resumeService.updateLicense(license);
+	}
+
+	@PostMapping("/updateLang")
+	public int updateLang(@RequestBody LangDTO langDTO) throws NotFoundException {
+		Lang lang = new Lang(langDTO);
+		return resumeService.updateLang(lang);
+	}
+
+	@PostMapping("/updateLangClass")
+	public int updateLangClass(@RequestBody LangClassDTO langClassDTO) throws NotFoundException {
+		LangClass langClass = new LangClass(langClassDTO);
+		return resumeService.updateLangClass(langClass);
+	}
+
+	@PostMapping("/updateLangLevel")
+	public int updateLangLevel(@RequestBody LangLevelDTO langLevelDTO) throws NotFoundException {
+		LangLevel langLevel = new LangLevel(langLevelDTO);
+		return resumeService.updateLangLevel(langLevel);
+	}
+
 	@PostMapping("/updateLangLicense")
-	public int updateLangLicense(@ApiParam("수정할 언어자격증정보") @RequestBody LangLicenseDTO langLicenseDTO) throws NotFoundException{
-		LangLicense langLicense = new LangLicense(langLicenseDTO); 
-		int result = resumeService.updateLangLicense(langLicense);
-		
-		return result;
+	public int updateLangLicense(@RequestBody LangLicenseDTO langLicenseDTO) throws NotFoundException {
+		LangLicense langLicense = new LangLicense(langLicenseDTO);
+		return resumeService.updateLangLicense(langLicense);
 	}
-	
-	/**
-	 * 이력서 수정 유저스킬 성공 result=1 실패 result=0
-	 */
-	@ApiOperation("이력서 유저스킬 수정")
+
 	@PostMapping("/updateUserSkill")
-	public int updateUserSkill(@ApiParam("수정할 유저스킬정보") @RequestBody UserSkillDTO userSkillDTO) throws NotFoundException{
+	public int updateUserSkill(@RequestBody UserSkillDTO userSkillDTO) throws NotFoundException {
 		UserSkill userSkill = new UserSkill(userSkillDTO);
-		int result = resumeService.updateUserSkill(userSkill);
-		
-		return result;
+		return resumeService.updateUserSkill(userSkill);
 	}
-	
-	/**
-	 * 이력서 수정 링크 성공 result=1 실패 result=0
-	 */
-	@ApiOperation("이력서 링크 수정")
+
 	@PostMapping("/updateLink")
-	public int updateLink(@ApiParam("수정할 링크정보") @RequestBody LinkDTO linkDTO) throws NotFoundException{
+	public int updateLink(@RequestBody LinkDTO linkDTO) throws NotFoundException {
 		Link link = new Link(linkDTO);
-		int result = resumeService.updateLink(link);
-		
-		return result;
+		return resumeService.updateLink(link);
 	}
-	
-	/**
-	 * 이력서 삭제하기 성공 result=1 실패 result=0
-	 * 삭제상태 resumeStatus - 3
+	//////////////////////////////////////////////////////////
+
+	/*
+	 * deletePart: return= 1.성공 0.실패
 	 */
-	@ApiOperation(value = "이력서 삭제하기")
 	@PostMapping("/deleteResume")
-	public int deleteResume(@ApiParam("삭제할 이력서의 ID") @RequestBody Long resumeId) throws IOException, NotFoundException {
-		int result = resumeService.deleteResume(resumeId);
-		
-		return result;
+	public int deleteResume(@RequestBody Long resumeId) throws IOException, NotFoundException {
+		return resumeService.deleteResume(resumeId);
+	}
+
+	@PostMapping("/deleteLink")
+	public int deleteLink(@RequestBody Long linkId) throws IOException, NotFoundException {
+		return resumeService.deleteLink(linkId);
+	}
+
+	@PostMapping("/deleteEdu")
+	public int deleteEdu(@RequestBody Long eduId) throws IOException, NotFoundException {
+		return resumeService.deleteEdu(eduId);
+	}
+
+	@PostMapping("/deleteLicense")
+	public int deleteLicense(@RequestBody Long licenseId) throws IOException, NotFoundException {
+		return resumeService.deleteLicense(licenseId);
+	}
+
+	@PostMapping("/deleteCareer")
+	public int deleteCareer(@RequestBody Long careerId) throws IOException, NotFoundException {
+		return resumeService.deleteCareer(careerId);
+	}
+
+	@PostMapping("/deleteProject")
+	public int deleteProject(@RequestBody Long projectId) throws IOException, NotFoundException {
+		return resumeService.deleteProject(projectId);
+	}
+
+	@PostMapping("/deleteLang")
+	public int deleteLang(@RequestBody Long langId) throws IOException, NotFoundException {
+		return resumeService.deleteLang(langId);
+	}
+
+	@PostMapping("/deleteLangClass")
+	public int deleteLangClass(@RequestBody Long langClassId) throws IOException, NotFoundException {
+		return resumeService.deleteLangClass(langClassId);
+	}
+
+	@PostMapping("/deleteLevel")
+	public int deleteLangLevel(@RequestBody Long langLevelId) throws IOException, NotFoundException {
+		return resumeService.deleteLangLevel(langLevelId);
+	}
+
+	@PostMapping("/deleteLangLicense")
+	public int deleteLangLicense(@RequestBody Long langLicenseId) throws IOException, NotFoundException {
+		return resumeService.deleteLangLicense(langLicenseId);
+	}
+
+	@PostMapping("/deleteUserSkill")
+	public int deleteUserSkill(@RequestBody Long userSkillId) throws IOException, NotFoundException {
+		return resumeService.deleteUserSkill(userSkillId);
+	}
+
+	///////////////////////////////////////////////////////////////
+	
+	/*
+	 * readPart
+	 * */
+	
+	@PostMapping("/resume/{resumeId}")
+	public Resume findResume(@PathVariable String resumeId) throws IOException, NotFoundException {
+		Long id = Long.parseLong(resumeId);
+		return resumeService.findResume(id);
+	}
+
+	@PostMapping("/link/{linkId}")
+	public Link findLink(@PathVariable String linkId) throws IOException, NotFoundException {
+		Long id = Long.parseLong(linkId);
+		return resumeService.findLink(id);
+	}
+
+	@PostMapping("/edu/{eduId}")
+	public Edu findEdu(@PathVariable String eduId) throws IOException, NotFoundException {
+		Long id = Long.parseLong(eduId);
+		return resumeService.findEdu(id);
+	}
+
+	@PostMapping("/license/{licenseId}")
+	public License findLicense(@PathVariable String licenseId) throws IOException, NotFoundException {
+		Long id = Long.parseLong(licenseId);
+		return resumeService.findLicense(id);
+	}
+
+	@PostMapping("/career/{careerId}")
+	public Career findCareer(@PathVariable String careerId) throws IOException, NotFoundException {
+		Long id = Long.parseLong(careerId);
+		return resumeService.findCareer(id);
+	}
+
+	@PostMapping("/project/{projectId}")
+	public Project findProject(@PathVariable String projectId) throws IOException, NotFoundException {
+		Long id = Long.parseLong(projectId);
+		return resumeService.findProject(id);
+	}
+
+	@PostMapping("/lang/{langId}")
+	public Lang findLang(@PathVariable String langId) throws IOException, NotFoundException {
+		Long id = Long.parseLong(langId);
+		return resumeService.findLang(id);
+	}
+
+	@PostMapping("/langClass/{langClassId}")
+	public LangClass findLangClass(@PathVariable String langClassId) throws IOException, NotFoundException {
+		Long id = Long.parseLong(langClassId);
+		return resumeService.findLangClass(id);
+	}
+
+	@PostMapping("/langLevel/{langLevelId}")
+	public LangLevel findLangLevel(@PathVariable String langLevelId) throws IOException, NotFoundException {
+		Long id = Long.parseLong(langLevelId);
+		return resumeService.findLangLevel(id);
+	}
+
+	@PostMapping("/langLicense/{langLicenseId}")
+	public LangLicense findLangLicense(@PathVariable String langLicenseId) throws IOException, NotFoundException {
+		Long id = Long.parseLong(langLicenseId);
+		return resumeService.findLangLicense(id);
+	}
+
+	@PostMapping("/userSkill/{userSkillId}")
+	public UserSkill findUserSkill(@PathVariable String userSkillId) throws IOException, NotFoundException {
+		Long id = Long.parseLong(userSkillId);
+		return resumeService.findUserSkill(id);
+	}
+
+///////////////////////////////////////////////////////////////////////////////////////
+	
+	@GetMapping("/langClassList")
+	public List<LangClass> findAllLangClass(){
+		return resumeService.findAllLangClass();
 	}
 	
-	/**
-	 * 이력서 상세보기
-	 */
-	@ApiOperation(value = "이력서 상세보기")
-	@PostMapping("/resumeDetail")
-	public Resume resumeDetail(@RequestBody Long recruitId) throws IOException, NotFoundException{
-		
-		return resumeService.resumeDetail(recruitId);
+	@GetMapping("/langLevelList")
+	public List<LangLevel> findAllLangLevel(){
+		return resumeService.findAllLangLevel();
 	}
 	
-	/**
-	 * 이력서 목록보기
-	 */
-	@ApiOperation(value = "이력서 목록보기")
-	@PostMapping("/resumeList")
-	public List<Resume> resumeList(@RequestBody Long userId) throws IOException, NotFoundException{
-		
-		return resumeService.resumeList(userId);
+	@GetMapping("/skillList")
+	public List<Skills> findAllSkills(){
+		return resumeService.findAllSkills();
 	}
+	
+	
 	
 	/**
 	 * 이력서 온/오프 result 1-온, result 0-오프
 	 */
-	/*@ApiOperation(value = "이력서 오픈여부")
-	@RequestMapping("/resumeOnOff")
-	public int resumeOnOff(@ApiParam("설정할 이력서 정보")Resume resume) throws IOException, NotFoundException{
-		int result = resumeService.resumeOnOff(resume);
-		
-		return result;
-	}*/
-	
+	/*
+	 * @ApiOperation(value = "이력서 오픈여부")
+	 * 
+	 * @RequestMapping("/resumeOnOff") public int
+	 * resumeOnOff(@ApiParam("설정할 이력서 정보")Resume resume) throws IOException,
+	 * NotFoundException{ int result = resumeService.resumeOnOff(resume);
+	 * 
+	 * return result; }
+	 */
+
 	/**
 	 * 오픈이력서 조회기업목록
 	 */
-	/*@ApiOperation(value = "이력서를 본 기업목록")
-	@RequestMapping("/readCompany")
-	public List<Companys> readCompany(@ApiParam("목록을 볼 유저정보")Users user) throws IOException, NotFoundException{
-		List<Companys> comList = resumeService.readCompany(user);
-		
-		return comList;
-	}*/
-	
+	/*
+	 * @ApiOperation(value = "이력서를 본 기업목록")
+	 * 
+	 * @RequestMapping("/readCompany") public List<Companys>
+	 * readCompany(@ApiParam("목록을 볼 유저정보")Users user) throws IOException,
+	 * NotFoundException{ List<Companys> comList = resumeService.readCompany(user);
+	 * 
+	 * return comList; }
+	 */
+
 	/**
 	 * 예외 처리
 	 */
 	@ExceptionHandler(NotFoundException.class)
 	public String notFoundError(Exception e) {
-		
+
 		return e.getMessage();
 	}
-	
+
 	/**
 	 * 예외 처리
 	 */
 	@ExceptionHandler(IOException.class)
 	public String ioError(Exception e) {
-		
+
 		return e.getMessage();
 	}
-	
+
 }

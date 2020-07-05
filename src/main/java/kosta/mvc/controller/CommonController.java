@@ -12,12 +12,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import kosta.mvc.DTO.LoginResultDTO;
 import kosta.mvc.domain.Members;
 import kosta.mvc.domain.Users;
 import kosta.mvc.service.CompanyService;
 import kosta.mvc.service.UserService;
 
-
+@Api("로그인결과")
 @RestController
 @RequestMapping("/common")
 public class CommonController {
@@ -29,31 +31,30 @@ public class CommonController {
 	private CompanyService companyService;
 	
 	@RequestMapping("/index")
-	public Map<String, Object> loginSuccess(@AuthenticationPrincipal Members member) throws IOException, NotFoundException{
+	public LoginResultDTO loginSuccess(@AuthenticationPrincipal Members member) throws IOException, NotFoundException{
 		Authentication   obj=SecurityContextHolder.getContext().getAuthentication();
 		
-		System.out.println("obj = " + obj );
-		System.out.println("member = " + member );
-		
-		Map<String, Object> map = new HashMap<>();
+//		System.out.println("obj = " + obj );
+//		System.out.println("member = " + member );
+//		
 
+		LoginResultDTO result = new LoginResultDTO();
+		
 		switch(member.getMemberStatus()) {
 		case 1:
-			map.put("memberType", "user");
-			map.put("user", userService.selectUserByMemberId(member.getMemberId()));
+			result.setMemberType("user");
+			result.setUser(userService.selectUserByMemberId(member.getMemberId()));
 			break;
 		case 2:
-			map.put("memberType", "company");
-			map.put("company", companyService.selectCompanyByMemberId(member.getMemberId()));
+			result.setMemberType("company");
+			result.setCompany(companyService.selectCompanyByMemberId(member.getMemberId()));
 			break;
 		case 3:
-			map.put("memberType", "admin");
+			result.setMemberType("admin");
 			break;
 		}
 		
-		
-		
-		return map;
+		return result;
 	}
 
 }

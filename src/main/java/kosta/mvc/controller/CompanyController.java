@@ -39,7 +39,7 @@ public class CompanyController {
 	@Autowired
 	private CompanyService companyService;
 
-	@Autowired
+//	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
 	@ApiOperation(value = "기업 정보 조회", notes = "return : 기업회원 정보")

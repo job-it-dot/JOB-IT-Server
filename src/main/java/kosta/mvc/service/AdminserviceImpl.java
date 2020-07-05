@@ -67,6 +67,7 @@ public class AdminserviceImpl implements AdminService {
 	 */
 	//기업 강제 탈퇴
 	@Override
+	@Transactional
 	public int companysWithdrawal(Long companyId) throws NotFoundException, IOException {
 		Companys company = companyRepository.findById(companyId).orElse(null);
 		if(company == null) {
@@ -79,6 +80,7 @@ public class AdminserviceImpl implements AdminService {
 	
 	//회원 강제 탈퇴
 	@Override
+	@Transactional
 	public int memberWithdrawal(Long userId) throws NotFoundException, IOException {
 		Users user = userRepository.findById(userId).orElse(null);
 		if(user == null) {
@@ -94,6 +96,7 @@ public class AdminserviceImpl implements AdminService {
 	 */
 	//기업회원 가입 승인
 	@Override
+	@Transactional
 	public int companyApproval(Long companyId) throws IOException {
 		Companys company = companyRepository.findById(companyId).orElse(null);
 		company.getMember().setMemberStatus(4);

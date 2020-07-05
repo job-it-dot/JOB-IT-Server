@@ -21,17 +21,16 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private MemberAuthenticationProvider authenticationProvider;
 	
-	
-	
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/**/guest/**").permitAll()
-                .antMatchers("/*").permitAll()
-        		.antMatchers("/**/user/**").hasRole("USER")
-        		.antMatchers("/**/company/**").hasRole("COMPANY")
-        		.antMatchers("/**/admin/**").hasRole("ADMIN")
-        		.antMatchers("/**/common/**").permitAll()
+//              .antMatchers("/**/guest/**").permitAll()
+//              .antMatchers("/*").permitAll()
+//        		.antMatchers("/**/user/**").hasRole("USER")
+//        		.antMatchers("/**/company/**").hasRole("COMPANY")
+//        		.antMatchers("/**/admin/**").hasRole("ADMIN")
+//        		.antMatchers("/**/common/**").permitAll()
+        		.antMatchers("/**").permitAll()
         		.anyRequest().permitAll().and()
         		.cors().and();
         
@@ -52,8 +51,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 				.logoutSuccessUrl("/common/loginForm")	
 				.permitAll();
 		
-//		http.csrf()
-//				.ignoringAntMatchers("/**");
+		http.csrf()
+				.ignoringAntMatchers("/**");
     }
 	
 	@Override
